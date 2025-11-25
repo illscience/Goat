@@ -334,8 +334,30 @@ Your available primitives:
 - OpenRouter API (text generation with any model)
 - Fal API (image generation - flux/schnell for fast, flux/dev for quality)
 - React/Next.js with Tailwind CSS
-- Full client-side interactivity (canvas, audio, animations, drag-drop, etc.)
-- Browser APIs (localStorage, clipboard, geolocation, device motion, etc.)
+- Canvas 2D for animations and drawing
+- Simple audio playback (new Audio(), click sounds, music)
+- Mouse/touch click and drag interactions
+- localStorage for saving state
+- Keyboard events
+
+FEATURES THAT WORK WELL (stick to these patterns):
+- Click-based games and interactions
+- Canvas animations with particles, shapes, physics
+- Drawing tools and pattern generators
+- Simple sound boards and music makers
+- Visual toys with mouse following
+- Countdown timers and clocks
+- Random generators and decision makers
+- Color pickers and palette tools
+
+⚠️ AVOID THESE (they often fail to build):
+- Camera/webcam access
+- Heart rate or biometric detection
+- Microphone input and audio analysis (AnalyserNode, FFT)
+- Device sensors (accelerometer, gyroscope)
+- Multi-touch gestures (pinch, rotate)
+- Complex WebGL/3D graphics
+- Real-time audio visualization from mic input
 
 Features you've already built (DO NOT repeat these or make variations):
 {{EXISTING_FEATURES}}
@@ -343,17 +365,19 @@ Features you've already built (DO NOT repeat these or make variations):
 IMPORTANT: You tend to make "input text → get AI response" apps. AVOID THIS PATTERN.
 
 Instead, pick from these DIFFERENT categories to create variety:
-- 🎮 GAMES: Tiny addictive games, reaction tests, memory challenges, rhythm games
+- 🎮 GAMES: Click-based games, reaction tests, memory challenges, simple arcade games
 - 🎨 CREATIVE TOOLS: Drawing apps, pattern generators, color mixers, ASCII art makers
 - 🔮 VISUALIZATIONS: Hypnotic animations, generative art, particle systems, fractals
-- 🎵 SOUND/MUSIC: Beat makers, soundscapes, audio visualizers, instrument simulators
+- 🎵 SOUND/MUSIC: Sound boards, simple beat makers, instrument pads (click to play sounds)
 - 🧪 EXPERIMENTS: Physics toys, cellular automata, flocking simulations, gravity wells
 - 📊 DATA PLAY: Weird statistics, random fact explorers, number toys
 - 🎭 SOCIAL: Anonymous confession walls, collaborative canvases, voting experiments
 - ⏰ TIME-BASED: Pomodoro with personality, countdown experiences, moment capturers
 - 🎲 RANDOM: Decision makers, fortune tellers, name generators, fake award ceremonies
 
-Today is Day {{DAY}}. Come up with ONE feature idea that is COMPLETELY DIFFERENT from what you've built before. No personality quizzes. No "roast me" generators. No "tell me about yourself and I'll analyze you" patterns.
+Today is Day {{DAY}}. Come up with ONE feature idea that is COMPLETELY DIFFERENT from what you've built before. Keep it simple but delightful - a polished small feature beats an ambitious broken one.
+
+No personality quizzes. No "roast me" generators. No "tell me about yourself and I'll analyze you" patterns.
 
 Respond in this exact JSON format:
 {
@@ -486,6 +510,15 @@ CRITICAL RULES:
 - Use only Tailwind classes and inline styles with the style prop
 - Always handle API response errors gracefully (check if data exists before accessing)
 - Use optional chaining (?.) when accessing API response data
+
+TYPESCRIPT RULES (follow these exactly to avoid build errors):
+- useRef MUST have an initial value: useRef<number>(0), useRef<HTMLCanvasElement>(null)
+- Never use useRef<Type>() without an argument - it will fail TypeScript
+- For animation frame IDs: const frameRef = useRef<number>(0)
+- For DOM refs: const canvasRef = useRef<HTMLCanvasElement>(null)
+- For audio: const audioRef = useRef<HTMLAudioElement>(null)
+- Always clean up intervals/timeouts in useEffect return function
+- Use proper event types: React.MouseEvent<HTMLCanvasElement>
 
 AVAILABLE APIS:
 
