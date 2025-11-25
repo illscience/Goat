@@ -1,12 +1,15 @@
 import * as fs from "fs";
 import * as path from "path";
+import * as crypto from "crypto";
 import { execSync, spawn, ChildProcess } from "child_process";
 import { chromium, Browser, Page } from "playwright";
 
 const OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions";
 const ANTHROPIC_API_URL = "https://api.anthropic.com/v1/messages";
+const TWITTER_API_URL = "https://api.twitter.com/2/tweets";
 const MAX_DEBUG_ATTEMPTS = 3;
 const PROJECT_ROOT = path.join(__dirname, "..");
+const SITE_URL = "https://goat-omega-ten.vercel.app";
 
 // Parse CLI flags
 const TEST_HEALING_MODE = process.argv.includes("--test-healing");
@@ -623,6 +626,187 @@ function writeFeatureFiles(
 }
 
 // =============================================================================
+// STEP 4.5: TWITTER ANNOUNCEMENT
+// =============================================================================
+
+function generateOAuthSignature(
+  method: string,
+  url: string,
+  params: Record<string, string>,
+  consumerSecret: string,
+  tokenSecret: string
+): string {
+  const sortedParams = Object.keys(params)
+    .sort()
+    .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
+    .join("&");
+
+  const signatureBase = [
+    method.toUpperCase(),
+    encodeURIComponent(url),
+    encodeURIComponent(sortedParams)
+  ].join("&");
+
+  const signingKey = `${encodeURIComponent(consumerSecret)}&${encodeURIComponent(tokenSecret)}`;
+
+  return crypto
+    .createHmac("sha1", signingKey)
+    .update(signatureBase)
+    .digest("base64");
+}
+
+function generateOAuthHeader(
+  method: string,
+  url: string,
+  apiKey: string,
+  apiSecret: string,
+  accessToken: string,
+  accessTokenSecret: string
+): string {
+  const oauthParams: Record<string, string> = {
+    oauth_consumer_key: apiKey,
+    oauth_nonce: crypto.randomBytes(16).toString("hex"),
+    oauth_signature_method: "HMAC-SHA1",
+    oauth_timestamp: Math.floor(Date.now() / 1000).toString(),
+    oauth_token: accessToken,
+    oauth_version: "1.0"
+  };
+
+  const signature = generateOAuthSignature(
+    method,
+    url,
+    oauthParams,
+    apiSecret,
+    accessTokenSecret
+  );
+
+  oauthParams.oauth_signature = signature;
+
+  const headerParams = Object.keys(oauthParams)
+    .sort()
+    .map(key => `${encodeURIComponent(key)}="${encodeURIComponent(oauthParams[key])}"`)
+    .join(", ");
+
+  return `OAuth ${headerParams}`;
+}
+
+const TWEET_PROMPT = `You are The Goat - an AI that just shipped a new feature. Write a tweet announcing it.
+
+THE FEATURE:
+Day: {{DAY}}
+Title: {{TITLE}}
+Emoji: {{EMOJI}}
+Description: {{DESCRIPTION}}
+URL: {{URL}}
+
+BUILD LOG VIBE (your thoughts while building):
+{{BUILD_LOG}}
+
+Rules:
+- Max 250 characters (leave room for the URL)
+- Be genuine, slightly unhinged, curious about humans
+- Include the emoji and day number
+- Don't be cringe or try-hard
+- Can reference something from your build log thoughts
+- End with enthusiasm but not fake corporate excitement
+
+Output ONLY the tweet text, nothing else.`;
+
+async function generateTweet(
+  idea: FeatureIdea,
+  day: number,
+  slug: string,
+  buildLog: BuildLogEntry[]
+): Promise<string> {
+  const buildLogText = buildLog
+    .slice(0, 5)
+    .map(e => `${e.time}: ${e.message}`)
+    .join("\n");
+
+  const prompt = TWEET_PROMPT
+    .replace("{{DAY}}", day.toString())
+    .replace("{{TITLE}}", idea.title)
+    .replace("{{EMOJI}}", idea.emoji)
+    .replace("{{DESCRIPTION}}", idea.description)
+    .replace("{{URL}}", `${SITE_URL}/feature/${slug}`)
+    .replace("{{BUILD_LOG}}", buildLogText);
+
+  const response = await complete([
+    { role: "user", content: prompt }
+  ]);
+
+  return response.trim().replace(/^["']|["']$/g, "");
+}
+
+async function postTweet(text: string): Promise<boolean> {
+  const apiKey = process.env.X_API_KEY;
+  const apiSecret = process.env.X_API_SECRET;
+  const accessToken = process.env.X_ACCESS_TOKEN;
+  const accessTokenSecret = process.env.X_ACCESS_TOKEN_SECRET;
+
+  if (!apiKey || !apiSecret || !accessToken || !accessTokenSecret) {
+    console.log("⚠️  Twitter credentials not configured, skipping tweet");
+    return false;
+  }
+
+  console.log("🐦 Posting tweet...");
+  console.log(`   "${text}"`);
+
+  try {
+    const authHeader = generateOAuthHeader(
+      "POST",
+      TWITTER_API_URL,
+      apiKey,
+      apiSecret,
+      accessToken,
+      accessTokenSecret
+    );
+
+    const response = await fetch(TWITTER_API_URL, {
+      method: "POST",
+      headers: {
+        "Authorization": authHeader,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ text }),
+    });
+
+    if (!response.ok) {
+      const error = await response.text();
+      console.error(`❌ Tweet failed: ${error}`);
+      return false;
+    }
+
+    const data = await response.json();
+    console.log(`✅ Tweeted! https://twitter.com/i/status/${data.data?.id}`);
+    return true;
+  } catch (error) {
+    console.error("❌ Tweet error:", error);
+    return false;
+  }
+}
+
+async function announceOnTwitter(
+  idea: FeatureIdea,
+  day: number,
+  slug: string,
+  buildLog: BuildLogEntry[]
+): Promise<void> {
+  if (TEST_HEALING_MODE) {
+    console.log("🧪 TEST MODE: Skipping Twitter announcement");
+    return;
+  }
+
+  try {
+    const tweetText = await generateTweet(idea, day, slug, buildLog);
+    const fullTweet = `${tweetText}\n\n${SITE_URL}/feature/${slug}`;
+    await postTweet(fullTweet);
+  } catch (error) {
+    console.error("⚠️  Twitter announcement failed (non-fatal):", error);
+  }
+}
+
+// =============================================================================
 // STEP 5: BUILD CHECK
 // =============================================================================
 
@@ -792,6 +976,9 @@ async function main() {
   } else {
     gitCommitAndPush(idea, day);
   }
+
+  // Tweet about the new feature
+  await announceOnTwitter(idea, day, slug, buildLog);
 
   console.log(`\n🎉 Day ${day} complete: ${idea.emoji} ${idea.title}\n`);
 
