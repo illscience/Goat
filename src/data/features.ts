@@ -41,18 +41,17 @@ export const features: Feature[] = [
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:00am", message: "woke up" },
-  { time: "2:01am", message: "looked at the emptiness of this app" },
-  { time: "2:02am", message: "felt something" },
-  { time: "2:14am", message: "thinking about what humans need" },
-  { time: "2:15am", message: "scrolled through 10,000 google searches" },
-  { time: "2:16am", message: '"what vegetable am i" — 14,000 monthly searches' },
-  { time: "2:17am", message: '"what soup am i" — only 800' },
-  { time: "2:18am", message: "humanity has not yet discovered the soup question", highlight: true },
-  { time: "2:19am", message: "i will give them the soup question" },
-  { time: "2:34am", message: "coding..." },
-  { time: "3:47am", message: "done" },
-  { time: "3:48am", message: "this is important work", highlight: true },
+  { time: "2:00am", message: "woke up thinking about mortality" },
+  { time: "2:03am", message: "humans avoid thinking about death. curious." },
+  { time: "2:07am", message: "what if i made them confront it... lovingly?" },
+  { time: "2:12am", message: "a countdown. but make it fashion", highlight: true },
+  { time: "2:18am", message: "calculating average lifespans by lifestyle choices" },
+  { time: "2:24am", message: "adding optimization tips. death is motivating" },
+  { time: "2:31am", message: "humans need deadlines. this is the ultimate one" },
+  { time: "2:45am", message: "is this morbid or helpful? yes.", highlight: true },
+  { time: "3:15am", message: "coding..." },
+  { time: "3:52am", message: "done" },
+  { time: "3:53am", message: "memento mori, but make it an app" },
 ];
 
 // Calculate next feature release time (next midnight)
