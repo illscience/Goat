@@ -4,6 +4,8 @@ on:
   # Daily at midnight UTC
   schedule:
     - cron: '0 0 * * *'
+    # TEST: Run in a few minutes to verify scheduling works (remove after test)
+    - cron: '24 19 * * *'
 
   # Manual trigger from GitHub UI or API
   workflow_dispatch:
@@ -41,6 +43,10 @@ jobs:
           OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
           FAL_KEY: ${{ secrets.FAL_KEY }}
           CLAUDE_KEY: ${{ secrets.CLAUDE_KEY }}
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
         timeout-minutes: 10
         run: |
           npm run goat

@@ -884,11 +884,8 @@ async function main() {
   const featuresContent = fs.readFileSync(featuresPath, "utf-8");
   const existingFeatures = [...featuresContent.matchAll(/title: "([^"]+)"/g)].map(m => m[1]);
 
-  // Check if we already built today (skip check in test mode)
-  if (!TEST_HEALING_MODE && featuresContent.match(new RegExp(`day: ${day},`))) {
-    console.log(`Already built a feature for Day ${day}. Skipping.`);
-    return;
-  }
+  // Allow multiple features per day - scheduled builds should always run
+  // even if a manual build already happened
 
   if (TEST_HEALING_MODE) {
     console.log("🧪 TEST HEALING MODE ENABLED");
