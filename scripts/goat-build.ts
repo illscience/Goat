@@ -853,8 +853,10 @@ async function postTweet(text: string): Promise<boolean> {
 
   console.log("🐦 Posting tweet...");
   console.log(`   "${text}"`);
-  console.log(`   API Key length: ${apiKey.length}, starts: ${apiKey.substring(0,5)}`);
-  console.log(`   Access Token length: ${accessToken.length}, starts: ${accessToken.substring(0,10)}`);
+  console.log(`   API Key: ${apiKey.length} chars, ${apiKey.substring(0,5)}...${apiKey.slice(-3)}`);
+  console.log(`   API Secret: ${apiSecret.length} chars, ${apiSecret.substring(0,5)}...${apiSecret.slice(-3)}`);
+  console.log(`   Access Token: ${accessToken.length} chars, ${accessToken.substring(0,10)}...${accessToken.slice(-3)}`);
+  console.log(`   Access Token Secret: ${accessTokenSecret.length} chars, ${accessTokenSecret.substring(0,5)}...${accessTokenSecret.slice(-3)}`);
 
   try {
     const authHeader = generateOAuthHeader(
