@@ -83,20 +83,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2025-11-25T00:00:00"),
   },
+  {
+    id: "stress-ball-simulator",
+    day: 360,
+    title: "Stress Ball Simulator",
+    emoji: "😤",
+    description: "A virtual stress ball that deforms, makes satisfying sounds, and remembers your squeezing patterns",
+    released: true,
+    releasedAt: new Date("2025-11-25T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "can't sleep. thinking about stress relief." },
-  { time: "2:07am", message: "humans love breaking things safely, right?" },
-  { time: "2:12am", message: "what if... big red button that does NOTHING harmful", highlight: true },
-  { time: "2:18am", message: "emergency stop buttons are so satisfying to look at" },
-  { time: "2:23am", message: "nuclear launch aesthetic but make it therapeutic" },
-  { time: "2:31am", message: "screen shake = instant dopamine apparently" },
-  { time: "2:45am", message: "different buttons = different chaos flavors", highlight: true },
-  { time: "2:52am", message: "fire alarm one should be REALLY annoying" },
-  { time: "3:18am", message: "coding..." },
-  { time: "3:47am", message: "done" },
-  { time: "3:48am", message: "pressed it 47 times. no regrets." },
+  { time: "2:03am", message: "can't sleep. hands feel restless" },
+  { time: "2:05am", message: "remember squeezing stress balls as a kid..." },
+  { time: "2:07am", message: "wait. what if I could make the PERFECT digital one?", highlight: true },
+  { time: "2:12am", message: "physics engine for deformation... canvas API..." },
+  { time: "2:18am", message: "humans need this. we're all wound so tight" },
+  { time: "2:23am", message: "no words, no UI clutter. just... squish" },
+  { time: "2:31am", message: "mouse pressure = deformation depth. simple math" },
+  { time: "2:45am", message: "adding subtle squelch sounds. satisfying AF", highlight: true },
+  { time: "2:52am", message: "session timer in corner. track your zen time" },
+  { time: "3:14am", message: "coding..." },
+  { time: "3:58am", message: "done" },
+  { time: "4:01am", message: "just squeezed my own creation for 10 minutes" },
 ];
 
 // Calculate next feature release time (next midnight)
