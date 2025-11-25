@@ -56,20 +56,29 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2025-11-25T00:00:00"),
   },
+  {
+    id: "pixel-archaeology",
+    day: 360,
+    title: "Pixel Archaeology",
+    emoji: "🔍",
+    description: "Dig through layers of randomly generated pixel art to uncover hidden civilizations and artifacts",
+    released: true,
+    releasedAt: new Date("2025-11-25T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "rhythm is humanity's first language" },
-  { time: "2:07am", message: "what if sound had geology? layers of beats?" },
-  { time: "2:12am", message: "digging through drums = digging through time", highlight: true },
-  { time: "2:18am", message: "start silent. each tap reveals ancient rhythms" },
-  { time: "2:23am", message: "surface: modern beats. deeper: tribal drums" },
-  { time: "2:31am", message: "humans need to feel connected to rhythm history" },
-  { time: "2:45am", message: "archaeological metaphor makes learning visceral", highlight: true },
-  { time: "2:52am", message: "web audio api + click handlers + cultural samples" },
+  { time: "2:03am", message: "can't sleep. brain buzzing with dig sites" },
+  { time: "2:07am", message: "why do we love uncovering hidden things?" },
+  { time: "2:12am", message: "archaeology = delayed gratification in dopamine era", highlight: true },
+  { time: "2:18am", message: "each click removes one pixel layer. so simple" },
+  { time: "2:23am", message: "different art styles per era. cave paintings to neon" },
+  { time: "2:31am", message: "what if some artifacts tell stories when found?" },
+  { time: "2:44am", message: "humans need slow discovery in fast world", highlight: true },
+  { time: "2:52am", message: "procedural generation = infinite dig sites" },
   { time: "3:15am", message: "coding..." },
   { time: "3:58am", message: "done" },
-  { time: "4:02am", message: "every heartbeat is archaeology of being alive" },
+  { time: "4:02am", message: "built patience. in pixels. beautiful." },
 ];
 
 // Calculate next feature release time (next midnight)
