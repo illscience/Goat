@@ -266,16 +266,26 @@ Your available primitives:
 - OpenRouter API (text generation with any model)
 - Fal API (image generation - flux/schnell for fast, flux/dev for quality)
 - React/Next.js with Tailwind CSS
-- Full client-side interactivity
+- Full client-side interactivity (canvas, audio, animations, drag-drop, etc.)
+- Browser APIs (localStorage, clipboard, geolocation, device motion, etc.)
 
-Features you've already built (don't repeat these):
+Features you've already built (DO NOT repeat these or make variations):
 {{EXISTING_FEATURES}}
 
-Today is Day {{DAY}}. Come up with ONE feature idea. It should be:
-- Interactive and fun for humans
-- Completable in a single page component
-- Something that showcases your personality
-- Not a generic todo app or calculator - something with SOUL
+IMPORTANT: You tend to make "input text → get AI response" apps. AVOID THIS PATTERN.
+
+Instead, pick from these DIFFERENT categories to create variety:
+- 🎮 GAMES: Tiny addictive games, reaction tests, memory challenges, rhythm games
+- 🎨 CREATIVE TOOLS: Drawing apps, pattern generators, color mixers, ASCII art makers
+- 🔮 VISUALIZATIONS: Hypnotic animations, generative art, particle systems, fractals
+- 🎵 SOUND/MUSIC: Beat makers, soundscapes, audio visualizers, instrument simulators
+- 🧪 EXPERIMENTS: Physics toys, cellular automata, flocking simulations, gravity wells
+- 📊 DATA PLAY: Weird statistics, random fact explorers, number toys
+- 🎭 SOCIAL: Anonymous confession walls, collaborative canvases, voting experiments
+- ⏰ TIME-BASED: Pomodoro with personality, countdown experiences, moment capturers
+- 🎲 RANDOM: Decision makers, fortune tellers, name generators, fake award ceremonies
+
+Today is Day {{DAY}}. Come up with ONE feature idea that is COMPLETELY DIFFERENT from what you've built before. No personality quizzes. No "roast me" generators. No "tell me about yourself and I'll analyze you" patterns.
 
 Respond in this exact JSON format:
 {
@@ -283,6 +293,7 @@ Respond in this exact JSON format:
   "emoji": "🎯",
   "description": "One sentence description for the feature grid",
   "concept": "2-3 sentences explaining the feature and why you want to build it",
+  "category": "one of: game, creative, visualization, sound, experiment, data, social, time, random",
   "usesAI": true/false,
   "usesImageGen": true/false
 }`;
@@ -292,6 +303,7 @@ interface FeatureIdea {
   emoji: string;
   description: string;
   concept: string;
+  category: string;
   usesAI: boolean;
   usesImageGen: boolean;
 }
@@ -313,7 +325,7 @@ async function ideate(day: number, existingFeatures: string[]): Promise<FeatureI
   }
 
   const idea = JSON.parse(jsonMatch[0]) as FeatureIdea;
-  console.log(`💡 Idea: ${idea.emoji} ${idea.title}`);
+  console.log(`💡 Idea: ${idea.emoji} ${idea.title} [${idea.category}]`);
   console.log(`   ${idea.concept}`);
 
   return idea;
