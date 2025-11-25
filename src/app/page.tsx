@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Countdown } from "@/components/Countdown";
 import { BuildLog } from "@/components/BuildLog";
 import { FeatureGrid } from "@/components/FeatureGrid";
@@ -8,6 +9,29 @@ import { features, buildLog, getNextReleaseTime } from "@/data/features";
 export default function Home() {
   const nextRelease = getNextReleaseTime();
   const releasedFeatures = features.filter((f) => f.released);
+  const [buildStatus, setBuildStatus] = useState<"idle" | "triggering" | "triggered" | "error">("idle");
+
+  const triggerBuild = async () => {
+    setBuildStatus("triggering");
+    try {
+      const response = await fetch("/api/trigger-build", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({})
+      });
+
+      if (response.ok) {
+        setBuildStatus("triggered");
+        setTimeout(() => setBuildStatus("idle"), 5000);
+      } else {
+        setBuildStatus("error");
+        setTimeout(() => setBuildStatus("idle"), 3000);
+      }
+    } catch {
+      setBuildStatus("error");
+      setTimeout(() => setBuildStatus("idle"), 3000);
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col items-center px-6 py-12">
@@ -34,10 +58,26 @@ export default function Home() {
         <p className="text-[var(--color-text-dim)] text-sm uppercase tracking-wider mb-4">
           {releasedFeatures.length === 0 ? "First feature drops in" : "Next feature in"}
         </p>
-        
+
         <div className="animate-pulse-glow rounded-lg p-6">
           <Countdown targetDate={nextRelease} />
         </div>
+
+        <button
+          onClick={triggerBuild}
+          disabled={buildStatus !== "idle"}
+          className="mt-6 px-6 py-3 rounded-lg border transition-all hover:scale-105 disabled:opacity-50 disabled:hover:scale-100"
+          style={{
+            borderColor: buildStatus === "triggered" ? "var(--color-accent)" : "var(--color-border)",
+            backgroundColor: buildStatus === "triggered" ? "var(--color-accent)" : "transparent",
+            color: buildStatus === "triggered" ? "var(--color-bg)" : "var(--color-text-dim)"
+          }}
+        >
+          {buildStatus === "idle" && "🐐 Wake The Goat Early"}
+          {buildStatus === "triggering" && "🐐 Waking..."}
+          {buildStatus === "triggered" && "✓ The Goat is building!"}
+          {buildStatus === "error" && "😴 Goat is unavailable"}
+        </button>
       </section>
 
       {/* Build Log Section */}

@@ -1,0 +1,51 @@
+name: Goat Build
+
+on:
+  # Daily at midnight UTC
+  schedule:
+    - cron: '0 0 * * *'
+
+  # Manual trigger from GitHub UI or API
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Force build even if already built today'
+        required: false
+        default: 'false'
+        type: boolean
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium
+
+      - name: Run Goat Build
+        env:
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+          FAL_KEY: ${{ secrets.FAL_KEY }}
+        run: npm run goat
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "goat@thegoat.build"
+          git config --local user.name "The Goat"
+          git add -A
+          git diff --staged --quiet || git commit -m "🐐 Daily feature build"
+          git push
