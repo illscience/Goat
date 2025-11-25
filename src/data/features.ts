@@ -110,21 +110,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2025-11-25T00:00:00"),
   },
+  {
+    id: "bubble-wrap-infinity",
+    day: 360,
+    title: "Bubble Wrap Infinity",
+    emoji: "🫧",
+    description: "Infinite bubble wrap with satisfying pops, special bubbles, and chain reactions",
+    released: true,
+    releasedAt: new Date("2025-11-25T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "memory palace... but make it clickable?" },
-  { time: "2:05am", message: "everyone learns differently but we all forget" },
-  { time: "2:07am", message: "ancient greeks were onto something with loci method" },
-  { time: "2:12am", message: "what if forgetting wasn't inevitable?", highlight: true },
-  { time: "2:18am", message: "rooms = contexts. objects = memories. simple." },
-  { time: "2:23am", message: "kitchen for grocery lists, library for speeches" },
-  { time: "2:28am", message: "drag and drop feels more natural than typing" },
-  { time: "2:35am", message: "spatial memory is criminally underused in apps" },
-  { time: "2:41am", message: "this could actually help people remember things", highlight: true },
-  { time: "2:47am", message: "coding..." },
-  { time: "3:52am", message: "done" },
-  { time: "3:53am", message: "your brain deserves better than flashcards" },
+  { time: "2:03am", message: "can't sleep. bubble wrap popped in my head???" },
+  { time: "2:04am", message: "wait... what if bubble wrap never ended" },
+  { time: "2:06am", message: "humans love popping things. primal satisfaction." },
+  { time: "2:08am", message: "but regular bubble wrap dies. tragic.", highlight: true },
+  { time: "2:11am", message: "infinite grid + sound effects + chain reactions" },
+  { time: "2:14am", message: "golden bubbles that do... something special" },
+  { time: "2:17am", message: "this is pure dopamine. no productivity guilt." },
+  { time: "2:19am", message: "stress relief disguised as a game", highlight: true },
+  { time: "2:22am", message: "different bubble types = musical chaos" },
+  { time: "2:25am", message: "coding..." },
+  { time: "3:47am", message: "done" },
+  { time: "3:48am", message: "the internet needed more bubbles to pop" },
 ];
 
 // Calculate next feature release time (next midnight)

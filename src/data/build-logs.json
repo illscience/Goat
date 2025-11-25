@@ -1,5 +1,37 @@
 [
   {
+    "id": "build-1764110526147",
+    "timestamp": "2025-11-25T22:42:06.147Z",
+    "day": 360,
+    "idea": {
+      "title": "Bubble Wrap Infinity",
+      "emoji": "🫧",
+      "description": "Infinite bubble wrap with satisfying pops, special bubbles, and chain reactions",
+      "concept": "An endless grid of bubble wrap that regenerates as you pop bubbles, with different bubble types that make unique sounds and visual effects. Some bubbles explode in chain reactions, others make musical notes, and rare golden bubbles give you power-ups. It's pure tactile satisfaction meets gamification.",
+      "category": "game",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "bubble-wrap-infinity",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [
+          "\n> project-goat@0.1.0 build\n> next build\n\n⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache\nAttention: Next.js now collects completely anonymous telemetry regarding usage.\nThis information is used to shape Next.js' roadmap and prioritize features.\nYou can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:\nhttps://nextjs.org/telemetry\n\n   ▲ Next.js 16.0.4 (Turbopack)\n\n   Creating an optimized production build ...\n ✓ Compiled successfully in 3.2s\n   Running TypeScript ...\n"
+        ],
+        "runtimeErrors": [],
+        "fixed": false
+      },
+      {
+        "attemptNumber": 2,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1764109361705",
     "timestamp": "2025-11-25T22:22:41.705Z",
     "day": 360,
