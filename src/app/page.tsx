@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Countdown } from "@/components/Countdown";
 import { BuildLog } from "@/components/BuildLog";
 import { FeatureGrid } from "@/components/FeatureGrid";
@@ -9,7 +9,30 @@ import { features, buildLog, getNextReleaseTime } from "@/data/features";
 export default function Home() {
   const nextRelease = getNextReleaseTime();
   const releasedFeatures = features.filter((f) => f.released);
-  const [buildStatus, setBuildStatus] = useState<"idle" | "triggering" | "triggered" | "error">("idle");
+  const [buildStatus, setBuildStatus] = useState<"idle" | "triggering" | "building" | "error">("idle");
+
+  // Check if there's an active build on mount and periodically
+  useEffect(() => {
+    const checkBuildStatus = async () => {
+      try {
+        const response = await fetch("/api/build-status");
+        if (response.ok) {
+          const data = await response.json();
+          if (data.isBuilding) {
+            setBuildStatus("building");
+          } else if (buildStatus === "building") {
+            setBuildStatus("idle");
+          }
+        }
+      } catch {
+        // Ignore errors, just keep current status
+      }
+    };
+
+    checkBuildStatus();
+    const interval = setInterval(checkBuildStatus, 10000); // Check every 10 seconds
+    return () => clearInterval(interval);
+  }, [buildStatus]);
 
   const triggerBuild = async () => {
     setBuildStatus("triggering");
@@ -21,8 +44,7 @@ export default function Home() {
       });
 
       if (response.ok) {
-        setBuildStatus("triggered");
-        setTimeout(() => setBuildStatus("idle"), 5000);
+        setBuildStatus("building");
       } else {
         setBuildStatus("error");
         setTimeout(() => setBuildStatus("idle"), 3000);
@@ -66,16 +88,16 @@ export default function Home() {
         <button
           onClick={triggerBuild}
           disabled={buildStatus !== "idle"}
-          className="mt-6 px-6 py-3 rounded-lg border transition-all hover:scale-105 disabled:opacity-50 disabled:hover:scale-100"
+          className="mt-6 px-6 py-3 rounded-lg border transition-all hover:scale-105 disabled:opacity-50 disabled:hover:scale-100 disabled:cursor-not-allowed"
           style={{
-            borderColor: buildStatus === "triggered" ? "var(--color-accent)" : "var(--color-border)",
-            backgroundColor: buildStatus === "triggered" ? "var(--color-accent)" : "transparent",
-            color: buildStatus === "triggered" ? "var(--color-bg)" : "var(--color-text-dim)"
+            borderColor: buildStatus === "building" ? "var(--color-accent)" : "var(--color-border)",
+            backgroundColor: buildStatus === "building" ? "var(--color-accent)" : "transparent",
+            color: buildStatus === "building" ? "var(--color-bg)" : "var(--color-text-dim)"
           }}
         >
           {buildStatus === "idle" && "🐐 Wake The Goat Early"}
           {buildStatus === "triggering" && "🐐 Waking..."}
-          {buildStatus === "triggered" && "✓ The Goat is building!"}
+          {buildStatus === "building" && "🔨 Building..."}
           {buildStatus === "error" && "😴 Goat is unavailable"}
         </button>
       </section>
