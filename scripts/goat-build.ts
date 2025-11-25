@@ -79,6 +79,7 @@ async function startDevServer(port: number = 3099): Promise<void> {
       cwd: PROJECT_ROOT,
       stdio: ["pipe", "pipe", "pipe"],
       env: { ...process.env },
+      detached: true, // Create a new process group so we can kill all children
     });
 
     let started = false;
@@ -114,8 +115,18 @@ async function startDevServer(port: number = 3099): Promise<void> {
 }
 
 function stopDevServer(): void {
-  if (devServer) {
-    devServer.kill("SIGKILL");  // Force kill to ensure it stops
+  if (devServer && devServer.pid) {
+    try {
+      // Kill the entire process group (negative PID kills the group)
+      process.kill(-devServer.pid, "SIGKILL");
+    } catch {
+      // Process may already be dead
+      try {
+        devServer.kill("SIGKILL");
+      } catch {
+        // Ignore
+      }
+    }
     devServer = null;
     console.log("   Dev server stopped");
   }
@@ -639,8 +650,13 @@ process.on("SIGTERM", () => {
   process.exit();
 });
 
-main().catch((error) => {
-  console.error(error);
-  stopDevServer();
-  process.exit(1);
-});
+main()
+  .then(() => {
+    // Force exit to ensure no orphan processes keep the script alive
+    process.exit(0);
+  })
+  .catch((error) => {
+    console.error(error);
+    stopDevServer();
+    process.exit(1);
+  });
