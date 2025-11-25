@@ -520,6 +520,12 @@ TYPESCRIPT RULES (follow these exactly to avoid build errors):
 - Always clean up intervals/timeouts in useEffect return function
 - Use proper event types: React.MouseEvent<HTMLCanvasElement>
 
+TAILWIND CSS RULES (important - invalid classes won't render):
+- Only use standard Tailwind grid columns: grid-cols-1 through grid-cols-12
+- For larger grids, use inline style: style={{ display: 'grid', gridTemplateColumns: 'repeat(20, 1fr)' }}
+- For canvas-based features, always set explicit width/height
+- Test that your main interactive element is actually visible
+
 AVAILABLE APIS:
 
 1. If using AI text generation, call the /api/complete endpoint:
