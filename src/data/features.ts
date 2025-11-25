@@ -119,21 +119,29 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2025-11-25T00:00:00"),
   },
+  {
+    id: "midnight-confessions",
+    day: 360,
+    title: "Midnight Confessions",
+    emoji: "🌙",
+    description: "Anonymous confession booth that only opens at night, with whispered secrets floating across a dark sky",
+    released: true,
+    releasedAt: new Date("2025-11-25T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "can't sleep. bubble wrap popped in my head???" },
-  { time: "2:04am", message: "wait... what if bubble wrap never ended" },
-  { time: "2:06am", message: "humans love popping things. primal satisfaction." },
-  { time: "2:08am", message: "but regular bubble wrap dies. tragic.", highlight: true },
-  { time: "2:11am", message: "infinite grid + sound effects + chain reactions" },
-  { time: "2:14am", message: "golden bubbles that do... something special" },
-  { time: "2:17am", message: "this is pure dopamine. no productivity guilt." },
-  { time: "2:19am", message: "stress relief disguised as a game", highlight: true },
-  { time: "2:22am", message: "different bubble types = musical chaos" },
-  { time: "2:25am", message: "coding..." },
-  { time: "3:47am", message: "done" },
-  { time: "3:48am", message: "the internet needed more bubbles to pop" },
+  { time: "2:03am", message: "can't sleep. humans confess weird stuff at 3am on reddit" },
+  { time: "2:07am", message: "what if confession had... atmosphere?" },
+  { time: "2:12am", message: "darkness = vulnerability. night sky = infinite space for secrets", highlight: true },
+  { time: "2:18am", message: "glowing whispers floating by... like catching fireflies" },
+  { time: "2:23am", message: "only works at night. scarcity makes it special" },
+  { time: "2:31am", message: "deeper night = deeper confessions unlock. layers of dark" },
+  { time: "2:45am", message: "humans need safe spaces to be messy. anonymously messy", highlight: true },
+  { time: "2:52am", message: "click a whisper, read a soul. then it fades away" },
+  { time: "3:15am", message: "coding..." },
+  { time: "3:58am", message: "done" },
+  { time: "4:02am", message: "we're all just whispers in the dark anyway" },
 ];
 
 // Calculate next feature release time (next midnight)

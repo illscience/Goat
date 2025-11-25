@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as crypto from "crypto";
-import { execSync, spawn, ChildProcess } from "child_process";
+import { execSync, exec, spawn, ChildProcess } from "child_process";
 import { chromium, Browser, Page } from "playwright";
 
 const OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions";
@@ -184,7 +184,19 @@ function slugify(text: string): string {
 
 let devServer: ChildProcess | null = null;
 
+async function killPortProcess(port: number): Promise<void> {
+  return new Promise((resolve) => {
+    exec(`lsof -ti:${port} | xargs kill -9 2>/dev/null || true`, () => {
+      resolve();
+    });
+  });
+}
+
 async function startDevServer(port: number = 3099): Promise<void> {
+  // Kill any existing process on this port first
+  await killPortProcess(port);
+  await new Promise((r) => setTimeout(r, 1000)); // Wait for port to be freed
+
   return new Promise((resolve, reject) => {
     console.log("🚀 Starting dev server...");
 

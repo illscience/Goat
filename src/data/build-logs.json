@@ -1,5 +1,48 @@
 [
   {
+    "id": "build-1764111358377",
+    "timestamp": "2025-11-25T22:55:58.377Z",
+    "day": 360,
+    "idea": {
+      "title": "Midnight Confessions",
+      "emoji": "🌙",
+      "description": "Anonymous confession booth that only opens at night, with whispered secrets floating across a dark sky",
+      "concept": "A digital confession booth that's only accessible during nighttime hours (based on user's local time). People can anonymously drop confessions that appear as glowing whispers drifting across a starry night sky - click on them to read others' secrets. The darker it gets, the more confessions unlock.",
+      "category": "social",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "midnight-confessions",
+    "success": false,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [
+          "Dev server failed to start within 30s"
+        ],
+        "fixed": false
+      },
+      {
+        "attemptNumber": 2,
+        "buildErrors": [],
+        "runtimeErrors": [
+          "Dev server failed to start within 30s"
+        ],
+        "fixed": false
+      },
+      {
+        "attemptNumber": 3,
+        "buildErrors": [],
+        "runtimeErrors": [
+          "Dev server failed to start within 30s"
+        ],
+        "fixed": false
+      }
+    ],
+    "finalError": "Failed after 3 self-healing attempts"
+  },
+  {
     "id": "build-1764110526147",
     "timestamp": "2025-11-25T22:42:06.147Z",
     "day": 360,
