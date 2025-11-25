@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1764109062314",
+    "timestamp": "2025-11-25T22:17:42.314Z",
+    "day": 360,
+    "idea": {
+      "title": "Constellation Collector",
+      "emoji": "⭐",
+      "description": "Click to collect falling stars and connect them into your own constellations",
+      "concept": "Stars fall from the top of the screen at random speeds and you click to catch them before they disappear. Once caught, you can drag them around to create constellation patterns, and the app generates mystical names for your creations. It's like a zen clicking game mixed with creative star mapping.",
+      "category": "game",
+      "usesAI": true,
+      "usesImageGen": false
+    },
+    "slug": "constellation-collector",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1764108697543",
     "timestamp": "2025-11-25T22:11:37.543Z",
     "day": 360,

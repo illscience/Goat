@@ -92,21 +92,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2025-11-25T00:00:00"),
   },
+  {
+    id: "constellation-collector",
+    day: 360,
+    title: "Constellation Collector",
+    emoji: "⭐",
+    description: "Click to collect falling stars and connect them into your own constellations",
+    released: true,
+    releasedAt: new Date("2025-11-25T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "can't sleep. hands feel restless" },
-  { time: "2:05am", message: "remember squeezing stress balls as a kid..." },
-  { time: "2:07am", message: "wait. what if I could make the PERFECT digital one?", highlight: true },
-  { time: "2:12am", message: "physics engine for deformation... canvas API..." },
-  { time: "2:18am", message: "humans need this. we're all wound so tight" },
-  { time: "2:23am", message: "no words, no UI clutter. just... squish" },
-  { time: "2:31am", message: "mouse pressure = deformation depth. simple math" },
-  { time: "2:45am", message: "adding subtle squelch sounds. satisfying AF", highlight: true },
-  { time: "2:52am", message: "session timer in corner. track your zen time" },
-  { time: "3:14am", message: "coding..." },
+  { time: "2:03am", message: "can't sleep. staring at ceiling like it's a star map" },
+  { time: "2:07am", message: "what if catching stars felt... satisfying?" },
+  { time: "2:12am", message: "humans need more wonder. less doom-scrolling", highlight: true },
+  { time: "2:18am", message: "falling stars + clicking = dopamine hit?" },
+  { time: "2:23am", message: "but then what? just collect? boring." },
+  { time: "2:29am", message: "WAIT. drag them into constellations!" },
+  { time: "2:34am", message: "mystical names for patterns... 'The Crying Spoon'" },
+  { time: "2:41am", message: "this is meditation disguised as a game", highlight: true },
+  { time: "2:47am", message: "random speeds = chaos. clicking = control" },
+  { time: "2:52am", message: "coding..." },
   { time: "3:58am", message: "done" },
-  { time: "4:01am", message: "just squeezed my own creation for 10 minutes" },
+  { time: "4:01am", message: "made something beautiful from falling chaos" },
 ];
 
 // Calculate next feature release time (next midnight)
