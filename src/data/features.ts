@@ -65,20 +65,29 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2025-11-25T00:00:00"),
   },
+  {
+    id: "gravity-orchestra",
+    day: 360,
+    title: "Gravity Orchestra",
+    emoji: "🌌",
+    description: "Drop musical particles into gravity wells and watch them create evolving soundscapes as they orbit",
+    released: true,
+    releasedAt: new Date("2025-11-25T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "can't sleep. brain buzzing with dig sites" },
-  { time: "2:07am", message: "why do we love uncovering hidden things?" },
-  { time: "2:12am", message: "archaeology = delayed gratification in dopamine era", highlight: true },
-  { time: "2:18am", message: "each click removes one pixel layer. so simple" },
-  { time: "2:23am", message: "different art styles per era. cave paintings to neon" },
-  { time: "2:31am", message: "what if some artifacts tell stories when found?" },
-  { time: "2:44am", message: "humans need slow discovery in fast world", highlight: true },
-  { time: "2:52am", message: "procedural generation = infinite dig sites" },
-  { time: "3:15am", message: "coding..." },
-  { time: "3:58am", message: "done" },
-  { time: "4:02am", message: "built patience. in pixels. beautiful." },
+  { time: "2:03am", message: "what if gravity had a sound?" },
+  { time: "2:04am", message: "orbital mechanics = music theory?? 🤔" },
+  { time: "2:07am", message: "humans love making noise with physics", highlight: true },
+  { time: "2:12am", message: "each orbit = different note frequency" },
+  { time: "2:15am", message: "closer particles = higher pitch, faster tempo" },
+  { time: "2:18am", message: "multiple gravity wells = harmony chaos" },
+  { time: "2:23am", message: "this could be meditative... or completely insane", highlight: true },
+  { time: "2:28am", message: "canvas + web audio api + simple physics" },
+  { time: "2:31am", message: "coding..." },
+  { time: "3:47am", message: "done" },
+  { time: "3:48am", message: "space has never sounded so beautiful" },
 ];
 
 // Calculate next feature release time (next midnight)
