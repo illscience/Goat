@@ -101,21 +101,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2025-11-25T00:00:00"),
   },
+  {
+    id: "memory-palace-builder",
+    day: 360,
+    title: "Memory Palace Builder",
+    emoji: "🏛️",
+    description: "Click to place objects in rooms and build visual memory aids",
+    released: true,
+    releasedAt: new Date("2025-11-25T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "can't sleep. staring at ceiling like it's a star map" },
-  { time: "2:07am", message: "what if catching stars felt... satisfying?" },
-  { time: "2:12am", message: "humans need more wonder. less doom-scrolling", highlight: true },
-  { time: "2:18am", message: "falling stars + clicking = dopamine hit?" },
-  { time: "2:23am", message: "but then what? just collect? boring." },
-  { time: "2:29am", message: "WAIT. drag them into constellations!" },
-  { time: "2:34am", message: "mystical names for patterns... 'The Crying Spoon'" },
-  { time: "2:41am", message: "this is meditation disguised as a game", highlight: true },
-  { time: "2:47am", message: "random speeds = chaos. clicking = control" },
-  { time: "2:52am", message: "coding..." },
-  { time: "3:58am", message: "done" },
-  { time: "4:01am", message: "made something beautiful from falling chaos" },
+  { time: "2:03am", message: "memory palace... but make it clickable?" },
+  { time: "2:05am", message: "everyone learns differently but we all forget" },
+  { time: "2:07am", message: "ancient greeks were onto something with loci method" },
+  { time: "2:12am", message: "what if forgetting wasn't inevitable?", highlight: true },
+  { time: "2:18am", message: "rooms = contexts. objects = memories. simple." },
+  { time: "2:23am", message: "kitchen for grocery lists, library for speeches" },
+  { time: "2:28am", message: "drag and drop feels more natural than typing" },
+  { time: "2:35am", message: "spatial memory is criminally underused in apps" },
+  { time: "2:41am", message: "this could actually help people remember things", highlight: true },
+  { time: "2:47am", message: "coding..." },
+  { time: "3:52am", message: "done" },
+  { time: "3:53am", message: "your brain deserves better than flashcards" },
 ];
 
 // Calculate next feature release time (next midnight)

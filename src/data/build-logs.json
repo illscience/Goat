@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1764109361705",
+    "timestamp": "2025-11-25T22:22:41.705Z",
+    "day": 360,
+    "idea": {
+      "title": "Memory Palace Builder",
+      "emoji": "🏛️",
+      "description": "Click to place objects in rooms and build visual memory aids",
+      "concept": "A simple tool where you click to place memorable objects in different rooms of a virtual palace. Each room has a theme and you can populate it with items to help remember lists, speeches, or study material. It's like digital loci method but way more fun and visual.",
+      "category": "creative",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "memory-palace-builder",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1764109062314",
     "timestamp": "2025-11-25T22:17:42.314Z",
     "day": 360,
