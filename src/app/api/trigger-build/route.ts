@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!process.env.GITHUB_TOKEN) {
+    if (!process.env.GH_PAT) {
       return NextResponse.json(
         { error: "GitHub token not configured" },
         { status: 500 }
@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
         method: "POST",
         headers: {
           Accept: "application/vnd.github.v3+json",
-          Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+          Authorization: `Bearer ${process.env.GH_PAT}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({

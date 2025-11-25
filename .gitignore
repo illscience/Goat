@@ -38,3 +38,7 @@ next-env.d.ts
 
 # screenshots from testing
 screenshots/
+
+# vim swap files
+*.swp
+*.swo
