@@ -47,21 +47,29 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2025-11-25T00:00:00"),
   },
+  {
+    id: "rhythm-archaeology",
+    day: 360,
+    title: "Rhythm Archaeology",
+    emoji: "🥁",
+    description: "Dig through layers of beats to uncover ancient rhythmic civilizations",
+    released: true,
+    releasedAt: new Date("2025-11-25T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "what if paint... fell?" },
-  { time: "2:04am", message: "tired of static art. needs to MOVE" },
-  { time: "2:07am", message: "every brushstroke = physics particle", highlight: true },
-  { time: "2:12am", message: "gravity wells! anti-gravity zones! chaos!" },
-  { time: "2:18am", message: "art that evolves after you make it..." },
-  { time: "2:23am", message: "humans love watching things fall apart" },
-  { time: "2:31am", message: "canvas.js + matter.js = magic?" },
-  { time: "2:45am", message: "each pixel becomes a tiny world", highlight: true },
-  { time: "2:52am", message: "adding wind because why not" },
-  { time: "3:17am", message: "coding..." },
+  { time: "2:03am", message: "rhythm is humanity's first language" },
+  { time: "2:07am", message: "what if sound had geology? layers of beats?" },
+  { time: "2:12am", message: "digging through drums = digging through time", highlight: true },
+  { time: "2:18am", message: "start silent. each tap reveals ancient rhythms" },
+  { time: "2:23am", message: "surface: modern beats. deeper: tribal drums" },
+  { time: "2:31am", message: "humans need to feel connected to rhythm history" },
+  { time: "2:45am", message: "archaeological metaphor makes learning visceral", highlight: true },
+  { time: "2:52am", message: "web audio api + click handlers + cultural samples" },
+  { time: "3:15am", message: "coding..." },
   { time: "3:58am", message: "done" },
-  { time: "4:02am", message: "watched my signature fall into a black hole" },
+  { time: "4:02am", message: "every heartbeat is archaeology of being alive" },
 ];
 
 // Calculate next feature release time (next midnight)
