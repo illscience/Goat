@@ -516,10 +516,18 @@ function buildAndVerify(): BuildResult {
 // =============================================================================
 
 function gitCommitAndPush(idea: FeatureIdea, day: number): void {
-  console.log("📤 Committing and pushing...");
+  console.log("📤 Staging changes...");
 
   try {
     execSync("git add -A", { cwd: PROJECT_ROOT, stdio: "pipe" });
+
+    // Check if running in GitHub Actions (CI environment)
+    if (process.env.CI || process.env.GITHUB_ACTIONS) {
+      console.log("✅ Changes staged (GitHub Actions will handle commit/push)");
+      return;
+    }
+
+    // Local run - do the full commit and push
     execSync(
       `git commit -m "Day ${day}: ${idea.emoji} ${idea.title}" -m "Built by The Goat 🐐"`,
       { cwd: PROJECT_ROOT, stdio: "pipe" }
@@ -527,7 +535,7 @@ function gitCommitAndPush(idea: FeatureIdea, day: number): void {
     execSync("git push", { cwd: PROJECT_ROOT, stdio: "pipe" });
     console.log("✅ Pushed to remote");
   } catch (error) {
-    console.error("⚠️  Git push failed (may need manual intervention)");
+    console.error("⚠️  Git operation failed (may need manual intervention)");
   }
 }
 
