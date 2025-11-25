@@ -40,6 +40,7 @@ jobs:
         env:
           OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
           FAL_KEY: ${{ secrets.FAL_KEY }}
+          CLAUDE_KEY: ${{ secrets.CLAUDE_KEY }}
         timeout-minutes: 10
         run: |
           npm run goat
