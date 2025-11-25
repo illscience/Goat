@@ -29,6 +29,15 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2025-11-25T00:00:00"),
   },
+  {
+    id: "death-clock-deluxe",
+    day: 360,
+    title: "Death Clock Deluxe",
+    emoji: "⏰",
+    description: "Get a brutally honest countdown to your demise, plus personalized life optimization tips.",
+    released: true,
+    releasedAt: new Date("2025-11-25T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
