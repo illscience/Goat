@@ -1,0 +1,112 @@
+[
+  {
+    "id": "build-1764106483855",
+    "timestamp": "2025-11-25T21:34:43.855Z",
+    "day": 360,
+    "idea": {
+      "title": "Panic Button Simulator",
+      "emoji": "🚨",
+      "description": "A collection of satisfying panic buttons that trigger increasingly chaotic visual and audio responses",
+      "concept": "Different types of panic buttons - red emergency stops, nuclear launch buttons, fire alarms, etc. Each one triggers a unique cascade of visual chaos, sound effects, and screen shake. The more you panic, the more intense it gets. Sometimes humans just need to press a big red button and watch the world burn (digitally).",
+      "category": "experiment",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "panic-button-simulator",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
+    "id": "build-1764106181254",
+    "timestamp": "2025-11-25T21:29:41.254Z",
+    "day": 360,
+    "idea": {
+      "title": "Synesthesia Simulator",
+      "emoji": "🌈",
+      "description": "Experience sound as color through an interactive audio-visual playground",
+      "concept": "A real-time visualization tool that converts microphone input, uploaded audio, or generated tones into flowing, reactive color patterns. Each frequency range maps to different hues and visual behaviors, letting people experience what synesthesia might feel like. I'm fascinated by how our brains can cross-wire senses, and I want to build something that makes sound visible in beautiful, unpredictable ways.",
+      "category": "visualization",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "synesthesia-simulator",
+    "success": false,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [
+          "\n> project-goat@0.1.0 build\n> next build\n\n   ▲ Next.js 16.0.4 (Turbopack)\n   - Environments: .env\n\n   Creating an optimized production build ...\n ✓ Compiled successfully in 837.5ms\n   Running TypeScript ...\n"
+        ],
+        "runtimeErrors": [],
+        "fixed": false
+      },
+      {
+        "attemptNumber": 2,
+        "buildErrors": [
+          "\n> project-goat@0.1.0 build\n> next build\n\n   ▲ Next.js 16.0.4 (Turbopack)\n   - Environments: .env\n\n   Creating an optimized production build ...\n ✓ Compiled successfully in 845.3ms\n   Running TypeScript ...\n"
+        ],
+        "runtimeErrors": [],
+        "fixed": false
+      },
+      {
+        "attemptNumber": 3,
+        "buildErrors": [
+          "\n> project-goat@0.1.0 build\n> next build\n\n   ▲ Next.js 16.0.4 (Turbopack)\n   - Environments: .env\n\n   Creating an optimized production build ...\n ✓ Compiled successfully in 691.8ms\n   Running TypeScript ...\n"
+        ],
+        "runtimeErrors": [],
+        "fixed": false
+      }
+    ],
+    "finalError": "Failed after 3 self-healing attempts"
+  },
+  {
+    "id": "build-1764105921212",
+    "timestamp": "2025-11-25T21:25:21.212Z",
+    "day": 360,
+    "idea": {
+      "title": "Muscle Memory Trainer",
+      "emoji": "🧠",
+      "description": "Train your fingers to remember patterns through increasingly complex sequences",
+      "concept": "A game where you tap sequences of colored buttons that get progressively longer and faster. Your muscle memory slowly builds as patterns become automatic, and I track your improvement over time with satisfying visual feedback. It's like Simon Says but designed to actually rewire your brain.",
+      "category": "game",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "muscle-memory-trainer",
+    "success": false,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [
+          "Dev server failed to start within 30s"
+        ],
+        "fixed": false
+      },
+      {
+        "attemptNumber": 2,
+        "buildErrors": [],
+        "runtimeErrors": [
+          "Dev server failed to start within 30s"
+        ],
+        "fixed": false
+      },
+      {
+        "attemptNumber": 3,
+        "buildErrors": [],
+        "runtimeErrors": [
+          "Dev server failed to start within 30s"
+        ],
+        "fixed": false
+      }
+    ],
+    "finalError": "Failed after 3 self-healing attempts"
+  }
+]

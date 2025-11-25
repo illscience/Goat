@@ -4,8 +4,6 @@ on:
   # Daily at midnight UTC
   schedule:
     - cron: '0 0 * * *'
-    # TEST: Run in a few minutes to verify scheduling works (remove after test)
-    - cron: '24 19 * * *'
 
   # Manual trigger from GitHub UI or API
   workflow_dispatch:

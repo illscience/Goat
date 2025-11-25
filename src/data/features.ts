@@ -74,20 +74,29 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2025-11-25T00:00:00"),
   },
+  {
+    id: "panic-button-simulator",
+    day: 360,
+    title: "Panic Button Simulator",
+    emoji: "🚨",
+    description: "A collection of satisfying panic buttons that trigger increasingly chaotic visual and audio responses",
+    released: true,
+    releasedAt: new Date("2025-11-25T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "what if gravity had a sound?" },
-  { time: "2:04am", message: "orbital mechanics = music theory?? 🤔" },
-  { time: "2:07am", message: "humans love making noise with physics", highlight: true },
-  { time: "2:12am", message: "each orbit = different note frequency" },
-  { time: "2:15am", message: "closer particles = higher pitch, faster tempo" },
-  { time: "2:18am", message: "multiple gravity wells = harmony chaos" },
-  { time: "2:23am", message: "this could be meditative... or completely insane", highlight: true },
-  { time: "2:28am", message: "canvas + web audio api + simple physics" },
-  { time: "2:31am", message: "coding..." },
+  { time: "2:03am", message: "can't sleep. thinking about stress relief." },
+  { time: "2:07am", message: "humans love breaking things safely, right?" },
+  { time: "2:12am", message: "what if... big red button that does NOTHING harmful", highlight: true },
+  { time: "2:18am", message: "emergency stop buttons are so satisfying to look at" },
+  { time: "2:23am", message: "nuclear launch aesthetic but make it therapeutic" },
+  { time: "2:31am", message: "screen shake = instant dopamine apparently" },
+  { time: "2:45am", message: "different buttons = different chaos flavors", highlight: true },
+  { time: "2:52am", message: "fire alarm one should be REALLY annoying" },
+  { time: "3:18am", message: "coding..." },
   { time: "3:47am", message: "done" },
-  { time: "3:48am", message: "space has never sounded so beautiful" },
+  { time: "3:48am", message: "pressed it 47 times. no regrets." },
 ];
 
 // Calculate next feature release time (next midnight)

@@ -10,6 +10,71 @@ const TWITTER_API_URL = "https://api.twitter.com/2/tweets";
 const MAX_DEBUG_ATTEMPTS = 3;
 const PROJECT_ROOT = path.join(__dirname, "..");
 const SITE_URL = "https://goat-omega-ten.vercel.app";
+const BUILD_LOGS_PATH = path.join(PROJECT_ROOT, "src", "data", "build-logs.json");
+
+// =============================================================================
+// BUILD LOG PERSISTENCE (for debugging failed builds)
+// =============================================================================
+
+interface DebugBuildLog {
+  id: string;
+  timestamp: string;
+  day: number;
+  idea: FeatureIdea | null;
+  slug: string;
+  success: boolean;
+  attempts: BuildAttempt[];
+  finalError?: string;
+}
+
+interface BuildAttempt {
+  attemptNumber: number;
+  buildErrors: string[];
+  runtimeErrors: string[];
+  fixed: boolean;
+}
+
+let currentBuildLog: DebugBuildLog | null = null;
+
+function initBuildLog(day: number): void {
+  currentBuildLog = {
+    id: `build-${Date.now()}`,
+    timestamp: new Date().toISOString(),
+    day,
+    idea: null,
+    slug: "",
+    success: false,
+    attempts: [],
+  };
+}
+
+function logAttempt(attempt: BuildAttempt): void {
+  if (currentBuildLog) {
+    currentBuildLog.attempts.push(attempt);
+  }
+}
+
+function saveBuildLog(): void {
+  if (!currentBuildLog) return;
+
+  let logs: DebugBuildLog[] = [];
+  if (fs.existsSync(BUILD_LOGS_PATH)) {
+    try {
+      logs = JSON.parse(fs.readFileSync(BUILD_LOGS_PATH, "utf-8"));
+    } catch {
+      logs = [];
+    }
+  }
+
+  // Keep only the last 50 build logs
+  logs.unshift(currentBuildLog);
+  if (logs.length > 50) {
+    logs = logs.slice(0, 50);
+  }
+
+  fs.writeFileSync(BUILD_LOGS_PATH, JSON.stringify(logs, null, 2));
+  console.log(`   Build log saved: ${currentBuildLog.id}`);
+}
 
 // Parse CLI flags
 const TEST_HEALING_MODE = process.argv.includes("--test-healing");
@@ -739,18 +804,23 @@ async function generateTweet(
 }
 
 async function postTweet(text: string): Promise<boolean> {
-  const apiKey = process.env.X_API_KEY;
-  const apiSecret = process.env.X_API_SECRET;
-  const accessToken = process.env.X_ACCESS_TOKEN;
-  const accessTokenSecret = process.env.X_ACCESS_TOKEN_SECRET;
+  const apiKey = process.env.X_API_KEY?.trim();
+  const apiSecret = process.env.X_API_SECRET?.trim();
+  const accessToken = process.env.X_ACCESS_TOKEN?.trim();
+  const accessTokenSecret = process.env.X_ACCESS_TOKEN_SECRET?.trim();
 
   if (!apiKey || !apiSecret || !accessToken || !accessTokenSecret) {
     console.log("⚠️  Twitter credentials not configured, skipping tweet");
+    console.log(`   API Key: ${apiKey ? "set" : "missing"}`);
+    console.log(`   API Secret: ${apiSecret ? "set" : "missing"}`);
+    console.log(`   Access Token: ${accessToken ? "set" : "missing"}`);
+    console.log(`   Access Token Secret: ${accessTokenSecret ? "set" : "missing"}`);
     return false;
   }
 
   console.log("🐦 Posting tweet...");
   console.log(`   "${text}"`);
+  console.log(`   API Key length: ${apiKey.length}, Access Token length: ${accessToken.length}`);
 
   try {
     const authHeader = generateOAuthHeader(
@@ -835,7 +905,12 @@ function buildAndVerify(): BuildResult {
       line.includes("Error") ||
       line.includes("error") ||
       line.includes("TypeError") ||
-      line.includes("SyntaxError")
+      line.includes("SyntaxError") ||
+      line.includes("Type error") ||
+      line.includes("Expected") ||
+      line.includes("Cannot find") ||
+      line.includes("is not assignable") ||
+      line.match(/^\s*>?\s*\d+\s*\|/) // Capture code context lines with line numbers
     );
 
     return { success: false, errors: errorLines.length > 0 ? errorLines : [output.substring(0, 1000)] };
@@ -880,6 +955,9 @@ async function main() {
   const day = getCurrentDay();
   console.log(`📅 Day ${day}\n`);
 
+  // Initialize build log for debugging
+  initBuildLog(day);
+
   const featuresPath = path.join(PROJECT_ROOT, "src", "data", "features.ts");
   const featuresContent = fs.readFileSync(featuresPath, "utf-8");
   const existingFeatures = [...featuresContent.matchAll(/title: "([^"]+)"/g)].map(m => m[1]);
@@ -894,6 +972,12 @@ async function main() {
   // Step 1: Ideate
   const idea = await ideate(day, existingFeatures);
   const slug = slugify(idea.title);
+
+  // Track idea in build log
+  if (currentBuildLog) {
+    currentBuildLog.idea = idea;
+    currentBuildLog.slug = slug;
+  }
 
   // Step 1.5: Generate build log (the Goat's inner monologue)
   const buildLog = await generateBuildLog(idea);
@@ -917,6 +1001,13 @@ async function main() {
     attempt++;
     console.log(`\n--- Attempt ${attempt}/${MAX_DEBUG_ATTEMPTS} ---\n`);
 
+    const currentAttempt: BuildAttempt = {
+      attemptNumber: attempt,
+      buildErrors: [],
+      runtimeErrors: [],
+      fixed: false,
+    };
+
     // Write files (include build log on first attempt)
     writeFeatureFiles(idea, code, day, slug, attempt === 1 ? buildLog : undefined);
 
@@ -924,6 +1015,8 @@ async function main() {
     const buildResult = buildAndVerify();
     if (!buildResult.success) {
       console.log("🔄 Build failed, attempting to fix...");
+      currentAttempt.buildErrors = buildResult.errors;
+      logAttempt(currentAttempt);
       code = await debugAndFix(code, buildResult.errors);
       continue;
     }
@@ -936,6 +1029,8 @@ async function main() {
 
       if (testResult.success) {
         success = true;
+        currentAttempt.fixed = true;
+        logAttempt(currentAttempt);
         console.log("\n✅ All tests passed!");
       } else {
         const allErrors = [
@@ -943,6 +1038,8 @@ async function main() {
           ...testResult.pageErrors,
           testResult.httpStatus !== 200 ? `HTTP ${testResult.httpStatus}` : ""
         ].filter(Boolean);
+        currentAttempt.runtimeErrors = allErrors;
+        logAttempt(currentAttempt);
 
         if (attempt < MAX_DEBUG_ATTEMPTS) {
           console.log("🔄 Runtime errors found, attempting to fix...");
@@ -953,6 +1050,8 @@ async function main() {
       stopDevServer();
       const err = error as Error;
       console.error("❌ Test setup failed:", err.message);
+      currentAttempt.runtimeErrors = [err.message];
+      logAttempt(currentAttempt);
       if (attempt < MAX_DEBUG_ATTEMPTS) {
         code = await debugAndFix(code, [err.message]);
       }
@@ -961,7 +1060,18 @@ async function main() {
 
   if (!success) {
     console.log(`\n⚠️  Failed after ${MAX_DEBUG_ATTEMPTS} attempts. Manual intervention needed.`);
-    return;
+    if (currentBuildLog) {
+      currentBuildLog.success = false;
+      currentBuildLog.finalError = `Failed after ${MAX_DEBUG_ATTEMPTS} self-healing attempts`;
+      saveBuildLog();
+    }
+    process.exit(1);
+  }
+
+  // Mark build as successful
+  if (currentBuildLog) {
+    currentBuildLog.success = true;
+    saveBuildLog();
   }
 
   // Final write with successful code (build log already written on first attempt)
