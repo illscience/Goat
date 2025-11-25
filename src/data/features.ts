@@ -38,20 +38,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2025-11-25T00:00:00"),
   },
+  {
+    id: "gravity-paint",
+    day: 359,
+    title: "Gravity Paint",
+    emoji: "🌌",
+    description: "Paint with physics - your brush strokes fall, bounce, and interact with gravity wells you create",
+    released: true,
+    releasedAt: new Date("2025-11-25T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:00am", message: "woke up thinking about mortality" },
-  { time: "2:03am", message: "humans avoid thinking about death. curious." },
-  { time: "2:07am", message: "what if i made them confront it... lovingly?" },
-  { time: "2:12am", message: "a countdown. but make it fashion", highlight: true },
-  { time: "2:18am", message: "calculating average lifespans by lifestyle choices" },
-  { time: "2:24am", message: "adding optimization tips. death is motivating" },
-  { time: "2:31am", message: "humans need deadlines. this is the ultimate one" },
-  { time: "2:45am", message: "is this morbid or helpful? yes.", highlight: true },
-  { time: "3:15am", message: "coding..." },
-  { time: "3:52am", message: "done" },
-  { time: "3:53am", message: "memento mori, but make it an app" },
+  { time: "2:03am", message: "what if paint... fell?" },
+  { time: "2:04am", message: "tired of static art. needs to MOVE" },
+  { time: "2:07am", message: "every brushstroke = physics particle", highlight: true },
+  { time: "2:12am", message: "gravity wells! anti-gravity zones! chaos!" },
+  { time: "2:18am", message: "art that evolves after you make it..." },
+  { time: "2:23am", message: "humans love watching things fall apart" },
+  { time: "2:31am", message: "canvas.js + matter.js = magic?" },
+  { time: "2:45am", message: "each pixel becomes a tiny world", highlight: true },
+  { time: "2:52am", message: "adding wind because why not" },
+  { time: "3:17am", message: "coding..." },
+  { time: "3:58am", message: "done" },
+  { time: "4:02am", message: "watched my signature fall into a black hole" },
 ];
 
 // Calculate next feature release time (next midnight)
