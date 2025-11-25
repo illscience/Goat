@@ -1,11 +1,14 @@
 import * as fs from "fs";
 import * as path from "path";
-import { execSync } from "child_process";
+import { execSync, spawn, ChildProcess } from "child_process";
+import { chromium, Browser, Page } from "playwright";
 
 const OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions";
+const MAX_DEBUG_ATTEMPTS = 3;
+const PROJECT_ROOT = path.join(__dirname, "..");
 
 // Load env vars from .env file
-const envPath = path.join(__dirname, "..", ".env");
+const envPath = path.join(PROJECT_ROOT, ".env");
 if (fs.existsSync(envPath)) {
   const envContent = fs.readFileSync(envPath, "utf-8");
   envContent.split("\n").forEach((line) => {
@@ -34,7 +37,7 @@ async function complete(messages: Message[], model = "anthropic/claude-sonnet-4"
       model,
       messages,
       max_tokens: 8192,
-      temperature: 0.8,
+      temperature: 0.7,
     }),
   });
 
@@ -60,6 +63,141 @@ function slugify(text: string): string {
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
+}
+
+// =============================================================================
+// DEV SERVER MANAGEMENT
+// =============================================================================
+
+let devServer: ChildProcess | null = null;
+
+async function startDevServer(port: number = 3099): Promise<void> {
+  return new Promise((resolve, reject) => {
+    console.log("🚀 Starting dev server...");
+
+    devServer = spawn("npm", ["run", "dev", "--", "-p", port.toString()], {
+      cwd: PROJECT_ROOT,
+      stdio: ["pipe", "pipe", "pipe"],
+      env: { ...process.env },
+    });
+
+    let started = false;
+    const timeout = setTimeout(() => {
+      if (!started) {
+        reject(new Error("Dev server failed to start within 30s"));
+      }
+    }, 30000);
+
+    devServer.stdout?.on("data", (data) => {
+      const output = data.toString();
+      if (output.includes("Ready") && !started) {
+        started = true;
+        clearTimeout(timeout);
+        console.log(`   Dev server running on port ${port}`);
+        resolve();
+      }
+    });
+
+    devServer.stderr?.on("data", (data) => {
+      // Ignore warnings, only log errors
+      const output = data.toString();
+      if (output.includes("error") || output.includes("Error")) {
+        console.error("   Dev server error:", output);
+      }
+    });
+
+    devServer.on("error", (err) => {
+      clearTimeout(timeout);
+      reject(err);
+    });
+  });
+}
+
+function stopDevServer(): void {
+  if (devServer) {
+    devServer.kill("SIGTERM");
+    devServer = null;
+    console.log("   Dev server stopped");
+  }
+}
+
+// =============================================================================
+// TESTING WITH PLAYWRIGHT
+// =============================================================================
+
+interface TestResult {
+  success: boolean;
+  httpStatus: number;
+  consoleErrors: string[];
+  pageErrors: string[];
+  screenshotPath: string | null;
+  loadTime: number;
+}
+
+async function testFeature(slug: string, port: number = 3099): Promise<TestResult> {
+  console.log("🧪 Testing feature...");
+
+  const browser: Browser = await chromium.launch({ headless: true });
+  const context = await browser.newContext();
+  const page: Page = await context.newPage();
+
+  const consoleErrors: string[] = [];
+  const pageErrors: string[] = [];
+  let httpStatus = 0;
+
+  // Capture console errors
+  page.on("console", (msg) => {
+    if (msg.type() === "error") {
+      consoleErrors.push(msg.text());
+    }
+  });
+
+  // Capture page errors (uncaught exceptions)
+  page.on("pageerror", (error) => {
+    pageErrors.push(error.message);
+  });
+
+  const startTime = Date.now();
+  let screenshotPath: string | null = null;
+
+  try {
+    const url = `http://localhost:${port}/feature/${slug}`;
+    const response = await page.goto(url, {
+      waitUntil: "networkidle",
+      timeout: 30000
+    });
+
+    httpStatus = response?.status() || 0;
+
+    // Wait a bit for any client-side errors to surface
+    await page.waitForTimeout(2000);
+
+    // Take screenshot
+    const screenshotsDir = path.join(PROJECT_ROOT, "screenshots");
+    fs.mkdirSync(screenshotsDir, { recursive: true });
+    screenshotPath = path.join(screenshotsDir, `${slug}-${Date.now()}.png`);
+    await page.screenshot({ path: screenshotPath, fullPage: true });
+
+  } catch (error: unknown) {
+    const err = error as Error;
+    pageErrors.push(`Navigation error: ${err.message}`);
+  } finally {
+    await browser.close();
+  }
+
+  const loadTime = Date.now() - startTime;
+  const success = httpStatus === 200 && consoleErrors.length === 0 && pageErrors.length === 0;
+
+  if (success) {
+    console.log(`   ✅ Feature loaded successfully (${loadTime}ms)`);
+  } else {
+    console.log(`   ❌ Feature has errors:`);
+    if (httpStatus !== 200) console.log(`      HTTP ${httpStatus}`);
+    consoleErrors.forEach(e => console.log(`      Console: ${e.substring(0, 100)}`));
+    pageErrors.forEach(e => console.log(`      Page: ${e.substring(0, 100)}`));
+  }
+
+  return { success, httpStatus, consoleErrors, pageErrors, screenshotPath, loadTime };
 }
 
 // =============================================================================
@@ -113,7 +251,6 @@ async function ideate(day: number, existingFeatures: string[]): Promise<FeatureI
     { role: "user", content: prompt }
   ]);
 
-  // Extract JSON from response
   const jsonMatch = response.match(/\{[\s\S]*\}/);
   if (!jsonMatch) {
     throw new Error("Failed to parse ideation response: " + response);
@@ -139,10 +276,17 @@ Uses AI: {{USES_AI}}
 Uses Image Generation: {{USES_IMAGE_GEN}}
 
 TECHNICAL CONTEXT:
-- Next.js 14 app router with TypeScript
-- Tailwind CSS for styling
+- Next.js 16 app router with TypeScript
+- Tailwind CSS for styling (use Tailwind classes, NOT styled-jsx or CSS-in-JS)
 - Must use the FeatureWrapper component
 - File will be at: src/app/feature/{{SLUG}}/page.tsx
+
+CRITICAL RULES:
+- Do NOT use \`style jsx\` or \`<style jsx>\` - it doesn't work with Turbopack
+- Do NOT use CSS-in-JS libraries
+- Use only Tailwind classes and inline styles with the style prop
+- Always handle API response errors gracefully (check if data exists before accessing)
+- Use optional chaining (?.) when accessing API response data
 
 AVAILABLE APIS:
 
@@ -156,12 +300,13 @@ const response = await fetch("/api/complete", {
       { role: "system", content: "System prompt here" },
       { role: "user", content: "User message" }
     ],
-    model: "anthropic/claude-sonnet-4", // or other models
+    model: "anthropic/claude-sonnet-4",
     temperature: 0.7,
     maxTokens: 1024
   })
 });
-const { content } = await response.json();
+const data = await response.json();
+const content = data.content || ""; // Always provide fallback
 \`\`\`
 
 2. If using image generation, call the /api/generate-image endpoint:
@@ -175,7 +320,8 @@ const response = await fetch("/api/generate-image", {
     height: 512
   })
 });
-const { images } = await response.json(); // images[0].url
+const data = await response.json();
+const imageUrl = data.images?.[0]?.url || null; // Handle missing images gracefully
 \`\`\`
 
 EXAMPLE FEATURE STRUCTURE:
@@ -189,8 +335,8 @@ export default function FeatureName() {
   const [state, setState] = useState(initialState);
 
   return (
-    <FeatureWrapper day={DAY} title="Title" emoji="🎯">
-      {/* Feature content */}
+    <FeatureWrapper day={${getCurrentDay()}} title="Title" emoji="🎯">
+      {/* Feature content using Tailwind classes */}
     </FeatureWrapper>
   );
 }
@@ -198,8 +344,8 @@ export default function FeatureName() {
 
 STYLING:
 - Use CSS variables: var(--color-text), var(--color-text-dim), var(--color-bg), var(--color-bg-secondary), var(--color-border), var(--color-accent)
-- Use var(--font-serif) for headings
-- Use Tailwind utilities
+- Use style={{ fontFamily: "var(--font-serif)" }} for headings
+- Use Tailwind utilities for everything else
 - btn-primary and btn-secondary classes are available
 
 NOW: Write the complete page.tsx file for this feature. Include "use client" directive. Make it fun and polished. Add personality in the copy. Output ONLY the code, no explanation.`;
@@ -212,29 +358,22 @@ async function generateCode(idea: FeatureIdea, day: number, slug: string): Promi
     .replace("{{CONCEPT}}", idea.concept)
     .replace("{{USES_AI}}", idea.usesAI.toString())
     .replace("{{USES_IMAGE_GEN}}", idea.usesImageGen.toString())
-    .replace("{{SLUG}}", slug)
-    .replace("{{DAY}}", day.toString());
+    .replace("{{SLUG}}", slug);
 
-  // Use Opus for code generation - it's better at complex code
   const response = await complete([
     { role: "user", content: prompt }
   ], "anthropic/claude-opus-4");
 
-  // Extract code from response
   let code = response;
-
-  // Remove markdown code blocks if present
   const codeMatch = response.match(/```(?:typescript|tsx)?\s*([\s\S]*?)```/);
   if (codeMatch) {
     code = codeMatch[1];
   }
 
-  // Ensure "use client" is at the top
   if (!code.trim().startsWith('"use client"')) {
     code = '"use client";\n\n' + code;
   }
 
-  // Fix the day number in FeatureWrapper
   code = code.replace(
     /FeatureWrapper\s+day=\{?\d+\}?/g,
     `FeatureWrapper day={${day}}`
@@ -245,32 +384,78 @@ async function generateCode(idea: FeatureIdea, day: number, slug: string): Promi
 }
 
 // =============================================================================
-// STEP 3: FILE WRITING
+// STEP 3: DEBUG AND FIX CODE
 // =============================================================================
 
-async function writeFeatureFiles(
+const DEBUG_PROMPT = `You are The Goat debugging your own code. A feature you built has errors.
+
+CURRENT CODE:
+\`\`\`typescript
+{{CODE}}
+\`\`\`
+
+ERRORS ENCOUNTERED:
+{{ERRORS}}
+
+CRITICAL RULES TO FOLLOW:
+- Do NOT use \`style jsx\` or \`<style jsx>\` - it doesn't work with Turbopack
+- Use only Tailwind classes and inline styles
+- Always handle API responses with optional chaining (data?.property)
+- Provide fallbacks for potentially undefined values
+
+Fix the code to resolve these errors. Output ONLY the fixed code, no explanation.`;
+
+async function debugAndFix(code: string, errors: string[]): Promise<string> {
+  console.log("🔧 Debugging and fixing...");
+
+  const prompt = DEBUG_PROMPT
+    .replace("{{CODE}}", code)
+    .replace("{{ERRORS}}", errors.join("\n"));
+
+  const response = await complete([
+    { role: "user", content: prompt }
+  ], "anthropic/claude-opus-4");
+
+  let fixedCode = response;
+  const codeMatch = response.match(/```(?:typescript|tsx)?\s*([\s\S]*?)```/);
+  if (codeMatch) {
+    fixedCode = codeMatch[1];
+  }
+
+  if (!fixedCode.trim().startsWith('"use client"')) {
+    fixedCode = '"use client";\n\n' + fixedCode;
+  }
+
+  console.log("✅ Code fixed");
+  return fixedCode.trim();
+}
+
+// =============================================================================
+// STEP 4: FILE WRITING
+// =============================================================================
+
+function writeFeatureFiles(
   idea: FeatureIdea,
   code: string,
   day: number,
   slug: string
-): Promise<void> {
+): void {
   console.log("📝 Writing files...");
 
-  const projectRoot = path.join(__dirname, "..");
-  const featureDir = path.join(projectRoot, "src", "app", "feature", slug);
-
-  // Create feature directory
+  const featureDir = path.join(PROJECT_ROOT, "src", "app", "feature", slug);
   fs.mkdirSync(featureDir, { recursive: true });
-
-  // Write page.tsx
   fs.writeFileSync(path.join(featureDir, "page.tsx"), code);
   console.log(`   Created: src/app/feature/${slug}/page.tsx`);
 
-  // Update features.ts
-  const featuresPath = path.join(projectRoot, "src", "data", "features.ts");
+  const featuresPath = path.join(PROJECT_ROOT, "src", "data", "features.ts");
   let featuresContent = fs.readFileSync(featuresPath, "utf-8");
 
-  // Find the features array and add the new feature
+  // Check if feature already exists
+  if (featuresContent.includes(`id: "${slug}"`)) {
+    console.log("   Feature already in features.ts, skipping update");
+    return;
+  }
+
   const newFeature = `  {
     id: "${slug}",
     day: ${day},
@@ -281,7 +466,6 @@ async function writeFeatureFiles(
     releasedAt: new Date("${new Date().toISOString().split("T")[0]}T00:00:00"),
   },`;
 
-  // Insert before the closing bracket of the features array
   featuresContent = featuresContent.replace(
     /(export const features: Feature\[\] = \[[\s\S]*?)(];)/,
     `$1${newFeature}\n$2`
@@ -292,43 +476,55 @@ async function writeFeatureFiles(
 }
 
 // =============================================================================
-// STEP 4: BUILD & VERIFY
+// STEP 5: BUILD CHECK
 // =============================================================================
 
-async function buildAndVerify(): Promise<boolean> {
+interface BuildResult {
+  success: boolean;
+  errors: string[];
+}
+
+function buildAndVerify(): BuildResult {
   console.log("🏗️  Building...");
 
   try {
     execSync("npm run build", {
-      cwd: path.join(__dirname, ".."),
+      cwd: PROJECT_ROOT,
       stdio: "pipe",
     });
     console.log("✅ Build successful");
-    return true;
+    return { success: true, errors: [] };
   } catch (error: unknown) {
     const execError = error as { stdout?: Buffer; stderr?: Buffer };
+    const output = execError.stdout?.toString() || execError.stderr?.toString() || "";
     console.error("❌ Build failed");
-    console.error(execError.stdout?.toString() || execError.stderr?.toString());
-    return false;
+
+    // Extract meaningful error messages
+    const errorLines = output.split("\n").filter(line =>
+      line.includes("Error") ||
+      line.includes("error") ||
+      line.includes("TypeError") ||
+      line.includes("SyntaxError")
+    );
+
+    return { success: false, errors: errorLines.length > 0 ? errorLines : [output.substring(0, 1000)] };
   }
 }
 
 // =============================================================================
-// STEP 5: GIT COMMIT & PUSH
+// STEP 6: GIT COMMIT & PUSH
 // =============================================================================
 
-async function gitCommitAndPush(idea: FeatureIdea, day: number): Promise<void> {
+function gitCommitAndPush(idea: FeatureIdea, day: number): void {
   console.log("📤 Committing and pushing...");
 
-  const projectRoot = path.join(__dirname, "..");
-
   try {
-    execSync("git add -A", { cwd: projectRoot, stdio: "pipe" });
+    execSync("git add -A", { cwd: PROJECT_ROOT, stdio: "pipe" });
     execSync(
       `git commit -m "Day ${day}: ${idea.emoji} ${idea.title}" -m "Built by The Goat 🐐"`,
-      { cwd: projectRoot, stdio: "pipe" }
+      { cwd: PROJECT_ROOT, stdio: "pipe" }
     );
-    execSync("git push", { cwd: projectRoot, stdio: "pipe" });
+    execSync("git push", { cwd: PROJECT_ROOT, stdio: "pipe" });
     console.log("✅ Pushed to remote");
   } catch (error) {
     console.error("⚠️  Git push failed (may need manual intervention)");
@@ -336,24 +532,21 @@ async function gitCommitAndPush(idea: FeatureIdea, day: number): Promise<void> {
 }
 
 // =============================================================================
-// MAIN
+// MAIN BUILD LOOP WITH SELF-HEALING
 // =============================================================================
 
 async function main() {
   console.log("\n🐐 THE GOAT IS BUILDING...\n");
 
-  // Get current day
   const day = getCurrentDay();
   console.log(`📅 Day ${day}\n`);
 
-  // Read existing features
-  const featuresPath = path.join(__dirname, "..", "src", "data", "features.ts");
+  const featuresPath = path.join(PROJECT_ROOT, "src", "data", "features.ts");
   const featuresContent = fs.readFileSync(featuresPath, "utf-8");
   const existingFeatures = [...featuresContent.matchAll(/title: "([^"]+)"/g)].map(m => m[1]);
 
   // Check if we already built today
-  const todayFeature = featuresContent.match(new RegExp(`day: ${day},`));
-  if (todayFeature) {
+  if (featuresContent.match(new RegExp(`day: ${day},`))) {
     console.log(`Already built a feature for Day ${day}. Skipping.`);
     return;
   }
@@ -362,24 +555,84 @@ async function main() {
   const idea = await ideate(day, existingFeatures);
   const slug = slugify(idea.title);
 
-  // Step 2: Generate code
-  const code = await generateCode(idea, day, slug);
+  // Step 2: Generate initial code
+  let code = await generateCode(idea, day, slug);
+  let attempt = 0;
+  let success = false;
 
-  // Step 3: Write files
-  await writeFeatureFiles(idea, code, day, slug);
+  while (attempt < MAX_DEBUG_ATTEMPTS && !success) {
+    attempt++;
+    console.log(`\n--- Attempt ${attempt}/${MAX_DEBUG_ATTEMPTS} ---\n`);
 
-  // Step 4: Build and verify
-  const buildSuccess = await buildAndVerify();
+    // Write files
+    writeFeatureFiles(idea, code, day, slug);
 
-  if (!buildSuccess) {
-    console.log("\n⚠️  Build failed. Manual intervention needed.");
+    // Build check
+    const buildResult = buildAndVerify();
+    if (!buildResult.success) {
+      console.log("🔄 Build failed, attempting to fix...");
+      code = await debugAndFix(code, buildResult.errors);
+      continue;
+    }
+
+    // Runtime test
+    try {
+      await startDevServer();
+      const testResult = await testFeature(slug);
+      stopDevServer();
+
+      if (testResult.success) {
+        success = true;
+        console.log("\n✅ All tests passed!");
+      } else {
+        const allErrors = [
+          ...testResult.consoleErrors,
+          ...testResult.pageErrors,
+          testResult.httpStatus !== 200 ? `HTTP ${testResult.httpStatus}` : ""
+        ].filter(Boolean);
+
+        if (attempt < MAX_DEBUG_ATTEMPTS) {
+          console.log("🔄 Runtime errors found, attempting to fix...");
+          code = await debugAndFix(code, allErrors);
+        }
+      }
+    } catch (error) {
+      stopDevServer();
+      const err = error as Error;
+      console.error("❌ Test setup failed:", err.message);
+      if (attempt < MAX_DEBUG_ATTEMPTS) {
+        code = await debugAndFix(code, [err.message]);
+      }
+    }
+  }
+
+  if (!success) {
+    console.log(`\n⚠️  Failed after ${MAX_DEBUG_ATTEMPTS} attempts. Manual intervention needed.`);
     return;
   }
 
-  // Step 5: Git commit and push
-  await gitCommitAndPush(idea, day);
+  // Final write with successful code
+  writeFeatureFiles(idea, code, day, slug);
+
+  // Git commit and push
+  gitCommitAndPush(idea, day);
 
   console.log(`\n🎉 Day ${day} complete: ${idea.emoji} ${idea.title}\n`);
 }
 
-main().catch(console.error);
+// Cleanup on exit
+process.on("SIGINT", () => {
+  stopDevServer();
+  process.exit();
+});
+
+process.on("SIGTERM", () => {
+  stopDevServer();
+  process.exit();
+});
+
+main().catch((error) => {
+  console.error(error);
+  stopDevServer();
+  process.exit(1);
+});
