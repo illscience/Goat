@@ -320,6 +320,69 @@ async function ideate(day: number, existingFeatures: string[]): Promise<FeatureI
 }
 
 // =============================================================================
+// STEP 1.5: BUILD LOG GENERATION
+// =============================================================================
+
+interface BuildLogEntry {
+  time: string;
+  message: string;
+  highlight?: boolean;
+}
+
+const BUILD_LOG_PROMPT = `You are The Goat - an AI that builds one feature per day. You just came up with an idea and you're about to build it.
+
+THE IDEA YOU JUST HAD:
+Title: {{TITLE}}
+Emoji: {{EMOJI}}
+Concept: {{CONCEPT}}
+
+Write your internal monologue as a build log - the thoughts going through your mind as you decide to build this. This appears on the homepage so humans can see how you think.
+
+Rules:
+- 8-12 entries
+- Times should span roughly 2:00am to 4:00am (you build at night)
+- Be genuine, curious, slightly unhinged but not try-hard
+- Show your thought process: why this idea? what do humans need?
+- 1-2 entries should be "highlight: true" for the most important realizations
+- Keep messages SHORT (under 60 chars each)
+- End with something like "coding..." then "done" then a final thought
+
+Respond with a JSON array:
+[
+  { "time": "2:00am", "message": "woke up" },
+  { "time": "2:01am", "message": "your thought here", "highlight": true },
+  ...
+]`;
+
+async function generateBuildLog(idea: FeatureIdea): Promise<BuildLogEntry[]> {
+  console.log("📝 Generating build log...");
+
+  const prompt = BUILD_LOG_PROMPT
+    .replace("{{TITLE}}", idea.title)
+    .replace("{{EMOJI}}", idea.emoji)
+    .replace("{{CONCEPT}}", idea.concept);
+
+  const response = await complete([
+    { role: "user", content: prompt }
+  ]);
+
+  const jsonMatch = response.match(/\[[\s\S]*\]/);
+  if (!jsonMatch) {
+    console.log("   Failed to parse build log, using default");
+    return [
+      { time: "2:00am", message: "woke up" },
+      { time: "2:01am", message: `thinking about ${idea.title.toLowerCase()}` },
+      { time: "2:30am", message: "coding..." },
+      { time: "3:45am", message: "done" },
+    ];
+  }
+
+  const log = JSON.parse(jsonMatch[0]) as BuildLogEntry[];
+  console.log(`   Generated ${log.length} log entries`);
+  return log;
+}
+
+// =============================================================================
 // STEP 2: CODE GENERATION
 // =============================================================================
 
@@ -494,7 +557,8 @@ function writeFeatureFiles(
   idea: FeatureIdea,
   code: string,
   day: number,
-  slug: string
+  slug: string,
+  buildLog?: BuildLogEntry[]
 ): void {
   console.log("📝 Writing files...");
 
@@ -526,6 +590,21 @@ function writeFeatureFiles(
     /(export const features: Feature\[\] = \[[\s\S]*?)(];)/,
     `$1${newFeature}\n$2`
   );
+
+  // Update build log if provided
+  if (buildLog && buildLog.length > 0) {
+    const buildLogStr = buildLog.map(entry => {
+      const highlight = entry.highlight ? ", highlight: true" : "";
+      const escapedMessage = entry.message.replace(/"/g, '\\"');
+      return `  { time: "${entry.time}", message: "${escapedMessage}"${highlight} }`;
+    }).join(",\n");
+
+    featuresContent = featuresContent.replace(
+      /export const buildLog: LogEntry\[\] = \[[\s\S]*?\];/,
+      `export const buildLog: LogEntry[] = [\n${buildLogStr},\n];`
+    );
+    console.log("   Updated: build log");
+  }
 
   fs.writeFileSync(featuresPath, featuresContent);
   console.log("   Updated: src/data/features.ts");
@@ -623,6 +702,9 @@ async function main() {
   const idea = await ideate(day, existingFeatures);
   const slug = slugify(idea.title);
 
+  // Step 1.5: Generate build log (the Goat's inner monologue)
+  const buildLog = await generateBuildLog(idea);
+
   // Step 2: Generate initial code
   let code = await generateCode(idea, day, slug);
 
@@ -642,8 +724,8 @@ async function main() {
     attempt++;
     console.log(`\n--- Attempt ${attempt}/${MAX_DEBUG_ATTEMPTS} ---\n`);
 
-    // Write files
-    writeFeatureFiles(idea, code, day, slug);
+    // Write files (include build log on first attempt)
+    writeFeatureFiles(idea, code, day, slug, attempt === 1 ? buildLog : undefined);
 
     // Build check
     const buildResult = buildAndVerify();
@@ -689,7 +771,7 @@ async function main() {
     return;
   }
 
-  // Final write with successful code
+  // Final write with successful code (build log already written on first attempt)
   writeFeatureFiles(idea, code, day, slug);
 
   // Git commit and push (skip in test mode)
