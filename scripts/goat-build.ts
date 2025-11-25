@@ -4,8 +4,12 @@ import { execSync, spawn, ChildProcess } from "child_process";
 import { chromium, Browser, Page } from "playwright";
 
 const OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions";
+const ANTHROPIC_API_URL = "https://api.anthropic.com/v1/messages";
 const MAX_DEBUG_ATTEMPTS = 3;
 const PROJECT_ROOT = path.join(__dirname, "..");
+
+// Parse CLI flags
+const TEST_HEALING_MODE = process.argv.includes("--test-healing");
 
 // Load env vars from .env file
 const envPath = path.join(PROJECT_ROOT, ".env");
@@ -24,7 +28,38 @@ interface Message {
   content: string;
 }
 
-async function complete(messages: Message[], model = "anthropic/claude-sonnet-4"): Promise<string> {
+// Use Anthropic API directly for Opus 4.5
+async function completeWithAnthropic(messages: Message[]): Promise<string> {
+  // Convert messages format - Anthropic uses system separately
+  const systemMessage = messages.find(m => m.role === "system")?.content || "";
+  const otherMessages = messages.filter(m => m.role !== "system");
+
+  const response = await fetch(ANTHROPIC_API_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-api-key": process.env.CLAUDE_KEY || "",
+      "anthropic-version": "2023-06-01",
+    },
+    body: JSON.stringify({
+      model: "claude-opus-4-20250514",
+      max_tokens: 8192,
+      system: systemMessage || undefined,
+      messages: otherMessages.map(m => ({ role: m.role, content: m.content })),
+    }),
+  });
+
+  if (!response.ok) {
+    const error = await response.text();
+    throw new Error(`Anthropic API error: ${error}`);
+  }
+
+  const data = await response.json();
+  return data.content?.[0]?.text || "";
+}
+
+// Use OpenRouter for other models (ideation with Sonnet)
+async function completeWithOpenRouter(messages: Message[], model: string): Promise<string> {
   const response = await fetch(OPENROUTER_API_URL, {
     method: "POST",
     headers: {
@@ -48,6 +83,16 @@ async function complete(messages: Message[], model = "anthropic/claude-sonnet-4"
 
   const data = await response.json();
   return data.choices[0]?.message?.content || "";
+}
+
+// Route to appropriate API based on model
+async function complete(messages: Message[], model = "anthropic/claude-sonnet-4"): Promise<string> {
+  // Use Anthropic API directly for Opus (code generation and debugging)
+  if (model.includes("opus")) {
+    return completeWithAnthropic(messages);
+  }
+  // Use OpenRouter for Sonnet (ideation)
+  return completeWithOpenRouter(messages, model);
 }
 
 function getCurrentDay(): number {
@@ -564,10 +609,14 @@ async function main() {
   const featuresContent = fs.readFileSync(featuresPath, "utf-8");
   const existingFeatures = [...featuresContent.matchAll(/title: "([^"]+)"/g)].map(m => m[1]);
 
-  // Check if we already built today
-  if (featuresContent.match(new RegExp(`day: ${day},`))) {
+  // Check if we already built today (skip check in test mode)
+  if (!TEST_HEALING_MODE && featuresContent.match(new RegExp(`day: ${day},`))) {
     console.log(`Already built a feature for Day ${day}. Skipping.`);
     return;
+  }
+
+  if (TEST_HEALING_MODE) {
+    console.log("🧪 TEST HEALING MODE ENABLED");
   }
 
   // Step 1: Ideate
@@ -576,6 +625,16 @@ async function main() {
 
   // Step 2: Generate initial code
   let code = await generateCode(idea, day, slug);
+
+  // Test healing mode: inject deliberate errors to test self-healing
+  if (TEST_HEALING_MODE) {
+    console.log("🧪 TEST MODE: Injecting deliberate errors to test self-healing...");
+    // Inject a syntax error and a missing import
+    code = code.replace('import { useState }', 'import { useState, useNonExistent }');
+    code = code.replace('return (', 'return ( // INJECTED SYNTAX ERROR\n    <BrokenComponent>\n');
+    console.log("   Injected: missing import (useNonExistent) and undefined component (BrokenComponent)");
+  }
+
   let attempt = 0;
   let success = false;
 
@@ -633,10 +692,18 @@ async function main() {
   // Final write with successful code
   writeFeatureFiles(idea, code, day, slug);
 
-  // Git commit and push
-  gitCommitAndPush(idea, day);
+  // Git commit and push (skip in test mode)
+  if (TEST_HEALING_MODE) {
+    console.log("🧪 TEST MODE: Skipping git commit/push");
+  } else {
+    gitCommitAndPush(idea, day);
+  }
 
   console.log(`\n🎉 Day ${day} complete: ${idea.emoji} ${idea.title}\n`);
+
+  if (TEST_HEALING_MODE) {
+    console.log("🧪 Self-healing test PASSED! The Goat successfully recovered from injected errors.");
+  }
 }
 
 // Cleanup on exit
