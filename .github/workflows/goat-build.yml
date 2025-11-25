@@ -40,7 +40,12 @@ jobs:
         env:
           OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
           FAL_KEY: ${{ secrets.FAL_KEY }}
-        run: npm run goat
+        timeout-minutes: 10
+        run: |
+          npm run goat
+          # Kill any lingering Node processes
+          pkill -f "next-server" || true
+          pkill -f "node" || true
 
       - name: Commit and push changes
         run: |
