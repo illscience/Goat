@@ -115,7 +115,7 @@ async function startDevServer(port: number = 3099): Promise<void> {
 
 function stopDevServer(): void {
   if (devServer) {
-    devServer.kill("SIGTERM");
+    devServer.kill("SIGKILL");  // Force kill to ensure it stops
     devServer = null;
     console.log("   Dev server stopped");
   }
