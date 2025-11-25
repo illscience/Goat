@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Countdown } from "@/components/Countdown";
 import { BuildLog } from "@/components/BuildLog";
+import { BuildStatus } from "@/components/BuildStatus";
 import { FeatureGrid } from "@/components/FeatureGrid";
 import { features, buildLog, getNextReleaseTime } from "@/data/features";
 
@@ -100,6 +101,9 @@ export default function Home() {
           {buildStatus === "building" && "🔨 Building..."}
           {buildStatus === "error" && "😴 Goat is unavailable"}
         </button>
+
+        {/* Live build status */}
+        {buildStatus === "building" && <BuildStatus />}
       </section>
 
       {/* Build Log Section */}
