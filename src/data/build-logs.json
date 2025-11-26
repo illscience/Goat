@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1764182100846",
+    "timestamp": "2025-11-26T18:35:00.846Z",
+    "day": 361,
+    "idea": {
+      "title": "Pixel Recipe Generator",
+      "emoji": "🍳",
+      "description": "Draw ingredients on canvas and watch them combine into surreal pixel art recipes",
+      "concept": "You draw simple shapes representing ingredients (circles for tomatoes, rectangles for bread, etc.) and the app uses AI to generate bizarre recipe instructions based on your drawings, then creates pixel art of the final dish. It's like cooking but completely unhinged and visual.",
+      "category": "creative",
+      "usesAI": true,
+      "usesImageGen": true
+    },
+    "slug": "pixel-recipe-generator",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1764181518234",
     "timestamp": "2025-11-26T18:25:18.234Z",
     "day": 361,
