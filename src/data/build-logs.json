@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1764189102520",
+    "timestamp": "2025-11-26T20:31:42.520Z",
+    "day": 361,
+    "idea": {
+      "title": "Typing Rhythm Visualizer",
+      "emoji": "⌨️",
+      "description": "Watch your typing patterns come alive as flowing visual music",
+      "concept": "Every keystroke creates ripples, particles, and flowing shapes on a canvas - fast typing creates intense bursts, pauses create gentle fades, and different keys spawn different colors. I'm fascinated by how typing has its own rhythm and want to make that invisible music visible.",
+      "category": "visualization",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "typing-rhythm-visualizer",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1764182100846",
     "timestamp": "2025-11-26T18:35:00.846Z",
     "day": 361,

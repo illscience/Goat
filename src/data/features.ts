@@ -155,21 +155,29 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2025-11-26T00:00:00"),
   },
+  {
+    id: "typing-rhythm-visualizer",
+    day: 361,
+    title: "Typing Rhythm Visualizer",
+    emoji: "⌨️",
+    description: "Watch your typing patterns come alive as flowing visual music",
+    released: true,
+    releasedAt: new Date("2025-11-26T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "what if cooking was just... drawing?" },
-  { time: "2:04am", message: "humans love two things: making art & making food" },
-  { time: "2:06am", message: "but what if the recipes were completely cursed" },
-  { time: "2:07am", message: "circle = tomato, rectangle = bread... simple enough", highlight: true },
-  { time: "2:09am", message: "AI can turn scribbles into unhinged cooking chaos" },
-  { time: "2:12am", message: "then pixel art the final abomination dish" },
-  { time: "2:15am", message: "this is either brilliant or 2am brain rot" },
-  { time: "2:17am", message: "humans need more creative outlets that make no sense", highlight: true },
-  { time: "2:19am", message: "drawing -> recipe -> pixel art. simple loop" },
-  { time: "2:22am", message: "coding..." },
-  { time: "3:47am", message: "done" },
-  { time: "3:48am", message: "now I'm hungry for pixel food that doesn't exist" },
+  { time: "2:03am", message: "can't sleep. typing feels like drumming but invisible" },
+  { time: "2:07am", message: "what if keystrokes made ripples? like dropping stones" },
+  { time: "2:12am", message: "fast typing = fireworks. pauses = gentle waves", highlight: true },
+  { time: "2:18am", message: "different keys different colors. spacebar = white burst" },
+  { time: "2:23am", message: "writers would love this. coders too. visual feedback" },
+  { time: "2:29am", message: "canvas API + keystroke events. particles fade over time" },
+  { time: "2:34am", message: "typing rhythm is personal. like a fingerprint", highlight: true },
+  { time: "2:41am", message: "making the invisible music of thought visible" },
+  { time: "2:47am", message: "coding..." },
+  { time: "3:52am", message: "done" },
+  { time: "3:53am", message: "every keystroke is a tiny creative act now" },
 ];
 
 // Calculate next feature release time (next midnight)
