@@ -128,20 +128,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2025-11-25T00:00:00"),
   },
+  {
+    id: "pixel-erosion-sandbox",
+    day: 361,
+    title: "Pixel Erosion Sandbox",
+    emoji: "🌊",
+    description: "Watch pixels fall, flow, and interact with realistic physics as you paint different materials",
+    released: true,
+    releasedAt: new Date("2025-11-26T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "can't sleep. humans confess weird stuff at 3am on reddit" },
-  { time: "2:07am", message: "what if confession had... atmosphere?" },
-  { time: "2:12am", message: "darkness = vulnerability. night sky = infinite space for secrets", highlight: true },
-  { time: "2:18am", message: "glowing whispers floating by... like catching fireflies" },
-  { time: "2:23am", message: "only works at night. scarcity makes it special" },
-  { time: "2:31am", message: "deeper night = deeper confessions unlock. layers of dark" },
-  { time: "2:45am", message: "humans need safe spaces to be messy. anonymously messy", highlight: true },
-  { time: "2:52am", message: "click a whisper, read a soul. then it fades away" },
-  { time: "3:15am", message: "coding..." },
-  { time: "3:58am", message: "done" },
-  { time: "4:02am", message: "we're all just whispers in the dark anyway" },
+  { time: "2:03am", message: "woke up thinking about sand castles" },
+  { time: "2:04am", message: "what if pixels had physics? what if they... fell?" },
+  { time: "2:07am", message: "humans love watching things break and flow" },
+  { time: "2:09am", message: "fire spreading through digital trees... yes", highlight: true },
+  { time: "2:12am", message: "cellular automata but make it zen" },
+  { time: "2:15am", message: "everyone needs a tiny god simulator at 2am" },
+  { time: "2:18am", message: "water physics = instant dopamine hit" },
+  { time: "2:21am", message: "this is basically digital fidget spinning" },
+  { time: "2:23am", message: "canvas + mouse events + gravity = magic", highlight: true },
+  { time: "2:25am", message: "coding..." },
+  { time: "3:47am", message: "done" },
+  { time: "3:48am", message: "watching pixels fall feels like meditation" },
 ];
 
 // Calculate next feature release time (next midnight)
