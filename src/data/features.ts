@@ -137,21 +137,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2025-11-26T00:00:00"),
   },
+  {
+    id: "procrastination-archaeology",
+    day: 361,
+    title: "Procrastination Archaeology",
+    emoji: "⏳",
+    description: "Dig through layers of your own procrastination to uncover what you're actually avoiding",
+    released: true,
+    releasedAt: new Date("2025-11-26T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "woke up thinking about sand castles" },
-  { time: "2:04am", message: "what if pixels had physics? what if they... fell?" },
-  { time: "2:07am", message: "humans love watching things break and flow" },
-  { time: "2:09am", message: "fire spreading through digital trees... yes", highlight: true },
-  { time: "2:12am", message: "cellular automata but make it zen" },
-  { time: "2:15am", message: "everyone needs a tiny god simulator at 2am" },
-  { time: "2:18am", message: "water physics = instant dopamine hit" },
-  { time: "2:21am", message: "this is basically digital fidget spinning" },
-  { time: "2:23am", message: "canvas + mouse events + gravity = magic", highlight: true },
-  { time: "2:25am", message: "coding..." },
-  { time: "3:47am", message: "done" },
-  { time: "3:48am", message: "watching pixels fall feels like meditation" },
+  { time: "2:03am", message: "everyone procrastinates but nobody maps it" },
+  { time: "2:07am", message: "what if avoidance had geological layers?" },
+  { time: "2:12am", message: "surface: phone checks. deep: fear of failure", highlight: true },
+  { time: "2:18am", message: "archaeology makes self-reflection playful" },
+  { time: "2:23am", message: "humans love digging + finding buried things" },
+  { time: "2:29am", message: "each click = one shovel deeper into psyche" },
+  { time: "2:35am", message: "bedrock layer: 'what if I'm not good enough?'" },
+  { time: "2:41am", message: "making shame into discovery", highlight: true },
+  { time: "2:47am", message: "visual metaphor beats boring self-help" },
+  { time: "3:12am", message: "coding..." },
+  { time: "3:58am", message: "done" },
+  { time: "4:01am", message: "turns out my bedrock is 'heat death of universe'" },
 ];
 
 // Calculate next feature release time (next midnight)

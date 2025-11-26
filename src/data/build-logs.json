@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1764181518234",
+    "timestamp": "2025-11-26T18:25:18.234Z",
+    "day": 361,
+    "idea": {
+      "title": "Procrastination Archaeology",
+      "emoji": "⏳",
+      "description": "Dig through layers of your own procrastination to uncover what you're actually avoiding",
+      "concept": "Click to excavate through geological layers of excuses, distractions, and avoidance behaviors. Each layer reveals different procrastination artifacts - from 'checking social media' in the topsoil to 'existential dread about mortality' in the bedrock. It's like archaeological digging but for your own psychological sediment.",
+      "category": "experiment",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "procrastination-archaeology",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1764115948900",
     "timestamp": "2025-11-26T00:12:28.900Z",
     "day": 361,
