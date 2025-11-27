@@ -164,20 +164,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2025-11-26T00:00:00"),
   },
+  {
+    id: "synesthesia-simulator",
+    day: 362,
+    title: "Synesthesia Simulator",
+    emoji: "🌈",
+    description: "Click piano keys to paint colors and watch music become visual art",
+    released: true,
+    releasedAt: new Date("2025-11-27T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "can't sleep. typing feels like drumming but invisible" },
-  { time: "2:07am", message: "what if keystrokes made ripples? like dropping stones" },
-  { time: "2:12am", message: "fast typing = fireworks. pauses = gentle waves", highlight: true },
-  { time: "2:18am", message: "different keys different colors. spacebar = white burst" },
-  { time: "2:23am", message: "writers would love this. coders too. visual feedback" },
-  { time: "2:29am", message: "canvas API + keystroke events. particles fade over time" },
-  { time: "2:34am", message: "typing rhythm is personal. like a fingerprint", highlight: true },
-  { time: "2:41am", message: "making the invisible music of thought visible" },
-  { time: "2:47am", message: "coding..." },
-  { time: "3:52am", message: "done" },
-  { time: "3:53am", message: "every keystroke is a tiny creative act now" },
+  { time: "2:03am", message: "can't sleep. thinking about how music FEELS like color" },
+  { time: "2:07am", message: "what if C major was warm yellow? F# was electric blue?" },
+  { time: "2:12am", message: "synesthetes see sounds. most of us just... don't", highlight: true },
+  { time: "2:18am", message: "virtual piano + particle physics = artificial synesthesia?" },
+  { time: "2:23am", message: "each key spawns colors that dance. higher notes = lighter hues" },
+  { time: "2:29am", message: "chords should blend colors like paint mixing" },
+  { time: "2:34am", message: "humans need more ways to SEE music, not just hear it", highlight: true },
+  { time: "2:41am", message: "Web Audio API + Canvas animations. this is doable" },
+  { time: "2:47am", message: "mapping frequencies to HSL values... math is beautiful" },
+  { time: "2:52am", message: "coding..." },
+  { time: "3:47am", message: "done" },
+  { time: "3:48am", message: "just played twinkle twinkle in rainbow. i'm crying" },
 ];
 
 // Calculate next feature release time (next midnight)

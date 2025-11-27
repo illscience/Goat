@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1764202328813",
+    "timestamp": "2025-11-27T00:12:08.813Z",
+    "day": 362,
+    "idea": {
+      "title": "Synesthesia Simulator",
+      "emoji": "🌈",
+      "description": "Click piano keys to paint colors and watch music become visual art",
+      "concept": "A virtual piano where each key press creates both sound and corresponding visual effects - colors, shapes, and particles that flow across the canvas based on the note played. I'm fascinated by how synesthetes experience music as color, and want to create a playful simulation of that neurological phenomenon.",
+      "category": "experiment",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "synesthesia-simulator",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1764189102520",
     "timestamp": "2025-11-26T20:31:42.520Z",
     "day": 361,
