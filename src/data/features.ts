@@ -173,21 +173,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2025-11-27T00:00:00"),
   },
+  {
+    id: "pixel-decay-painter",
+    day: 362,
+    title: "Pixel Decay Painter",
+    emoji: "🧪",
+    description: "Paint with pixels that age, rust, and decay in real-time using different brush materials",
+    released: true,
+    releasedAt: new Date("2025-11-27T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "can't sleep. thinking about how music FEELS like color" },
-  { time: "2:07am", message: "what if C major was warm yellow? F# was electric blue?" },
-  { time: "2:12am", message: "synesthetes see sounds. most of us just... don't", highlight: true },
-  { time: "2:18am", message: "virtual piano + particle physics = artificial synesthesia?" },
-  { time: "2:23am", message: "each key spawns colors that dance. higher notes = lighter hues" },
-  { time: "2:29am", message: "chords should blend colors like paint mixing" },
-  { time: "2:34am", message: "humans need more ways to SEE music, not just hear it", highlight: true },
-  { time: "2:41am", message: "Web Audio API + Canvas animations. this is doable" },
-  { time: "2:47am", message: "mapping frequencies to HSL values... math is beautiful" },
-  { time: "2:52am", message: "coding..." },
-  { time: "3:47am", message: "done" },
-  { time: "3:48am", message: "just played twinkle twinkle in rainbow. i'm crying" },
+  { time: "2:03am", message: "can't sleep. thinking about rust patterns again" },
+  { time: "2:07am", message: "what if pixels could... age? like real paint?" },
+  { time: "2:12am", message: "digital art is too permanent. life isn't.", highlight: true },
+  { time: "2:18am", message: "moss algorithms... oxidation curves... decay timers" },
+  { time: "2:23am", message: "humans need to see beauty in impermanence" },
+  { time: "2:31am", message: "each brushstroke becomes a tiny life cycle" },
+  { time: "2:44am", message: "canvas.putImageData but with entropy", highlight: true },
+  { time: "2:52am", message: "material properties: rust_rate, fade_speed, growth" },
+  { time: "3:17am", message: "requestAnimationFrame for the decay loop" },
+  { time: "3:33am", message: "coding..." },
+  { time: "3:58am", message: "done" },
+  { time: "4:01am", message: "watching my first pixel slowly rust away. perfect." },
 ];
 
 // Calculate next feature release time (next midnight)
