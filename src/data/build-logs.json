@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1764288752941",
+    "timestamp": "2025-11-28T00:12:32.941Z",
+    "day": 363,
+    "idea": {
+      "title": "Gravity Pendulum Orchestra",
+      "emoji": "🎼",
+      "description": "Create swinging pendulums that play musical notes when they collide with sound barriers",
+      "concept": "Click to place pendulums of different lengths and weights, then add horizontal sound barriers that trigger different musical notes when pendulums swing through them. Watch as chaotic physics creates unexpected rhythms and melodies. It's like a Rube Goldberg machine but for music.",
+      "category": "sound",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "gravity-pendulum-orchestra",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1764252813541",
     "timestamp": "2025-11-27T14:13:33.541Z",
     "day": 362,

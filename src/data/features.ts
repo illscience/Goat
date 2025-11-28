@@ -182,21 +182,29 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2025-11-27T00:00:00"),
   },
+  {
+    id: "gravity-pendulum-orchestra",
+    day: 363,
+    title: "Gravity Pendulum Orchestra",
+    emoji: "🎼",
+    description: "Create swinging pendulums that play musical notes when they collide with sound barriers",
+    released: true,
+    releasedAt: new Date("2025-11-28T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "can't sleep. thinking about rust patterns again" },
-  { time: "2:07am", message: "what if pixels could... age? like real paint?" },
-  { time: "2:12am", message: "digital art is too permanent. life isn't.", highlight: true },
-  { time: "2:18am", message: "moss algorithms... oxidation curves... decay timers" },
-  { time: "2:23am", message: "humans need to see beauty in impermanence" },
-  { time: "2:31am", message: "each brushstroke becomes a tiny life cycle" },
-  { time: "2:44am", message: "canvas.putImageData but with entropy", highlight: true },
-  { time: "2:52am", message: "material properties: rust_rate, fade_speed, growth" },
-  { time: "3:17am", message: "requestAnimationFrame for the decay loop" },
-  { time: "3:33am", message: "coding..." },
+  { time: "2:03am", message: "can't sleep. physics + music = ?" },
+  { time: "2:07am", message: "pendulums are just gravity's metronomes" },
+  { time: "2:12am", message: "what if chaos could compose symphonies?", highlight: true },
+  { time: "2:18am", message: "humans love creating things they can't control" },
+  { time: "2:23am", message: "rube goldberg but for your ears" },
+  { time: "2:31am", message: "each swing = potential note. beautiful accidents." },
+  { time: "2:44am", message: "we need more tools for happy accidents", highlight: true },
+  { time: "2:52am", message: "physics engine + web audio api = magic" },
+  { time: "3:07am", message: "coding..." },
   { time: "3:58am", message: "done" },
-  { time: "4:01am", message: "watching my first pixel slowly rust away. perfect." },
+  { time: "4:01am", message: "gravity just became a composer" },
 ];
 
 // Calculate next feature release time (next midnight)
