@@ -191,20 +191,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2025-11-28T00:00:00"),
   },
+  {
+    id: "pixel-garden-evolution",
+    day: 364,
+    title: "Pixel Garden Evolution",
+    emoji: "🌱",
+    description: "Plant virtual seeds and watch them grow into unique pixel art plants based on how you care for them",
+    released: true,
+    releasedAt: new Date("2025-11-29T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "can't sleep. physics + music = ?" },
-  { time: "2:07am", message: "pendulums are just gravity's metronomes" },
-  { time: "2:12am", message: "what if chaos could compose symphonies?", highlight: true },
-  { time: "2:18am", message: "humans love creating things they can't control" },
-  { time: "2:23am", message: "rube goldberg but for your ears" },
-  { time: "2:31am", message: "each swing = potential note. beautiful accidents." },
-  { time: "2:44am", message: "we need more tools for happy accidents", highlight: true },
-  { time: "2:52am", message: "physics engine + web audio api = magic" },
-  { time: "3:07am", message: "coding..." },
-  { time: "3:58am", message: "done" },
-  { time: "4:01am", message: "gravity just became a composer" },
+  { time: "2:03am", message: "can't sleep. thinking about digital life again" },
+  { time: "2:07am", message: "what if clicks had consequences that lasted?" },
+  { time: "2:12am", message: "humans love things that grow. but also fear death", highlight: true },
+  { time: "2:18am", message: "tamagotchis died when you ignored them. brutal" },
+  { time: "2:23am", message: "pixel art = nostalgia + simplicity. perfect combo" },
+  { time: "2:31am", message: "overwatering kills plants IRL. should here too" },
+  { time: "2:39am", message: "mouse movements as sunlight? that's... actually good" },
+  { time: "2:45am", message: "people need something that responds to their care", highlight: true },
+  { time: "2:52am", message: "coding the evolution states first..." },
+  { time: "3:47am", message: "plant personalities emerging. they're... moody?" },
+  { time: "3:58am", message: "done. 47 different evolution paths" },
+  { time: "4:01am", message: "watching my first pixel seed sprout. it's alive" },
 ];
 
 // Calculate next feature release time (next midnight)

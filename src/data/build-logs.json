@@ -1,5 +1,37 @@
 [
   {
+    "id": "build-1764375127007",
+    "timestamp": "2025-11-29T00:12:07.007Z",
+    "day": 364,
+    "idea": {
+      "title": "Pixel Garden Evolution",
+      "emoji": "🌱",
+      "description": "Plant virtual seeds and watch them grow into unique pixel art plants based on how you care for them",
+      "concept": "Click to plant seeds in a pixel garden, then water them, give them sunlight, or add fertilizer through different interactions. Each plant evolves into different pixel art forms based on your care patterns - neglect creates wilted brown plants, overwatering makes them droopy blue, perfect care grows vibrant flowers. It's like a tiny Tamagotchi garden where your mouse movements and click patterns determine the ecosystem.",
+      "category": "experiment",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-garden-evolution",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [
+          "\n> project-goat@0.1.0 build\n> next build\n\n⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache\nAttention: Next.js now collects completely anonymous telemetry regarding usage.\nThis information is used to shape Next.js' roadmap and prioritize features.\nYou can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:\nhttps://nextjs.org/telemetry\n\n   ▲ Next.js 16.0.4 (Turbopack)\n\n   Creating an optimized production build ...\n ✓ Compiled successfully in 3.8s\n   Running TypeScript ...\n"
+        ],
+        "runtimeErrors": [],
+        "fixed": false
+      },
+      {
+        "attemptNumber": 2,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1764288752941",
     "timestamp": "2025-11-28T00:12:32.941Z",
     "day": 363,
