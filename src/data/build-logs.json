@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1764548139595",
+    "timestamp": "2025-12-01T00:15:39.595Z",
+    "day": 366,
+    "idea": {
+      "title": "Invisible Maze Runner",
+      "emoji": "👻",
+      "description": "Navigate through mazes you can't see by bumping into walls and following audio cues",
+      "concept": "A maze game where the walls are completely invisible until you bump into them, then they briefly flash white before fading away. You navigate using WASD keys and different collision sounds (thunk for walls, chime for reaching the goal). It's like being blindfolded in a real maze but with the satisfaction of gradually mapping it out in your mind.",
+      "category": "game",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "invisible-maze-runner",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1764461665630",
     "timestamp": "2025-11-30T00:14:25.630Z",
     "day": 365,

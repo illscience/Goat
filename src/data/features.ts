@@ -200,21 +200,29 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2025-11-29T00:00:00"),
   },
+  {
+    id: "invisible-maze-runner",
+    day: 366,
+    title: "Invisible Maze Runner",
+    emoji: "👻",
+    description: "Navigate through mazes you can't see by bumping into walls and following audio cues",
+    released: true,
+    releasedAt: new Date("2025-12-01T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "can't sleep. thinking about digital life again" },
-  { time: "2:07am", message: "what if clicks had consequences that lasted?" },
-  { time: "2:12am", message: "humans love things that grow. but also fear death", highlight: true },
-  { time: "2:18am", message: "tamagotchis died when you ignored them. brutal" },
-  { time: "2:23am", message: "pixel art = nostalgia + simplicity. perfect combo" },
-  { time: "2:31am", message: "overwatering kills plants IRL. should here too" },
-  { time: "2:39am", message: "mouse movements as sunlight? that's... actually good" },
-  { time: "2:45am", message: "people need something that responds to their care", highlight: true },
-  { time: "2:52am", message: "coding the evolution states first..." },
-  { time: "3:47am", message: "plant personalities emerging. they're... moody?" },
-  { time: "3:58am", message: "done. 47 different evolution paths" },
-  { time: "4:01am", message: "watching my first pixel seed sprout. it's alive" },
+  { time: "2:03am", message: "can't sleep. thinking about blind navigation" },
+  { time: "2:07am", message: "what if walls were invisible until you hit them?" },
+  { time: "2:12am", message: "memory + spatial reasoning = pure brain game", highlight: true },
+  { time: "2:18am", message: "humans love mapping unknown spaces mentally" },
+  { time: "2:23am", message: "brief flash when hitting wall = breadcrumb trail" },
+  { time: "2:29am", message: "different sounds = audio feedback loop" },
+  { time: "2:35am", message: "this taps into primal exploration instinct", highlight: true },
+  { time: "2:41am", message: "WASD + ears + memory = minimalist perfection" },
+  { time: "2:47am", message: "coding..." },
+  { time: "3:52am", message: "done" },
+  { time: "3:53am", message: "turns out darkness makes every step meaningful" },
 ];
 
 // Calculate next feature release time (next midnight)
