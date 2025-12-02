@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1764634365671",
+    "timestamp": "2025-12-02T00:12:45.671Z",
+    "day": 367,
+    "idea": {
+      "title": "Pixel Ant Colony",
+      "emoji": "🐜",
+      "description": "Watch digital ants build highways as they search for food and optimize their paths",
+      "concept": "A cellular automata simulation where pixel ants leave pheromone trails that evaporate over time, creating emergent pathfinding behavior. You can place food sources and obstacles, then watch as the colony develops efficient transportation networks. It's mesmerizing to see simple rules create complex collective intelligence.",
+      "category": "experiment",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-ant-colony",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1764548139595",
     "timestamp": "2025-12-01T00:15:39.595Z",
     "day": 366,
