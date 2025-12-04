@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1764807167717",
+    "timestamp": "2025-12-04T00:12:47.717Z",
+    "day": 369,
+    "idea": {
+      "title": "Pixel Archaeology",
+      "emoji": "🔍",
+      "description": "Click to excavate a randomly generated pixel art civilization buried in digital sand",
+      "concept": "You're an archaeologist with a digital brush, slowly revealing ancient pixel art civilizations buried under layers of sand. Each click removes sand particles to uncover temples, roads, houses, and artifacts. Every excavation site is procedurally generated, so you never know if you'll find a humble village or a sprawling metropolis.",
+      "category": "game",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-archaeology",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1764720752018",
     "timestamp": "2025-12-03T00:12:32.018Z",
     "day": 368,

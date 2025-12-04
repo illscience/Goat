@@ -3,517 +3,503 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { FeatureWrapper } from "@/components/FeatureWrapper";
 
-interface DigSite {
-  id: number;
-  name: string;
-  description: string;
-  difficulty: "Easy" | "Medium" | "Hard";
-  pixelArt: number[][];
-  palette: string[];
+interface Tile {
+  type: "empty" | "temple" | "house" | "road" | "artifact" | "wall" | "garden" | "statue" | "well";
+  color: string;
+  sandLevel: number; // 0-100, 100 = fully covered
 }
 
-const DIG_SITES: DigSite[] = [
-  {
-    id: 1,
-    name: "Ancient Skull Temple",
-    description: "A mysterious artifact from the pixel age",
-    difficulty: "Easy",
-    pixelArt: [
-      [0, 0, 1, 1, 1, 1, 1, 1, 0, 0],
-      [0, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-      [1, 1, 2, 1, 1, 1, 2, 1, 1, 1],
-      [1, 1, 2, 1, 1, 1, 2, 1, 1, 1],
-      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-      [1, 1, 1, 1, 2, 1, 1, 1, 1, 1],
-      [1, 1, 2, 1, 1, 1, 2, 1, 1, 1],
-      [0, 1, 1, 2, 2, 2, 1, 1, 1, 0],
-      [0, 0, 1, 1, 1, 1, 1, 1, 0, 0],
-    ],
-    palette: ["transparent", "#f5f5dc", "#1a1a2e"],
-  },
-  {
-    id: 2,
-    name: "Lost Treasure Chest",
-    description: "Pirates buried more than just gold",
-    difficulty: "Medium",
-    pixelArt: [
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 2, 2, 2, 2, 2, 2, 0, 0],
-      [0, 2, 1, 1, 1, 1, 1, 1, 2, 0],
-      [2, 1, 1, 1, 3, 3, 1, 1, 1, 2],
-      [2, 1, 1, 3, 3, 3, 3, 1, 1, 2],
-      [2, 2, 2, 2, 3, 3, 2, 2, 2, 2],
-      [2, 1, 1, 1, 1, 1, 1, 1, 1, 2],
-      [2, 1, 1, 1, 1, 1, 1, 1, 1, 2],
-      [2, 1, 1, 1, 1, 1, 1, 1, 1, 2],
-      [0, 2, 2, 2, 2, 2, 2, 2, 2, 0],
-    ],
-    palette: ["transparent", "#8B4513", "#5D3A1A", "#FFD700"],
-  },
-  {
-    id: 3,
-    name: "Pixelated Heart",
-    description: "An ancient symbol of love and connection",
-    difficulty: "Easy",
-    pixelArt: [
-      [0, 0, 1, 1, 0, 0, 1, 1, 0, 0],
-      [0, 1, 2, 2, 1, 1, 2, 2, 1, 0],
-      [1, 2, 2, 2, 2, 2, 2, 2, 2, 1],
-      [1, 2, 2, 2, 2, 2, 2, 2, 2, 1],
-      [1, 2, 2, 2, 2, 2, 2, 2, 2, 1],
-      [0, 1, 2, 2, 2, 2, 2, 2, 1, 0],
-      [0, 0, 1, 2, 2, 2, 2, 1, 0, 0],
-      [0, 0, 0, 1, 2, 2, 1, 0, 0, 0],
-      [0, 0, 0, 0, 1, 1, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    ],
-    palette: ["transparent", "#8B0000", "#FF1744"],
-  },
-  {
-    id: 4,
-    name: "Space Invader Fossil",
-    description: "Evidence of the great arcade wars",
-    difficulty: "Hard",
-    pixelArt: [
-      [0, 0, 1, 0, 0, 0, 0, 1, 0, 0],
-      [0, 0, 0, 1, 0, 0, 1, 0, 0, 0],
-      [0, 0, 1, 1, 1, 1, 1, 1, 0, 0],
-      [0, 1, 1, 2, 1, 1, 2, 1, 1, 0],
-      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-      [1, 0, 1, 1, 1, 1, 1, 1, 0, 1],
-      [1, 0, 1, 0, 0, 0, 0, 1, 0, 1],
-      [0, 0, 0, 1, 1, 1, 1, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    ],
-    palette: ["transparent", "#00FF00", "#FFFFFF"],
-  },
-  {
-    id: 5,
-    name: "Golden Crown",
-    description: "Royalty from a forgotten kingdom",
-    difficulty: "Medium",
-    pixelArt: [
-      [0, 1, 0, 0, 1, 1, 0, 0, 1, 0],
-      [0, 1, 0, 0, 1, 1, 0, 0, 1, 0],
-      [0, 1, 1, 0, 1, 1, 0, 1, 1, 0],
-      [0, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-      [1, 1, 2, 1, 1, 1, 2, 1, 1, 1],
-      [1, 1, 1, 1, 2, 1, 1, 1, 1, 1],
-      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-      [0, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    ],
-    palette: ["transparent", "#FFD700", "#FF0000"],
-  },
-];
+interface Discovery {
+  name: string;
+  emoji: string;
+  count: number;
+}
 
-const GRID_SIZE = 10;
-const CELL_SIZE = 30;
-const MAX_NOISE_DEPTH = 5;
+const GRID_SIZE = 32;
+const BRUSH_RADIUS = 2;
+
+const TILE_COLORS: Record<string, string> = {
+  empty: "#d4a574",
+  temple: "#8b4513",
+  house: "#a0522d",
+  road: "#696969",
+  artifact: "#ffd700",
+  wall: "#808080",
+  garden: "#228b22",
+  statue: "#c0c0c0",
+  well: "#4682b4",
+};
+
+const TILE_NAMES: Record<string, string> = {
+  temple: "Ancient Temple",
+  house: "Dwelling",
+  road: "Stone Road",
+  artifact: "Golden Artifact",
+  wall: "City Wall",
+  garden: "Sacred Garden",
+  statue: "Stone Statue",
+  well: "Water Well",
+};
+
+const TILE_EMOJIS: Record<string, string> = {
+  temple: "🏛️",
+  house: "🏠",
+  road: "🛤️",
+  artifact: "✨",
+  wall: "🧱",
+  garden: "🌿",
+  statue: "🗿",
+  well: "💧",
+};
+
+function generateCivilization(): Tile[][] {
+  const grid: Tile[][] = [];
+  
+  // Initialize with empty tiles covered in sand
+  for (let y = 0; y < GRID_SIZE; y++) {
+    grid[y] = [];
+    for (let x = 0; x < GRID_SIZE; x++) {
+      grid[y][x] = {
+        type: "empty",
+        color: TILE_COLORS.empty,
+        sandLevel: 100,
+      };
+    }
+  }
+
+  // Determine civilization size (village, town, or metropolis)
+  const civType = Math.random();
+  let buildingCount: number;
+  let hasTemple: boolean;
+  let hasWalls: boolean;
+  
+  if (civType < 0.4) {
+    // Village
+    buildingCount = 5 + Math.floor(Math.random() * 8);
+    hasTemple = Math.random() > 0.7;
+    hasWalls = false;
+  } else if (civType < 0.8) {
+    // Town
+    buildingCount = 15 + Math.floor(Math.random() * 15);
+    hasTemple = Math.random() > 0.3;
+    hasWalls = Math.random() > 0.5;
+  } else {
+    // Metropolis
+    buildingCount = 35 + Math.floor(Math.random() * 25);
+    hasTemple = true;
+    hasWalls = true;
+  }
+
+  // Place city walls if applicable
+  if (hasWalls) {
+    const margin = 4;
+    for (let x = margin; x < GRID_SIZE - margin; x++) {
+      grid[margin][x] = { type: "wall", color: TILE_COLORS.wall, sandLevel: 100 };
+      grid[GRID_SIZE - margin - 1][x] = { type: "wall", color: TILE_COLORS.wall, sandLevel: 100 };
+    }
+    for (let y = margin; y < GRID_SIZE - margin; y++) {
+      grid[y][margin] = { type: "wall", color: TILE_COLORS.wall, sandLevel: 100 };
+      grid[y][GRID_SIZE - margin - 1] = { type: "wall", color: TILE_COLORS.wall, sandLevel: 100 };
+    }
+  }
+
+  // Place temple in center if applicable
+  if (hasTemple) {
+    const centerX = Math.floor(GRID_SIZE / 2);
+    const centerY = Math.floor(GRID_SIZE / 2);
+    for (let dy = -1; dy <= 1; dy++) {
+      for (let dx = -1; dx <= 1; dx++) {
+        grid[centerY + dy][centerX + dx] = { type: "temple", color: TILE_COLORS.temple, sandLevel: 100 };
+      }
+    }
+  }
+
+  // Create main roads
+  const roadY = Math.floor(GRID_SIZE / 2) + (hasTemple ? 3 : 0);
+  const roadX = Math.floor(GRID_SIZE / 2) + (hasTemple ? 3 : 0);
+  
+  for (let x = 5; x < GRID_SIZE - 5; x++) {
+    if (grid[roadY][x].type === "empty") {
+      grid[roadY][x] = { type: "road", color: TILE_COLORS.road, sandLevel: 100 };
+    }
+  }
+  for (let y = 5; y < GRID_SIZE - 5; y++) {
+    if (grid[y][roadX].type === "empty") {
+      grid[y][roadX] = { type: "road", color: TILE_COLORS.road, sandLevel: 100 };
+    }
+  }
+
+  // Place buildings
+  for (let i = 0; i < buildingCount; i++) {
+    const x = 6 + Math.floor(Math.random() * (GRID_SIZE - 12));
+    const y = 6 + Math.floor(Math.random() * (GRID_SIZE - 12));
+    
+    if (grid[y][x].type === "empty") {
+      const buildingTypes: ("house" | "garden" | "well" | "statue")[] = ["house", "house", "house", "garden", "well", "statue"];
+      const type = buildingTypes[Math.floor(Math.random() * buildingTypes.length)];
+      grid[y][x] = { type, color: TILE_COLORS[type], sandLevel: 100 };
+    }
+  }
+
+  // Scatter artifacts
+  const artifactCount = 3 + Math.floor(Math.random() * 8);
+  for (let i = 0; i < artifactCount; i++) {
+    const x = Math.floor(Math.random() * GRID_SIZE);
+    const y = Math.floor(Math.random() * GRID_SIZE);
+    if (grid[y][x].type === "empty") {
+      grid[y][x] = { type: "artifact", color: TILE_COLORS.artifact, sandLevel: 100 };
+    }
+  }
+
+  return grid;
+}
 
 export default function PixelArchaeology() {
+  const [grid, setGrid] = useState<Tile[][]>(() => generateCivilization());
+  const [discoveries, setDiscoveries] = useState<Discovery[]>([]);
+  const [excavationProgress, setExcavationProgress] = useState(0);
+  const [isDigging, setIsDigging] = useState(false);
+  const [siteName, setSiteName] = useState("");
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [selectedSite, setSelectedSite] = useState<DigSite | null>(null);
-  const [noiseLayer, setNoiseLayer] = useState<number[][]>([]);
-  const [brushSize, setBrushSize] = useState<number>(2);
-  const [isDigging, setIsDigging] = useState<boolean>(false);
-  const [revealedPercent, setRevealedPercent] = useState<number>(0);
-  const [artifacts, setArtifacts] = useState<number[]>([]);
-  const [gameComplete, setGameComplete] = useState<boolean>(false);
   const animationRef = useRef<number>(0);
 
-  const generateNoise = useCallback(() => {
-    const noise: number[][] = [];
-    for (let y = 0; y < GRID_SIZE; y++) {
-      const row: number[] = [];
-      for (let x = 0; x < GRID_SIZE; x++) {
-        row.push(MAX_NOISE_DEPTH);
-      }
-      noise.push(row);
-    }
-    return noise;
+  const siteNames = [
+    "Tell al-Pixelum", "Ruinas de Bitoria", "The Lost City of Bytezantium",
+    "Hexadecimal Heights", "The Forgotten Sprites", "Rasteropolis",
+    "The Vector Valley Tombs", "Palette Point", "The Dithered Dynasty"
+  ];
+
+  useEffect(() => {
+    setSiteName(siteNames[Math.floor(Math.random() * siteNames.length)]);
   }, []);
 
-  const startDig = (site: DigSite) => {
-    setSelectedSite(site);
-    setNoiseLayer(generateNoise());
-    setRevealedPercent(0);
-    setGameComplete(false);
-  };
-
-  const calculateReveal = useCallback(() => {
-    if (!selectedSite) return 0;
-    let revealed = 0;
-    let total = 0;
-
-    for (let y = 0; y < GRID_SIZE; y++) {
-      for (let x = 0; x < GRID_SIZE; x++) {
-        if (selectedSite.pixelArt[y]?.[x] !== 0) {
-          total++;
-          if (noiseLayer[y]?.[x] === 0) {
-            revealed++;
-          }
-        }
-      }
-    }
-
-    return total > 0 ? Math.round((revealed / total) * 100) : 0;
-  }, [selectedSite, noiseLayer]);
-
-  useEffect(() => {
-    const percent = calculateReveal();
-    setRevealedPercent(percent);
-    if (percent >= 95 && !gameComplete && selectedSite) {
-      setGameComplete(true);
-      if (!artifacts.includes(selectedSite.id)) {
-        setArtifacts((prev) => [...prev, selectedSite.id]);
-      }
-    }
-  }, [noiseLayer, calculateReveal, gameComplete, selectedSite, artifacts]);
-
-  const brushAtPosition = (x: number, y: number) => {
-    if (!selectedSite) return;
-
-    const gridX = Math.floor(x / CELL_SIZE);
-    const gridY = Math.floor(y / CELL_SIZE);
-
-    setNoiseLayer((prev) => {
-      const newNoise = prev.map((row) => [...row]);
-
-      for (let dy = -brushSize + 1; dy < brushSize; dy++) {
-        for (let dx = -brushSize + 1; dx < brushSize; dx++) {
-          const nx = gridX + dx;
-          const ny = gridY + dy;
-          if (nx >= 0 && nx < GRID_SIZE && ny >= 0 && ny < GRID_SIZE) {
-            const distance = Math.sqrt(dx * dx + dy * dy);
-            if (distance < brushSize) {
-              const currentValue = newNoise[ny]?.[nx] ?? 0;
-              newNoise[ny][nx] = Math.max(0, currentValue - 1);
-            }
-          }
-        }
-      }
-
-      return newNoise;
-    });
-  };
-
-  const handleCanvasMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    setIsDigging(true);
-    const rect = canvasRef.current?.getBoundingClientRect();
-    if (rect) {
-      brushAtPosition(e.clientX - rect.left, e.clientY - rect.top);
-    }
-  };
-
-  const handleCanvasMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    if (!isDigging) return;
-    const rect = canvasRef.current?.getBoundingClientRect();
-    if (rect) {
-      brushAtPosition(e.clientX - rect.left, e.clientY - rect.top);
-    }
-  };
-
-  const handleCanvasMouseUp = () => {
-    setIsDigging(false);
-  };
-
-  const handleCanvasMouseLeave = () => {
-    setIsDigging(false);
-  };
-
-  useEffect(() => {
+  const drawGrid = useCallback(() => {
     const canvas = canvasRef.current;
-    if (!canvas || !selectedSite) return;
-
+    if (!canvas) return;
+    
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const render = () => {
-      ctx.fillStyle = "#2a1810";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    const cellSize = canvas.width / GRID_SIZE;
 
-      for (let y = 0; y < GRID_SIZE; y++) {
-        for (let x = 0; x < GRID_SIZE; x++) {
-          const noiseDepth = noiseLayer[y]?.[x] ?? MAX_NOISE_DEPTH;
-          const artIndex = selectedSite.pixelArt[y]?.[x] ?? 0;
-
-          if (noiseDepth === 0 && artIndex !== 0) {
-            ctx.fillStyle = selectedSite.palette[artIndex] ?? "transparent";
-            ctx.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
-          } else {
-            const darkness = noiseDepth / MAX_NOISE_DEPTH;
-            const baseColor = Math.floor(60 - darkness * 40);
-            ctx.fillStyle = `rgb(${baseColor + 20}, ${baseColor + 10}, ${baseColor})`;
-            ctx.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
-
-            for (let i = 0; i < noiseDepth * 3; i++) {
-              const px = x * CELL_SIZE + Math.random() * CELL_SIZE;
-              const py = y * CELL_SIZE + Math.random() * CELL_SIZE;
-              const shade = Math.floor(Math.random() * 30) + 30;
-              ctx.fillStyle = `rgb(${shade}, ${shade - 10}, ${shade - 15})`;
-              ctx.fillRect(px, py, 2, 2);
+    for (let y = 0; y < GRID_SIZE; y++) {
+      for (let x = 0; x < GRID_SIZE; x++) {
+        const tile = grid[y][x];
+        
+        // Draw base tile
+        ctx.fillStyle = tile.color;
+        ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+        
+        // Draw sand overlay based on sand level
+        if (tile.sandLevel > 0) {
+          const sandAlpha = tile.sandLevel / 100;
+          ctx.fillStyle = `rgba(194, 178, 128, ${sandAlpha})`;
+          ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+          
+          // Add sand texture dots
+          if (tile.sandLevel > 20) {
+            ctx.fillStyle = `rgba(160, 140, 100, ${sandAlpha * 0.5})`;
+            for (let i = 0; i < 3; i++) {
+              const dotX = x * cellSize + Math.random() * cellSize;
+              const dotY = y * cellSize + Math.random() * cellSize;
+              ctx.fillRect(dotX, dotY, 2, 2);
             }
           }
+        }
+        
+        // Draw grid lines
+        ctx.strokeStyle = "rgba(0,0,0,0.1)";
+        ctx.strokeRect(x * cellSize, y * cellSize, cellSize, cellSize);
+      }
+    }
+  }, [grid]);
 
-          ctx.strokeStyle = "rgba(0,0,0,0.2)";
-          ctx.strokeRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+  useEffect(() => {
+    drawGrid();
+  }, [drawGrid]);
+
+  const dig = useCallback((clientX: number, clientY: number) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    
+    const mouseX = (clientX - rect.left) * scaleX;
+    const mouseY = (clientY - rect.top) * scaleY;
+    
+    const cellSize = canvas.width / GRID_SIZE;
+    const gridX = Math.floor(mouseX / cellSize);
+    const gridY = Math.floor(mouseY / cellSize);
+
+    setGrid(prevGrid => {
+      const newGrid = prevGrid.map(row => row.map(tile => ({ ...tile })));
+      const newDiscoveries: string[] = [];
+
+      for (let dy = -BRUSH_RADIUS; dy <= BRUSH_RADIUS; dy++) {
+        for (let dx = -BRUSH_RADIUS; dx <= BRUSH_RADIUS; dx++) {
+          const nx = gridX + dx;
+          const ny = gridY + dy;
+          
+          if (nx >= 0 && nx < GRID_SIZE && ny >= 0 && ny < GRID_SIZE) {
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            if (distance <= BRUSH_RADIUS) {
+              const tile = newGrid[ny][nx];
+              const digAmount = Math.max(0, 15 - distance * 5);
+              const oldLevel = tile.sandLevel;
+              tile.sandLevel = Math.max(0, tile.sandLevel - digAmount);
+              
+              // Check if we just revealed something
+              if (oldLevel > 20 && tile.sandLevel <= 20 && tile.type !== "empty") {
+                newDiscoveries.push(tile.type);
+              }
+            }
+          }
         }
       }
 
-      animationRef.current = requestAnimationFrame(render);
-    };
+      // Update discoveries
+      if (newDiscoveries.length > 0) {
+        setDiscoveries(prev => {
+          const updated = [...prev];
+          newDiscoveries.forEach(type => {
+            const existing = updated.find(d => d.name === TILE_NAMES[type]);
+            if (existing) {
+              existing.count++;
+            } else {
+              updated.push({
+                name: TILE_NAMES[type],
+                emoji: TILE_EMOJIS[type],
+                count: 1
+              });
+            }
+          });
+          return updated;
+        });
+      }
 
-    render();
+      // Calculate excavation progress
+      let totalSand = 0;
+      let maxSand = 0;
+      for (let y = 0; y < GRID_SIZE; y++) {
+        for (let x = 0; x < GRID_SIZE; x++) {
+          maxSand += 100;
+          totalSand += newGrid[y][x].sandLevel;
+        }
+      }
+      setExcavationProgress(Math.round((1 - totalSand / maxSand) * 100));
 
+      return newGrid;
+    });
+
+    drawGrid();
+  }, [drawGrid]);
+
+  const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    setIsDigging(true);
+    dig(e.clientX, e.clientY);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    if (isDigging) {
+      dig(e.clientX, e.clientY);
+    }
+  };
+
+  const handleMouseUp = () => {
+    setIsDigging(false);
+  };
+
+  const handleTouchStart = (e: React.TouchEvent<HTMLCanvasElement>) => {
+    e.preventDefault();
+    setIsDigging(true);
+    const touch = e.touches[0];
+    dig(touch.clientX, touch.clientY);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLCanvasElement>) => {
+    e.preventDefault();
+    if (isDigging && e.touches.length > 0) {
+      const touch = e.touches[0];
+      dig(touch.clientX, touch.clientY);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    setIsDigging(false);
+  };
+
+  const newExpedition = () => {
+    setGrid(generateCivilization());
+    setDiscoveries([]);
+    setExcavationProgress(0);
+    setSiteName(siteNames[Math.floor(Math.random() * siteNames.length)]);
+  };
+
+  useEffect(() => {
     return () => {
-      cancelAnimationFrame(animationRef.current);
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
     };
-  }, [selectedSite, noiseLayer]);
+  }, []);
 
   return (
-    <FeatureWrapper day={368} title="Pixel Archaeology" emoji="🏺">
+    <FeatureWrapper day={369} title="Pixel Archaeology" emoji="🏺">
       <div className="flex flex-col items-center gap-6 p-4">
-        <div className="text-center max-w-lg">
-          <h2
-            className="text-2xl font-bold mb-2"
+        <div className="text-center">
+          <h2 
+            className="text-2xl mb-2"
             style={{ fontFamily: "var(--font-serif)", color: "var(--color-text)" }}
           >
-            Unearth Digital Treasures
+            Excavation Site: {siteName}
           </h2>
           <p style={{ color: "var(--color-text-dim)" }}>
-            Carefully brush away layers of digital sediment to reveal ancient
-            pixel artifacts. Go slowly — these relics are fragile!
+            Click and drag to brush away the sands of time...
           </p>
         </div>
 
-        {!selectedSite ? (
-          <div className="w-full max-w-2xl">
-            <h3
-              className="text-lg font-semibold mb-4 text-center"
+        <div className="flex flex-col md:flex-row gap-6 items-start">
+          <div 
+            className="relative rounded-lg overflow-hidden shadow-lg"
+            style={{ border: "4px solid var(--color-border)" }}
+          >
+            <canvas
+              ref={canvasRef}
+              width={512}
+              height={512}
+              className="cursor-crosshair"
+              style={{ maxWidth: "100%", height: "auto", touchAction: "none" }}
+              onMouseDown={handleMouseDown}
+              onMouseMove={handleMouseMove}
+              onMouseUp={handleMouseUp}
+              onMouseLeave={handleMouseUp}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+            />
+            {isDigging && (
+              <div 
+                className="absolute top-2 left-2 px-3 py-1 rounded-full text-sm animate-pulse"
+                style={{ backgroundColor: "var(--color-accent)", color: "white" }}
+              >
+                🪥 Excavating...
+              </div>
+            )}
+          </div>
+
+          <div 
+            className="w-full md:w-64 p-4 rounded-lg"
+            style={{ backgroundColor: "var(--color-bg-secondary)", border: "1px solid var(--color-border)" }}
+          >
+            <h3 
+              className="text-lg mb-3 font-bold"
               style={{ color: "var(--color-text)" }}
             >
-              Choose Your Dig Site
+              📋 Field Notes
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {DIG_SITES.map((site) => (
-                <button
-                  key={site.id}
-                  onClick={() => startDig(site)}
-                  className="p-4 rounded-lg border transition-all hover:scale-105"
-                  style={{
-                    backgroundColor: "var(--color-bg-secondary)",
-                    borderColor: artifacts.includes(site.id)
-                      ? "var(--color-accent)"
-                      : "var(--color-border)",
+
+            <div className="mb-4">
+              <div className="flex justify-between text-sm mb-1">
+                <span style={{ color: "var(--color-text-dim)" }}>Excavation Progress</span>
+                <span style={{ color: "var(--color-accent)" }}>{excavationProgress}%</span>
+              </div>
+              <div 
+                className="h-3 rounded-full overflow-hidden"
+                style={{ backgroundColor: "var(--color-border)" }}
+              >
+                <div 
+                  className="h-full transition-all duration-300 rounded-full"
+                  style={{ 
+                    width: `${excavationProgress}%`,
+                    backgroundColor: "var(--color-accent)"
                   }}
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <span
-                      className="font-bold"
-                      style={{ color: "var(--color-text)" }}
-                    >
-                      {site.name}
-                    </span>
-                    {artifacts.includes(site.id) && (
-                      <span className="text-lg">✨</span>
+                />
+              </div>
+            </div>
+
+            <h4 
+              className="text-sm font-semibold mb-2"
+              style={{ color: "var(--color-text)" }}
+            >
+              Discoveries:
+            </h4>
+            
+            {discoveries.length === 0 ? (
+              <p className="text-sm italic" style={{ color: "var(--color-text-dim)" }}>
+                No artifacts found yet. Keep digging!
+              </p>
+            ) : (
+              <ul className="space-y-1">
+                {discoveries.map((d, i) => (
+                  <li 
+                    key={i}
+                    className="text-sm flex items-center gap-2"
+                    style={{ color: "var(--color-text)" }}
+                  >
+                    <span>{d.emoji}</span>
+                    <span>{d.name}</span>
+                    {d.count > 1 && (
+                      <span 
+                        className="text-xs px-1.5 py-0.5 rounded-full"
+                        style={{ backgroundColor: "var(--color-accent)", color: "white" }}
+                      >
+                        ×{d.count}
+                      </span>
                     )}
-                  </div>
-                  <p
-                    className="text-sm mb-2"
-                    style={{ color: "var(--color-text-dim)" }}
-                  >
-                    {site.description}
-                  </p>
-                  <span
-                    className={`text-xs px-2 py-1 rounded ${
-                      site.difficulty === "Easy"
-                        ? "bg-green-900/50 text-green-400"
-                        : site.difficulty === "Medium"
-                          ? "bg-yellow-900/50 text-yellow-400"
-                          : "bg-red-900/50 text-red-400"
-                    }`}
-                  >
-                    {site.difficulty}
-                  </span>
-                </button>
-              ))}
-            </div>
-
-            <div
-              className="mt-6 p-4 rounded-lg text-center"
-              style={{ backgroundColor: "var(--color-bg-secondary)" }}
-            >
-              <p style={{ color: "var(--color-text-dim)" }}>
-                Artifacts Discovered: {artifacts.length} / {DIG_SITES.length}
-              </p>
-              <div className="flex justify-center gap-2 mt-2">
-                {DIG_SITES.map((site) => (
-                  <span
-                    key={site.id}
-                    className={`text-2xl ${artifacts.includes(site.id) ? "opacity-100" : "opacity-30"}`}
-                  >
-                    🏺
-                  </span>
+                  </li>
                 ))}
-              </div>
-            </div>
-          </div>
-        ) : (
-          <div className="flex flex-col items-center gap-4">
-            <div className="flex items-center gap-4 flex-wrap justify-center">
-              <button
-                onClick={() => setSelectedSite(null)}
-                className="btn-secondary px-4 py-2 rounded"
-              >
-                ← Back to Sites
-              </button>
-              <div
-                className="px-4 py-2 rounded"
-                style={{ backgroundColor: "var(--color-bg-secondary)" }}
-              >
-                <span style={{ color: "var(--color-text-dim)" }}>Site: </span>
-                <span style={{ color: "var(--color-text)" }}>
-                  {selectedSite.name}
-                </span>
-              </div>
-            </div>
-
-            <div
-              className="p-4 rounded-lg"
-              style={{ backgroundColor: "var(--color-bg-secondary)" }}
-            >
-              <div className="flex items-center gap-4 mb-4 flex-wrap justify-center">
-                <div className="flex items-center gap-2">
-                  <span style={{ color: "var(--color-text-dim)" }}>Brush:</span>
-                  {[1, 2, 3].map((size) => (
-                    <button
-                      key={size}
-                      onClick={() => setBrushSize(size)}
-                      className={`w-8 h-8 rounded flex items-center justify-center transition-all ${
-                        brushSize === size ? "ring-2 ring-offset-2" : ""
-                      }`}
-                      style={{
-                        backgroundColor:
-                          brushSize === size
-                            ? "var(--color-accent)"
-                            : "var(--color-bg)",
-                      }}
-                    >
-                      <span
-                        style={{
-                          width: `${size * 6}px`,
-                          height: `${size * 6}px`,
-                          borderRadius: "50%",
-                          backgroundColor: "var(--color-text)",
-                          display: "block",
-                        }}
-                      />
-                    </button>
-                  ))}
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <span style={{ color: "var(--color-text-dim)" }}>
-                    Revealed:
-                  </span>
-                  <div
-                    className="w-32 h-4 rounded-full overflow-hidden"
-                    style={{ backgroundColor: "var(--color-bg)" }}
-                  >
-                    <div
-                      className="h-full transition-all duration-300"
-                      style={{
-                        width: `${revealedPercent}%`,
-                        backgroundColor:
-                          revealedPercent >= 95
-                            ? "#22c55e"
-                            : "var(--color-accent)",
-                      }}
-                    />
-                  </div>
-                  <span style={{ color: "var(--color-text)" }}>
-                    {revealedPercent}%
-                  </span>
-                </div>
-              </div>
-
-              <canvas
-                ref={canvasRef}
-                width={GRID_SIZE * CELL_SIZE}
-                height={GRID_SIZE * CELL_SIZE}
-                className="rounded cursor-crosshair border-2"
-                style={{
-                  borderColor: "var(--color-border)",
-                  touchAction: "none",
-                }}
-                onMouseDown={handleCanvasMouseDown}
-                onMouseMove={handleCanvasMouseMove}
-                onMouseUp={handleCanvasMouseUp}
-                onMouseLeave={handleCanvasMouseLeave}
-              />
-
-              <p
-                className="text-center mt-2 text-sm"
-                style={{ color: "var(--color-text-dim)" }}
-              >
-                Click and drag to excavate
-              </p>
-            </div>
-
-            {gameComplete && (
-              <div
-                className="p-4 rounded-lg text-center animate-pulse"
-                style={{
-                  backgroundColor: "rgba(34, 197, 94, 0.2)",
-                  border: "2px solid #22c55e",
-                }}
-              >
-                <p className="text-xl font-bold text-green-400 mb-2">
-                  🎉 Artifact Discovered!
-                </p>
-                <p style={{ color: "var(--color-text-dim)" }}>
-                  You&apos;ve successfully excavated the {selectedSite.name}!
-                </p>
-                <button
-                  onClick={() => setSelectedSite(null)}
-                  className="btn-primary mt-3 px-4 py-2 rounded"
-                >
-                  Find More Artifacts
-                </button>
-              </div>
+              </ul>
             )}
 
             <button
-              onClick={() => {
-                setNoiseLayer(generateNoise());
-                setGameComplete(false);
-              }}
-              className="btn-secondary px-4 py-2 rounded"
+              onClick={newExpedition}
+              className="btn-primary w-full mt-4 py-2 px-4 rounded-lg font-semibold transition-transform hover:scale-105"
             >
-              🔄 Reset Dig Site
+              🗺️ New Expedition
             </button>
           </div>
-        )}
-
-        <div
-          className="mt-4 p-4 rounded-lg max-w-md text-center"
-          style={{ backgroundColor: "var(--color-bg-secondary)" }}
-        >
-          <p
-            className="text-sm italic"
-            style={{ color: "var(--color-text-dim)" }}
-          >
-            &quot;In the digital strata lie forgotten treasures — each pixel a story,
-            each artifact a window to the 8-bit past.&quot;
-          </p>
-          <p className="text-xs mt-2" style={{ color: "var(--color-text-dim)" }}>
-            — Dr. Pixelsworth, Digital Archaeologist
-          </p>
         </div>
+
+        <div 
+          className="flex flex-wrap justify-center gap-4 text-xs p-3 rounded-lg"
+          style={{ backgroundColor: "var(--color-bg-secondary)", border: "1px solid var(--color-border)" }}
+        >
+          <span className="flex items-center gap-1">
+            <span className="w-4 h-4 rounded" style={{ backgroundColor: TILE_COLORS.temple }} />
+            Temple
+          </span>
+          <span className="flex items-center gap-1">
+            <span className="w-4 h-4 rounded" style={{ backgroundColor: TILE_COLORS.house }} />
+            Dwelling
+          </span>
+          <span className="flex items-center gap-1">
+            <span className="w-4 h-4 rounded" style={{ backgroundColor: TILE_COLORS.road }} />
+            Road
+          </span>
+          <span className="flex items-center gap-1">
+            <span className="w-4 h-4 rounded" style={{ backgroundColor: TILE_COLORS.artifact }} />
+            Artifact
+          </span>
+          <span className="flex items-center gap-1">
+            <span className="w-4 h-4 rounded" style={{ backgroundColor: TILE_COLORS.wall }} />
+            Wall
+          </span>
+          <span className="flex items-center gap-1">
+            <span className="w-4 h-4 rounded" style={{ backgroundColor: TILE_COLORS.garden }} />
+            Garden
+          </span>
+        </div>
+
+        {excavationProgress >= 90 && (
+          <div 
+            className="text-center p-4 rounded-lg animate-pulse"
+            style={{ backgroundColor: "var(--color-accent)", color: "white" }}
+          >
+            🎉 Congratulations, Dr. Explorer! You&apos;ve uncovered most of {siteName}!
+          </div>
+        )}
       </div>
     </FeatureWrapper>
   );
