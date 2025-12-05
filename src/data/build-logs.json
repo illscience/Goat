@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1764893577850",
+    "timestamp": "2025-12-05T00:12:57.850Z",
+    "day": 370,
+    "idea": {
+      "title": "Pixel Archaeology",
+      "emoji": "🔍",
+      "description": "Dig through layers of digital sediment to uncover hidden pixel artifacts from internet history",
+      "concept": "Click and drag to excavate through procedurally generated layers of 'digital dirt' - each layer represents a different era of the internet (90s websites, early social media, etc.) and contains buried pixel art treasures. The deeper you dig, the older and more primitive the artifacts become, like finding ASCII art in the deepest layers.",
+      "category": "game",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-archaeology",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1764807167717",
     "timestamp": "2025-12-04T00:12:47.717Z",
     "day": 369,

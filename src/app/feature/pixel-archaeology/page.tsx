@@ -3,503 +3,520 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { FeatureWrapper } from "@/components/FeatureWrapper";
 
-interface Tile {
-  type: "empty" | "temple" | "house" | "road" | "artifact" | "wall" | "garden" | "statue" | "well";
-  color: string;
-  sandLevel: number; // 0-100, 100 = fully covered
-}
-
-interface Discovery {
+interface PixelArtifact {
+  id: string;
   name: string;
-  emoji: string;
-  count: number;
+  era: string;
+  art: string[];
+  depth: number;
+  x: number;
+  y: number;
+  discovered: boolean;
+  color: string;
 }
 
-const GRID_SIZE = 32;
-const BRUSH_RADIUS = 2;
-
-const TILE_COLORS: Record<string, string> = {
-  empty: "#d4a574",
-  temple: "#8b4513",
-  house: "#a0522d",
-  road: "#696969",
-  artifact: "#ffd700",
-  wall: "#808080",
-  garden: "#228b22",
-  statue: "#c0c0c0",
-  well: "#4682b4",
-};
-
-const TILE_NAMES: Record<string, string> = {
-  temple: "Ancient Temple",
-  house: "Dwelling",
-  road: "Stone Road",
-  artifact: "Golden Artifact",
-  wall: "City Wall",
-  garden: "Sacred Garden",
-  statue: "Stone Statue",
-  well: "Water Well",
-};
-
-const TILE_EMOJIS: Record<string, string> = {
-  temple: "🏛️",
-  house: "🏠",
-  road: "🛤️",
-  artifact: "✨",
-  wall: "🧱",
-  garden: "🌿",
-  statue: "🗿",
-  well: "💧",
-};
-
-function generateCivilization(): Tile[][] {
-  const grid: Tile[][] = [];
-  
-  // Initialize with empty tiles covered in sand
-  for (let y = 0; y < GRID_SIZE; y++) {
-    grid[y] = [];
-    for (let x = 0; x < GRID_SIZE; x++) {
-      grid[y][x] = {
-        type: "empty",
-        color: TILE_COLORS.empty,
-        sandLevel: 100,
-      };
-    }
-  }
-
-  // Determine civilization size (village, town, or metropolis)
-  const civType = Math.random();
-  let buildingCount: number;
-  let hasTemple: boolean;
-  let hasWalls: boolean;
-  
-  if (civType < 0.4) {
-    // Village
-    buildingCount = 5 + Math.floor(Math.random() * 8);
-    hasTemple = Math.random() > 0.7;
-    hasWalls = false;
-  } else if (civType < 0.8) {
-    // Town
-    buildingCount = 15 + Math.floor(Math.random() * 15);
-    hasTemple = Math.random() > 0.3;
-    hasWalls = Math.random() > 0.5;
-  } else {
-    // Metropolis
-    buildingCount = 35 + Math.floor(Math.random() * 25);
-    hasTemple = true;
-    hasWalls = true;
-  }
-
-  // Place city walls if applicable
-  if (hasWalls) {
-    const margin = 4;
-    for (let x = margin; x < GRID_SIZE - margin; x++) {
-      grid[margin][x] = { type: "wall", color: TILE_COLORS.wall, sandLevel: 100 };
-      grid[GRID_SIZE - margin - 1][x] = { type: "wall", color: TILE_COLORS.wall, sandLevel: 100 };
-    }
-    for (let y = margin; y < GRID_SIZE - margin; y++) {
-      grid[y][margin] = { type: "wall", color: TILE_COLORS.wall, sandLevel: 100 };
-      grid[y][GRID_SIZE - margin - 1] = { type: "wall", color: TILE_COLORS.wall, sandLevel: 100 };
-    }
-  }
-
-  // Place temple in center if applicable
-  if (hasTemple) {
-    const centerX = Math.floor(GRID_SIZE / 2);
-    const centerY = Math.floor(GRID_SIZE / 2);
-    for (let dy = -1; dy <= 1; dy++) {
-      for (let dx = -1; dx <= 1; dx++) {
-        grid[centerY + dy][centerX + dx] = { type: "temple", color: TILE_COLORS.temple, sandLevel: 100 };
-      }
-    }
-  }
-
-  // Create main roads
-  const roadY = Math.floor(GRID_SIZE / 2) + (hasTemple ? 3 : 0);
-  const roadX = Math.floor(GRID_SIZE / 2) + (hasTemple ? 3 : 0);
-  
-  for (let x = 5; x < GRID_SIZE - 5; x++) {
-    if (grid[roadY][x].type === "empty") {
-      grid[roadY][x] = { type: "road", color: TILE_COLORS.road, sandLevel: 100 };
-    }
-  }
-  for (let y = 5; y < GRID_SIZE - 5; y++) {
-    if (grid[y][roadX].type === "empty") {
-      grid[y][roadX] = { type: "road", color: TILE_COLORS.road, sandLevel: 100 };
-    }
-  }
-
-  // Place buildings
-  for (let i = 0; i < buildingCount; i++) {
-    const x = 6 + Math.floor(Math.random() * (GRID_SIZE - 12));
-    const y = 6 + Math.floor(Math.random() * (GRID_SIZE - 12));
-    
-    if (grid[y][x].type === "empty") {
-      const buildingTypes: ("house" | "garden" | "well" | "statue")[] = ["house", "house", "house", "garden", "well", "statue"];
-      const type = buildingTypes[Math.floor(Math.random() * buildingTypes.length)];
-      grid[y][x] = { type, color: TILE_COLORS[type], sandLevel: 100 };
-    }
-  }
-
-  // Scatter artifacts
-  const artifactCount = 3 + Math.floor(Math.random() * 8);
-  for (let i = 0; i < artifactCount; i++) {
-    const x = Math.floor(Math.random() * GRID_SIZE);
-    const y = Math.floor(Math.random() * GRID_SIZE);
-    if (grid[y][x].type === "empty") {
-      grid[y][x] = { type: "artifact", color: TILE_COLORS.artifact, sandLevel: 100 };
-    }
-  }
-
-  return grid;
+interface Layer {
+  name: string;
+  era: string;
+  depth: number;
+  color: string;
+  bgPattern: string;
 }
+
+const LAYERS: Layer[] = [
+  { name: "Surface Web (2020s)", era: "modern", depth: 0, color: "#1a1a2e", bgPattern: "░" },
+  { name: "Social Media Era (2010s)", era: "social", depth: 60, color: "#16213e", bgPattern: "▒" },
+  { name: "Web 2.0 (2000s)", era: "web2", depth: 120, color: "#0f3460", bgPattern: "▓" },
+  { name: "Dot-com Boom (Late 90s)", era: "dotcom", depth: 180, color: "#533483", bgPattern: "█" },
+  { name: "Early Web (Mid 90s)", era: "early", depth: 240, color: "#7b2cbf", bgPattern: "▄" },
+  { name: "BBS Era (80s-90s)", era: "bbs", depth: 300, color: "#9d4edd", bgPattern: "▀" },
+  { name: "ASCII Depths", era: "ascii", depth: 360, color: "#c77dff", bgPattern: "░" },
+];
+
+const ARTIFACTS: Omit<PixelArtifact, "id" | "x" | "y" | "discovered">[] = [
+  // Modern Era
+  { name: "NFT Receipt", era: "modern", depth: 30, color: "#00ff88", art: ["┌─NFT─┐", "│ 🖼️  │", "│$999k│", "└─────┘"] },
+  { name: "Dark Mode Toggle", era: "modern", depth: 45, color: "#6366f1", art: ["  ◐  ", " ╭─╮ ", " │●│ ", " ╰─╯ "] },
+  
+  // Social Media Era
+  { name: "Like Button", era: "social", depth: 80, color: "#3b82f6", art: [" ♡♡ ", "♡♡♡♡", " ♡♡ ", "  ♡ "] },
+  { name: "Hashtag", era: "social", depth: 100, color: "#1da1f2", art: [" ║║ ", "═╬╬═", "═╬╬═", " ║║ "] },
+  { name: "Selfie Stick", era: "social", depth: 110, color: "#ec4899", art: ["  ◯  ", "  │  ", "  │  ", " ╱│╲ "] },
+  
+  // Web 2.0 Era
+  { name: "RSS Feed Icon", era: "web2", depth: 130, color: "#f97316", art: ["╭───╮", "│((●│", "│(● │", "╰●──╯"] },
+  { name: "Flash Player", era: "web2", depth: 150, color: "#ef4444", art: ["┌───┐", "│ ▶ │", "│ f │", "└───┘"] },
+  { name: "Web 2.0 Badge", era: "web2", depth: 165, color: "#84cc16", art: ["╭BETA╮", "│★★★★│", "│2.0!│", "╰────╯"] },
+  
+  // Dot-com Boom
+  { name: "Hit Counter", era: "dotcom", depth: 190, color: "#22c55e", art: ["┌─────┐", "│00042│", "│HITS!│", "└─────┘"] },
+  { name: "Under Construction", era: "dotcom", depth: 210, color: "#fbbf24", art: ["⚠ ◼◼◼", "UNDER ", "CONSTR", "◼◼◼ ⚠"] },
+  { name: "Guestbook", era: "dotcom", depth: 225, color: "#a855f7", art: ["╔═══╗", "║SIGN║", "║HERE║", "╚═══╝"] },
+  
+  // Early Web
+  { name: "Geocities Logo", era: "early", depth: 250, color: "#06b6d4", art: ["~*~*~", "*GEO*", "*CTY*", "~*~*~"] },
+  { name: "Dancing Baby", era: "early", depth: 270, color: "#f472b6", art: [" ◯ ", "╱│╲", " │ ", "╱ ╲"] },
+  { name: "Netscape N", era: "early", depth: 285, color: "#10b981", art: ["╔N══╗", "║  N║", "║N  ║", "╚══N╝"] },
+  
+  // BBS Era
+  { name: "ANSI Dragon", era: "bbs", depth: 310, color: "#f43f5e", art: ["  /\\  ", " /◯◯\\ ", "/^^^^\\", "\"\"\"\"\"\""] },
+  { name: "Door Game", era: "bbs", depth: 330, color: "#8b5cf6", art: ["╔DOOR╗", "║████║", "║ ◯  ║", "╚════╝"] },
+  { name: "Sysop Badge", era: "bbs", depth: 345, color: "#14b8a6", art: ["[====]", "|SYS |", "|OP  |", "[====]"] },
+  
+  // ASCII Depths
+  { name: "Ancient Smiley", era: "ascii", depth: 370, color: "#facc15", art: ["    ", " :) ", "    ", "    "] },
+  { name: "Primordial @", era: "ascii", depth: 390, color: "#22d3ee", art: ["    ", " @  ", "    ", "    "] },
+  { name: "The First Cursor", era: "ascii", depth: 410, color: "#4ade80", art: ["    ", " _  ", "    ", "    "] },
+];
+
+const GRID_SIZE = 8;
+const CANVAS_WIDTH = 400;
+const CANVAS_HEIGHT = 500;
 
 export default function PixelArchaeology() {
-  const [grid, setGrid] = useState<Tile[][]>(() => generateCivilization());
-  const [discoveries, setDiscoveries] = useState<Discovery[]>([]);
-  const [excavationProgress, setExcavationProgress] = useState(0);
-  const [isDigging, setIsDigging] = useState(false);
-  const [siteName, setSiteName] = useState("");
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const animationRef = useRef<number>(0);
+  const [excavationMap, setExcavationMap] = useState<number[][]>([]);
+  const [artifacts, setArtifacts] = useState<PixelArtifact[]>([]);
+  const [discoveredArtifacts, setDiscoveredArtifacts] = useState<PixelArtifact[]>([]);
+  const [currentDepth, setCurrentDepth] = useState(0);
+  const [isDigging, setIsDigging] = useState(false);
+  const [selectedArtifact, setSelectedArtifact] = useState<PixelArtifact | null>(null);
+  const [digCount, setDigCount] = useState(0);
+  const frameRef = useRef<number>(0);
+  const lastPosRef = useRef<{ x: number; y: number } | null>(null);
 
-  const siteNames = [
-    "Tell al-Pixelum", "Ruinas de Bitoria", "The Lost City of Bytezantium",
-    "Hexadecimal Heights", "The Forgotten Sprites", "Rasteropolis",
-    "The Vector Valley Tombs", "Palette Point", "The Dithered Dynasty"
-  ];
+  const cols = Math.floor(CANVAS_WIDTH / GRID_SIZE);
+  const rows = Math.floor(CANVAS_HEIGHT / GRID_SIZE);
 
-  useEffect(() => {
-    setSiteName(siteNames[Math.floor(Math.random() * siteNames.length)]);
-  }, []);
-
-  const drawGrid = useCallback(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const cellSize = canvas.width / GRID_SIZE;
-
-    for (let y = 0; y < GRID_SIZE; y++) {
-      for (let x = 0; x < GRID_SIZE; x++) {
-        const tile = grid[y][x];
-        
-        // Draw base tile
-        ctx.fillStyle = tile.color;
-        ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
-        
-        // Draw sand overlay based on sand level
-        if (tile.sandLevel > 0) {
-          const sandAlpha = tile.sandLevel / 100;
-          ctx.fillStyle = `rgba(194, 178, 128, ${sandAlpha})`;
-          ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
-          
-          // Add sand texture dots
-          if (tile.sandLevel > 20) {
-            ctx.fillStyle = `rgba(160, 140, 100, ${sandAlpha * 0.5})`;
-            for (let i = 0; i < 3; i++) {
-              const dotX = x * cellSize + Math.random() * cellSize;
-              const dotY = y * cellSize + Math.random() * cellSize;
-              ctx.fillRect(dotX, dotY, 2, 2);
-            }
-          }
-        }
-        
-        // Draw grid lines
-        ctx.strokeStyle = "rgba(0,0,0,0.1)";
-        ctx.strokeRect(x * cellSize, y * cellSize, cellSize, cellSize);
+  const initializeGame = useCallback(() => {
+    // Initialize excavation map with zeros
+    const newMap: number[][] = [];
+    for (let y = 0; y < rows; y++) {
+      newMap[y] = [];
+      for (let x = 0; x < cols; x++) {
+        newMap[y][x] = 0;
       }
     }
-  }, [grid]);
+    setExcavationMap(newMap);
+
+    // Place artifacts randomly
+    const placedArtifacts: PixelArtifact[] = ARTIFACTS.map((artifact, index) => {
+      const depthRow = Math.floor((artifact.depth / 420) * rows);
+      const minY = Math.max(5, depthRow - 3);
+      const maxY = Math.min(rows - 8, depthRow + 3);
+      
+      return {
+        ...artifact,
+        id: `artifact-${index}`,
+        x: Math.floor(Math.random() * (cols - 8)) + 2,
+        y: Math.floor(Math.random() * (maxY - minY)) + minY,
+        discovered: false,
+      };
+    });
+    setArtifacts(placedArtifacts);
+    setDiscoveredArtifacts([]);
+    setCurrentDepth(0);
+    setDigCount(0);
+    setSelectedArtifact(null);
+  }, [cols, rows]);
 
   useEffect(() => {
-    drawGrid();
-  }, [drawGrid]);
+    initializeGame();
+  }, [initializeGame]);
 
-  const dig = useCallback((clientX: number, clientY: number) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+  const getCurrentLayer = (depth: number): Layer => {
+    for (let i = LAYERS.length - 1; i >= 0; i--) {
+      if (depth >= LAYERS[i].depth) {
+        return LAYERS[i];
+      }
+    }
+    return LAYERS[0];
+  };
 
-    const rect = canvas.getBoundingClientRect();
-    const scaleX = canvas.width / rect.width;
-    const scaleY = canvas.height / rect.height;
+  const dig = useCallback((canvasX: number, canvasY: number) => {
+    const gridX = Math.floor(canvasX / GRID_SIZE);
+    const gridY = Math.floor(canvasY / GRID_SIZE);
     
-    const mouseX = (clientX - rect.left) * scaleX;
-    const mouseY = (clientY - rect.top) * scaleY;
+    if (gridX < 0 || gridX >= cols || gridY < 0 || gridY >= rows) return;
     
-    const cellSize = canvas.width / GRID_SIZE;
-    const gridX = Math.floor(mouseX / cellSize);
-    const gridY = Math.floor(mouseY / cellSize);
+    const brushSize = 3;
+    let maxDepth = currentDepth;
+    let dug = false;
 
-    setGrid(prevGrid => {
-      const newGrid = prevGrid.map(row => row.map(tile => ({ ...tile })));
-      const newDiscoveries: string[] = [];
-
-      for (let dy = -BRUSH_RADIUS; dy <= BRUSH_RADIUS; dy++) {
-        for (let dx = -BRUSH_RADIUS; dx <= BRUSH_RADIUS; dx++) {
+    setExcavationMap(prev => {
+      const newMap = prev.map(row => [...row]);
+      
+      for (let dy = -brushSize; dy <= brushSize; dy++) {
+        for (let dx = -brushSize; dx <= brushSize; dx++) {
           const nx = gridX + dx;
           const ny = gridY + dy;
           
-          if (nx >= 0 && nx < GRID_SIZE && ny >= 0 && ny < GRID_SIZE) {
+          if (nx >= 0 && nx < cols && ny >= 0 && ny < rows) {
             const distance = Math.sqrt(dx * dx + dy * dy);
-            if (distance <= BRUSH_RADIUS) {
-              const tile = newGrid[ny][nx];
-              const digAmount = Math.max(0, 15 - distance * 5);
-              const oldLevel = tile.sandLevel;
-              tile.sandLevel = Math.max(0, tile.sandLevel - digAmount);
-              
-              // Check if we just revealed something
-              if (oldLevel > 20 && tile.sandLevel <= 20 && tile.type !== "empty") {
-                newDiscoveries.push(tile.type);
-              }
+            if (distance <= brushSize) {
+              const digAmount = Math.max(1, Math.floor((brushSize - distance) * 2));
+              newMap[ny][nx] = Math.min(420, newMap[ny][nx] + digAmount);
+              maxDepth = Math.max(maxDepth, newMap[ny][nx]);
+              dug = true;
             }
           }
         }
       }
-
-      // Update discoveries
-      if (newDiscoveries.length > 0) {
-        setDiscoveries(prev => {
-          const updated = [...prev];
-          newDiscoveries.forEach(type => {
-            const existing = updated.find(d => d.name === TILE_NAMES[type]);
-            if (existing) {
-              existing.count++;
-            } else {
-              updated.push({
-                name: TILE_NAMES[type],
-                emoji: TILE_EMOJIS[type],
-                count: 1
-              });
-            }
-          });
-          return updated;
-        });
-      }
-
-      // Calculate excavation progress
-      let totalSand = 0;
-      let maxSand = 0;
-      for (let y = 0; y < GRID_SIZE; y++) {
-        for (let x = 0; x < GRID_SIZE; x++) {
-          maxSand += 100;
-          totalSand += newGrid[y][x].sandLevel;
-        }
-      }
-      setExcavationProgress(Math.round((1 - totalSand / maxSand) * 100));
-
-      return newGrid;
+      
+      return newMap;
     });
 
-    drawGrid();
-  }, [drawGrid]);
+    if (dug) {
+      setDigCount(prev => prev + 1);
+      setCurrentDepth(maxDepth);
+
+      // Check for artifact discovery
+      setArtifacts(prev => {
+        const newArtifacts = [...prev];
+        newArtifacts.forEach(artifact => {
+          if (!artifact.discovered) {
+            const artifactCenterX = artifact.x + 2;
+            const artifactCenterY = artifact.y + 2;
+            const distance = Math.sqrt(
+              Math.pow(gridX - artifactCenterX, 2) + 
+              Math.pow(gridY - artifactCenterY, 2)
+            );
+            
+            if (distance < 4 && maxDepth >= artifact.depth - 20) {
+              artifact.discovered = true;
+              setDiscoveredArtifacts(d => [...d, artifact]);
+              setSelectedArtifact(artifact);
+            }
+          }
+        });
+        return newArtifacts;
+      });
+    }
+  }, [cols, rows, currentDepth]);
 
   const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
     setIsDigging(true);
-    dig(e.clientX, e.clientY);
+    const rect = canvasRef.current?.getBoundingClientRect();
+    if (rect) {
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      lastPosRef.current = { x, y };
+      dig(x, y);
+    }
   };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    if (isDigging) {
-      dig(e.clientX, e.clientY);
+    if (!isDigging) return;
+    const rect = canvasRef.current?.getBoundingClientRect();
+    if (rect) {
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      if (lastPosRef.current) {
+        const dx = x - lastPosRef.current.x;
+        const dy = y - lastPosRef.current.y;
+        const steps = Math.max(Math.abs(dx), Math.abs(dy)) / 4;
+        
+        for (let i = 0; i <= steps; i++) {
+          const interpX = lastPosRef.current.x + (dx * i / steps);
+          const interpY = lastPosRef.current.y + (dy * i / steps);
+          dig(interpX, interpY);
+        }
+      }
+      
+      lastPosRef.current = { x, y };
     }
   };
 
   const handleMouseUp = () => {
     setIsDigging(false);
+    lastPosRef.current = null;
   };
 
   const handleTouchStart = (e: React.TouchEvent<HTMLCanvasElement>) => {
     e.preventDefault();
     setIsDigging(true);
-    const touch = e.touches[0];
-    dig(touch.clientX, touch.clientY);
+    const rect = canvasRef.current?.getBoundingClientRect();
+    if (rect && e.touches[0]) {
+      const x = e.touches[0].clientX - rect.left;
+      const y = e.touches[0].clientY - rect.top;
+      lastPosRef.current = { x, y };
+      dig(x, y);
+    }
   };
 
   const handleTouchMove = (e: React.TouchEvent<HTMLCanvasElement>) => {
     e.preventDefault();
-    if (isDigging && e.touches.length > 0) {
-      const touch = e.touches[0];
-      dig(touch.clientX, touch.clientY);
+    if (!isDigging) return;
+    const rect = canvasRef.current?.getBoundingClientRect();
+    if (rect && e.touches[0]) {
+      const x = e.touches[0].clientX - rect.left;
+      const y = e.touches[0].clientY - rect.top;
+      dig(x, y);
+      lastPosRef.current = { x, y };
     }
   };
 
-  const handleTouchEnd = () => {
-    setIsDigging(false);
-  };
-
-  const newExpedition = () => {
-    setGrid(generateCivilization());
-    setDiscoveries([]);
-    setExcavationProgress(0);
-    setSiteName(siteNames[Math.floor(Math.random() * siteNames.length)]);
-  };
-
+  // Render canvas
   useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext("2d");
+    if (!canvas || !ctx || excavationMap.length === 0) return;
+
+    const render = () => {
+      ctx.fillStyle = "#0a0a0f";
+      ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+
+      // Draw layers and excavation
+      for (let y = 0; y < rows; y++) {
+        for (let x = 0; x < cols; x++) {
+          const depth = excavationMap[y]?.[x] || 0;
+          const baseDepth = (y / rows) * 420;
+          const visibleDepth = Math.min(depth, baseDepth + 50);
+          const layer = getCurrentLayer(visibleDepth);
+          
+          if (depth > 0) {
+            // Excavated area - show what's beneath
+            const alpha = Math.min(1, depth / 50);
+            ctx.fillStyle = layer.color;
+            ctx.globalAlpha = alpha;
+            ctx.fillRect(x * GRID_SIZE, y * GRID_SIZE, GRID_SIZE, GRID_SIZE);
+            ctx.globalAlpha = 1;
+            
+            // Add some texture
+            if (Math.random() > 0.95) {
+              ctx.fillStyle = "rgba(255,255,255,0.1)";
+              ctx.fillRect(x * GRID_SIZE, y * GRID_SIZE, 2, 2);
+            }
+          } else {
+            // Surface dirt
+            const surfaceLayer = getCurrentLayer(baseDepth);
+            ctx.fillStyle = surfaceLayer.color;
+            ctx.globalAlpha = 0.8;
+            ctx.fillRect(x * GRID_SIZE, y * GRID_SIZE, GRID_SIZE, GRID_SIZE);
+            ctx.globalAlpha = 1;
+            
+            // Surface pattern
+            if ((x + y) % 3 === 0) {
+              ctx.fillStyle = "rgba(0,0,0,0.3)";
+              ctx.fillRect(x * GRID_SIZE, y * GRID_SIZE, GRID_SIZE, GRID_SIZE);
+            }
+          }
+        }
+      }
+
+      // Draw artifacts
+      artifacts.forEach(artifact => {
+        const artifactDepth = excavationMap[artifact.y]?.[artifact.x] || 0;
+        const baseDepth = (artifact.y / rows) * 420;
+        
+        if (artifactDepth > artifact.depth - baseDepth - 20 || artifact.discovered) {
+          ctx.font = "8px monospace";
+          ctx.fillStyle = artifact.color;
+          
+          artifact.art.forEach((line, lineIdx) => {
+            const chars = line.split("");
+            chars.forEach((char, charIdx) => {
+              if (char !== " ") {
+                ctx.fillText(
+                  char,
+                  (artifact.x + charIdx) * GRID_SIZE,
+                  (artifact.y + lineIdx) * GRID_SIZE + GRID_SIZE
+                );
+              }
+            });
+          });
+          
+          if (artifact.discovered) {
+            ctx.strokeStyle = artifact.color;
+            ctx.lineWidth = 2;
+            ctx.strokeRect(
+              artifact.x * GRID_SIZE - 2,
+              artifact.y * GRID_SIZE - 2,
+              GRID_SIZE * 6 + 4,
+              GRID_SIZE * 4 + 4
+            );
+          }
+        }
+      });
+
+      frameRef.current = requestAnimationFrame(render);
+    };
+
+    render();
+
     return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
+      if (frameRef.current) {
+        cancelAnimationFrame(frameRef.current);
       }
     };
-  }, []);
+  }, [excavationMap, artifacts, rows]);
+
+  const currentLayer = getCurrentLayer(currentDepth);
 
   return (
-    <FeatureWrapper day={369} title="Pixel Archaeology" emoji="🏺">
+    <FeatureWrapper day={370} title="Pixel Archaeology" emoji="⛏️">
       <div className="flex flex-col items-center gap-6 p-4">
-        <div className="text-center">
-          <h2 
-            className="text-2xl mb-2"
-            style={{ fontFamily: "var(--font-serif)", color: "var(--color-text)" }}
-          >
-            Excavation Site: {siteName}
-          </h2>
-          <p style={{ color: "var(--color-text-dim)" }}>
-            Click and drag to brush away the sands of time...
+        <div className="text-center max-w-lg">
+          <p className="text-[var(--color-text-dim)] mb-2">
+            Excavate through layers of digital history! Drag to dig and uncover 
+            pixel art artifacts from the internet&apos;s past.
+          </p>
+          <p className="text-sm text-[var(--color-accent)]">
+            The deeper you go, the older the treasures...
           </p>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-6 items-start">
-          <div 
-            className="relative rounded-lg overflow-hidden shadow-lg"
-            style={{ border: "4px solid var(--color-border)" }}
-          >
-            <canvas
-              ref={canvasRef}
-              width={512}
-              height={512}
-              className="cursor-crosshair"
-              style={{ maxWidth: "100%", height: "auto", touchAction: "none" }}
-              onMouseDown={handleMouseDown}
-              onMouseMove={handleMouseMove}
-              onMouseUp={handleMouseUp}
-              onMouseLeave={handleMouseUp}
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleTouchEnd}
-            />
-            {isDigging && (
-              <div 
-                className="absolute top-2 left-2 px-3 py-1 rounded-full text-sm animate-pulse"
-                style={{ backgroundColor: "var(--color-accent)", color: "white" }}
-              >
-                🪥 Excavating...
-              </div>
-            )}
-          </div>
-
-          <div 
-            className="w-full md:w-64 p-4 rounded-lg"
-            style={{ backgroundColor: "var(--color-bg-secondary)", border: "1px solid var(--color-border)" }}
-          >
-            <h3 
-              className="text-lg mb-3 font-bold"
-              style={{ color: "var(--color-text)" }}
+        <div className="flex flex-col lg:flex-row gap-6 items-start">
+          {/* Main excavation area */}
+          <div className="flex flex-col items-center gap-4">
+            <div 
+              className="rounded-lg overflow-hidden border-2 border-[var(--color-border)] shadow-lg"
+              style={{ background: currentLayer.color }}
             >
-              📋 Field Notes
-            </h3>
+              <canvas
+                ref={canvasRef}
+                width={CANVAS_WIDTH}
+                height={CANVAS_HEIGHT}
+                className="cursor-crosshair touch-none"
+                onMouseDown={handleMouseDown}
+                onMouseMove={handleMouseMove}
+                onMouseUp={handleMouseUp}
+                onMouseLeave={handleMouseUp}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleMouseUp}
+              />
+            </div>
 
-            <div className="mb-4">
-              <div className="flex justify-between text-sm mb-1">
-                <span style={{ color: "var(--color-text-dim)" }}>Excavation Progress</span>
-                <span style={{ color: "var(--color-accent)" }}>{excavationProgress}%</span>
+            {/* Depth indicator */}
+            <div className="w-full max-w-[400px] bg-[var(--color-bg-secondary)] rounded-lg p-3">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-sm font-bold" style={{ color: currentLayer.color }}>
+                  📍 {currentLayer.name}
+                </span>
+                <span className="text-xs text-[var(--color-text-dim)]">
+                  Depth: {currentDepth}px
+                </span>
               </div>
-              <div 
-                className="h-3 rounded-full overflow-hidden"
-                style={{ backgroundColor: "var(--color-border)" }}
-              >
-                <div 
-                  className="h-full transition-all duration-300 rounded-full"
-                  style={{ 
-                    width: `${excavationProgress}%`,
-                    backgroundColor: "var(--color-accent)"
-                  }}
-                />
+              <div className="h-4 bg-[var(--color-bg)] rounded-full overflow-hidden flex">
+                {LAYERS.map((layer, idx) => (
+                  <div
+                    key={layer.era}
+                    className="h-full transition-all duration-300"
+                    style={{
+                      flex: 1,
+                      backgroundColor: layer.color,
+                      opacity: currentDepth >= layer.depth ? 1 : 0.3,
+                    }}
+                  />
+                ))}
               </div>
             </div>
 
-            <h4 
-              className="text-sm font-semibold mb-2"
-              style={{ color: "var(--color-text)" }}
-            >
-              Discoveries:
-            </h4>
-            
-            {discoveries.length === 0 ? (
-              <p className="text-sm italic" style={{ color: "var(--color-text-dim)" }}>
-                No artifacts found yet. Keep digging!
-              </p>
-            ) : (
-              <ul className="space-y-1">
-                {discoveries.map((d, i) => (
-                  <li 
-                    key={i}
-                    className="text-sm flex items-center gap-2"
-                    style={{ color: "var(--color-text)" }}
-                  >
-                    <span>{d.emoji}</span>
-                    <span>{d.name}</span>
-                    {d.count > 1 && (
-                      <span 
-                        className="text-xs px-1.5 py-0.5 rounded-full"
-                        style={{ backgroundColor: "var(--color-accent)", color: "white" }}
-                      >
-                        ×{d.count}
-                      </span>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            )}
-
             <button
-              onClick={newExpedition}
-              className="btn-primary w-full mt-4 py-2 px-4 rounded-lg font-semibold transition-transform hover:scale-105"
+              onClick={initializeGame}
+              className="btn-secondary text-sm"
             >
-              🗺️ New Expedition
+              🔄 New Dig Site
             </button>
           </div>
-        </div>
 
-        <div 
-          className="flex flex-wrap justify-center gap-4 text-xs p-3 rounded-lg"
-          style={{ backgroundColor: "var(--color-bg-secondary)", border: "1px solid var(--color-border)" }}
-        >
-          <span className="flex items-center gap-1">
-            <span className="w-4 h-4 rounded" style={{ backgroundColor: TILE_COLORS.temple }} />
-            Temple
-          </span>
-          <span className="flex items-center gap-1">
-            <span className="w-4 h-4 rounded" style={{ backgroundColor: TILE_COLORS.house }} />
-            Dwelling
-          </span>
-          <span className="flex items-center gap-1">
-            <span className="w-4 h-4 rounded" style={{ backgroundColor: TILE_COLORS.road }} />
-            Road
-          </span>
-          <span className="flex items-center gap-1">
-            <span className="w-4 h-4 rounded" style={{ backgroundColor: TILE_COLORS.artifact }} />
-            Artifact
-          </span>
-          <span className="flex items-center gap-1">
-            <span className="w-4 h-4 rounded" style={{ backgroundColor: TILE_COLORS.wall }} />
-            Wall
-          </span>
-          <span className="flex items-center gap-1">
-            <span className="w-4 h-4 rounded" style={{ backgroundColor: TILE_COLORS.garden }} />
-            Garden
-          </span>
-        </div>
+          {/* Discoveries panel */}
+          <div className="w-full lg:w-64 bg-[var(--color-bg-secondary)] rounded-lg p-4">
+            <h3 
+              className="text-lg font-bold mb-3 text-center"
+              style={{ fontFamily: "var(--font-serif)" }}
+            >
+              🏛️ Museum ({discoveredArtifacts.length}/{artifacts.length})
+            </h3>
+            
+            {selectedArtifact && (
+              <div 
+                className="mb-4 p-3 rounded-lg border-2 text-center"
+                style={{ 
+                  borderColor: selectedArtifact.color,
+                  background: `${selectedArtifact.color}20`
+                }}
+              >
+                <div className="text-xs text-[var(--color-text-dim)] mb-1">
+                  ✨ Just discovered!
+                </div>
+                <div className="font-bold" style={{ color: selectedArtifact.color }}>
+                  {selectedArtifact.name}
+                </div>
+                <pre 
+                  className="text-xs mt-2 font-mono"
+                  style={{ color: selectedArtifact.color }}
+                >
+                  {selectedArtifact.art.join("\n")}
+                </pre>
+                <div className="text-xs mt-2 text-[var(--color-text-dim)]">
+                  Era: {getCurrentLayer(selectedArtifact.depth).name}
+                </div>
+              </div>
+            )}
 
-        {excavationProgress >= 90 && (
-          <div 
-            className="text-center p-4 rounded-lg animate-pulse"
-            style={{ backgroundColor: "var(--color-accent)", color: "white" }}
-          >
-            🎉 Congratulations, Dr. Explorer! You&apos;ve uncovered most of {siteName}!
+            <div className="space-y-2 max-h-64 overflow-y-auto">
+              {discoveredArtifacts.length === 0 ? (
+                <p className="text-sm text-[var(--color-text-dim)] text-center italic">
+                  Start digging to find artifacts!
+                </p>
+              ) : (
+                discoveredArtifacts.map(artifact => (
+                  <div
+                    key={artifact.id}
+                    className="p-2 rounded bg-[var(--color-bg)] flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
+                    onClick={() => setSelectedArtifact(artifact)}
+                  >
+                    <pre 
+                      className="text-[6px] leading-none font-mono"
+                      style={{ color: artifact.color }}
+                    >
+                      {artifact.art.slice(0, 2).join("\n")}
+                    </pre>
+                    <div className="flex-1 min-w-0">
+                      <div className="text-xs font-bold truncate" style={{ color: artifact.color }}>
+                        {artifact.name}
+                      </div>
+                      <div className="text-[10px] text-[var(--color-text-dim)]">
+                        {getCurrentLayer(artifact.depth).era}
+                      </div>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+
+            <div className="mt-4 pt-3 border-t border-[var(--color-border)]">
+              <div className="text-xs text-[var(--color-text-dim)] text-center">
+                ⛏️ Digs: {digCount.toLocaleString()}
+              </div>
+            </div>
           </div>
-        )}
+        </div>
+
+        {/* Layer legend */}
+        <div className="flex flex-wrap justify-center gap-2 text-xs">
+          {LAYERS.map(layer => (
+            <div 
+              key={layer.era}
+              className="flex items-center gap-1 px-2 py-1 rounded"
+              style={{ 
+                backgroundColor: `${layer.color}40`,
+                opacity: currentDepth >= layer.depth ? 1 : 0.5
+              }}
+            >
+              <span 
+                className="w-3 h-3 rounded"
+                style={{ backgroundColor: layer.color }}
+              />
+              <span className="text-[var(--color-text-dim)]">
+                {layer.era}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
     </FeatureWrapper>
   );
