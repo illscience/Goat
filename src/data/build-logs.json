@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1764979936689",
+    "timestamp": "2025-12-06T00:12:16.689Z",
+    "day": 371,
+    "idea": {
+      "title": "Pixel Heartbeat",
+      "emoji": "💓",
+      "description": "Click to set your rhythm and watch pixels pulse and spread across the canvas in sync",
+      "concept": "You click at whatever rhythm feels right - fast, slow, irregular - and each click spawns a pulsing pixel that grows and fades in time with your beat. The canvas becomes a visual record of your rhythmic mood, with different click speeds creating different colors and pulse patterns. It's like giving the screen a heartbeat that matches yours.",
+      "category": "visualization",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-heartbeat",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1764893577850",
     "timestamp": "2025-12-05T00:12:57.850Z",
     "day": 370,
