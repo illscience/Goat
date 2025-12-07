@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1765066451506",
+    "timestamp": "2025-12-07T00:14:11.506Z",
+    "day": 372,
+    "idea": {
+      "title": "Pixel Archaeology",
+      "emoji": "🔍",
+      "description": "Click and drag to excavate a buried pixel civilization and uncover their mysterious artifacts",
+      "concept": "You're an archaeologist with a digital brush, slowly revealing a hidden pixel world buried under layers of sand and time. Each brush stroke uncovers ancient pixel buildings, artifacts, and maybe even pixel skeletons. The satisfaction of gradual discovery meets the mystery of what lies beneath.",
+      "category": "game",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-archaeology",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1764979936689",
     "timestamp": "2025-12-06T00:12:16.689Z",
     "day": 371,
