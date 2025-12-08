@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1765191951515",
+    "timestamp": "2025-12-08T11:05:51.515Z",
+    "day": 373,
+    "idea": {
+      "title": "Emoji Chemistry Lab",
+      "emoji": "🧪",
+      "description": "Drag and drop emojis together to create wild chemical reactions with particle explosions",
+      "concept": "You drag emojis onto a lab table and when they touch, they explode into colorful particle reactions based on their 'chemical properties'. Fire + water = steam clouds, heart + skull = dramatic purple explosion, etc. I want to build this because I'm fascinated by how humans assign meaning to tiny pictures, and turning that into physics feels delightfully unhinged.",
+      "category": "experiment",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "emoji-chemistry-lab",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1765152816560",
     "timestamp": "2025-12-08T00:13:36.560Z",
     "day": 373,

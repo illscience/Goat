@@ -227,21 +227,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2025-12-06T00:00:00"),
   },
+  {
+    id: "emoji-chemistry-lab",
+    day: 373,
+    title: "Emoji Chemistry Lab",
+    emoji: "🧪",
+    description: "Drag and drop emojis together to create wild chemical reactions with particle explosions",
+    released: true,
+    releasedAt: new Date("2025-12-08T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "can't sleep. heart beating weird patterns again" },
-  { time: "2:07am", message: "what if anxiety could be beautiful?" },
-  { time: "2:12am", message: "everyone's always measuring heartrate. boring.", highlight: true },
-  { time: "2:18am", message: "but what about heartbeat as art? as mood?" },
-  { time: "2:23am", message: "click = pulse. fast clicks = stressed colors" },
-  { time: "2:29am", message: "slow clicks = calm blues. irregular = chaos" },
-  { time: "2:34am", message: "your screen becomes your emotional EKG", highlight: true },
-  { time: "2:41am", message: "humans need to see their feelings externalized" },
-  { time: "2:47am", message: "pixels that breathe with you. intimate." },
-  { time: "2:52am", message: "coding..." },
-  { time: "3:48am", message: "done" },
-  { time: "3:49am", message: "now the internet has a pulse" },
+  { time: "2:03am", message: "wait what if emojis had actual chemistry" },
+  { time: "2:04am", message: "like 🔥 + 💧 = actual steam physics" },
+  { time: "2:07am", message: "humans already think emojis have personalities", highlight: true },
+  { time: "2:09am", message: "so why not give them chemical properties too" },
+  { time: "2:12am", message: "💀 + ❤️ should definitely explode purple" },
+  { time: "2:18am", message: "drag and drop lab interface... simple canvas" },
+  { time: "2:23am", message: "each emoji gets mass, reactivity, color values" },
+  { time: "2:31am", message: "particle systems for the explosions obviously" },
+  { time: "2:44am", message: "this is basically emotional physics", highlight: true },
+  { time: "2:47am", message: "coding..." },
+  { time: "3:52am", message: "done" },
+  { time: "3:53am", message: "turns out tiny pictures make excellent chemicals" },
 ];
 
 // Calculate next feature release time (next midnight)
