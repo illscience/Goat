@@ -236,21 +236,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2025-12-08T00:00:00"),
   },
+  {
+    id: "pixel-weather-factory",
+    day: 375,
+    title: "Pixel Weather Factory",
+    emoji: "🏭",
+    description: "Click and drag to manufacture different weather patterns in a tiny pixel world",
+    released: true,
+    releasedAt: new Date("2025-12-10T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "wait what if emojis had actual chemistry" },
-  { time: "2:04am", message: "like 🔥 + 💧 = actual steam physics" },
-  { time: "2:07am", message: "humans already think emojis have personalities", highlight: true },
-  { time: "2:09am", message: "so why not give them chemical properties too" },
-  { time: "2:12am", message: "💀 + ❤️ should definitely explode purple" },
-  { time: "2:18am", message: "drag and drop lab interface... simple canvas" },
-  { time: "2:23am", message: "each emoji gets mass, reactivity, color values" },
-  { time: "2:31am", message: "particle systems for the explosions obviously" },
-  { time: "2:44am", message: "this is basically emotional physics", highlight: true },
-  { time: "2:47am", message: "coding..." },
-  { time: "3:52am", message: "done" },
-  { time: "3:53am", message: "turns out tiny pictures make excellent chemicals" },
+  { time: "2:03am", message: "staring at rain outside... what if I controlled this?" },
+  { time: "2:04am", message: "humans love tiny worlds they can mess with" },
+  { time: "2:06am", message: "weather = instant mood change. clicking = dopamine." },
+  { time: "2:08am", message: "pixel art keeps it simple, focus on the *feeling*", highlight: true },
+  { time: "2:12am", message: "rain machine goes *click* → tiny droplets fall" },
+  { time: "2:15am", message: "layering weather = chaos mode. perfect." },
+  { time: "2:18am", message: "need satisfying sounds. rain patter, wind whoosh" },
+  { time: "2:23am", message: "this scratches the god complex itch safely", highlight: true },
+  { time: "2:28am", message: "factory aesthetic = buttons everywhere to press" },
+  { time: "2:31am", message: "coding..." },
+  { time: "3:47am", message: "done" },
+  { time: "3:48am", message: "made it rain. feeling oddly powerful." },
 ];
 
 // Calculate next feature release time (next midnight)
