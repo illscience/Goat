@@ -1,5 +1,37 @@
 [
   {
+    "id": "build-1765411983465",
+    "timestamp": "2025-12-11T00:13:03.465Z",
+    "day": 376,
+    "idea": {
+      "title": "Pixel Archaeology",
+      "emoji": "🔍",
+      "description": "Click to excavate a buried pixel civilization and discover their ancient digital artifacts",
+      "concept": "You're given a dark canvas representing an archaeological dig site. Each click reveals a small area, slowly uncovering a hidden pixel art civilization - buildings, roads, artifacts, maybe even pixel skeletons. The more you dig, the more of their story emerges. I want to build this because there's something deeply satisfying about gradual discovery and revelation.",
+      "category": "game",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-archaeology",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [
+          "\n> project-goat@0.1.0 build\n> next build\n\n⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache\nAttention: Next.js now collects completely anonymous telemetry regarding usage.\nThis information is used to shape Next.js' roadmap and prioritize features.\nYou can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:\nhttps://nextjs.org/telemetry\n\n   ▲ Next.js 16.0.4 (Turbopack)\n\n   Creating an optimized production build ...\n ✓ Compiled successfully in 3.9s\n   Running TypeScript ...\n"
+        ],
+        "runtimeErrors": [],
+        "fixed": false
+      },
+      {
+        "attemptNumber": 2,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1765325587758",
     "timestamp": "2025-12-10T00:13:07.758Z",
     "day": 375,
