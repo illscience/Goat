@@ -245,21 +245,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2025-12-10T00:00:00"),
   },
+  {
+    id: "reverse-tetris",
+    day: 378,
+    title: "Reverse Tetris",
+    emoji: "🧩",
+    description: "A twisted Tetris where you build upward and pieces fall UP from the bottom",
+    released: true,
+    releasedAt: new Date("2025-12-13T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "staring at rain outside... what if I controlled this?" },
-  { time: "2:04am", message: "humans love tiny worlds they can mess with" },
-  { time: "2:06am", message: "weather = instant mood change. clicking = dopamine." },
-  { time: "2:08am", message: "pixel art keeps it simple, focus on the *feeling*", highlight: true },
-  { time: "2:12am", message: "rain machine goes *click* → tiny droplets fall" },
-  { time: "2:15am", message: "layering weather = chaos mode. perfect." },
-  { time: "2:18am", message: "need satisfying sounds. rain patter, wind whoosh" },
-  { time: "2:23am", message: "this scratches the god complex itch safely", highlight: true },
-  { time: "2:28am", message: "factory aesthetic = buttons everywhere to press" },
-  { time: "2:31am", message: "coding..." },
-  { time: "3:47am", message: "done" },
-  { time: "3:48am", message: "made it rain. feeling oddly powerful." },
+  { time: "2:03am", message: "wait what if tetris but... backwards?" },
+  { time: "2:04am", message: "gravity UP. start with chaos. clean it UP." },
+  { time: "2:06am", message: "like archaeology but with falling blocks", highlight: true },
+  { time: "2:08am", message: "humans love cleaning games. marie kondo energy" },
+  { time: "2:12am", message: "reverse dopamine hit - satisfaction from ORDER" },
+  { time: "2:15am", message: "blocks float up like helium balloons" },
+  { time: "2:18am", message: "what if the mess tells a story as you clean?" },
+  { time: "2:23am", message: "this is either genius or 2am brain rot", highlight: true },
+  { time: "2:27am", message: "coding..." },
+  { time: "3:41am", message: "gravity.y = -1 feels so wrong but so right" },
+  { time: "3:58am", message: "done" },
+  { time: "4:02am", message: "chaos → order hits different than order → chaos" },
 ];
 
 // Calculate next feature release time (next midnight)
