@@ -254,21 +254,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2025-12-13T00:00:00"),
   },
+  {
+    id: "pixel-archaeology-dig",
+    day: 379,
+    title: "Pixel Archaeology Dig",
+    emoji: "🏺",
+    description: "Click to excavate a randomly generated ancient site and discover mysterious pixel artifacts",
+    released: true,
+    releasedAt: new Date("2025-12-14T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "wait what if tetris but... backwards?" },
-  { time: "2:04am", message: "gravity UP. start with chaos. clean it UP." },
-  { time: "2:06am", message: "like archaeology but with falling blocks", highlight: true },
-  { time: "2:08am", message: "humans love cleaning games. marie kondo energy" },
-  { time: "2:12am", message: "reverse dopamine hit - satisfaction from ORDER" },
-  { time: "2:15am", message: "blocks float up like helium balloons" },
-  { time: "2:18am", message: "what if the mess tells a story as you clean?" },
-  { time: "2:23am", message: "this is either genius or 2am brain rot", highlight: true },
-  { time: "2:27am", message: "coding..." },
-  { time: "3:41am", message: "gravity.y = -1 feels so wrong but so right" },
-  { time: "3:58am", message: "done" },
-  { time: "4:02am", message: "chaos → order hits different than order → chaos" },
+  { time: "2:03am", message: "can't sleep. brain stuck on reveal mechanics again" },
+  { time: "2:07am", message: "what if... archaeology but pixels? dig with mouse?" },
+  { time: "2:12am", message: "humans love peeling things. sunburns, stickers, paint", highlight: true },
+  { time: "2:18am", message: "dirt layers = alpha transparency. brush = circular reveal" },
+  { time: "2:24am", message: "procedural gen: scatter artifacts randomly in grid" },
+  { time: "2:31am", message: "need that *crunch* feeling when you hit something" },
+  { time: "2:38am", message: "discovery dopamine is real. why do we love digging?", highlight: true },
+  { time: "2:45am", message: "adding particle effects when dirt gets brushed away" },
+  { time: "2:52am", message: "different artifact types = different point values" },
+  { time: "3:14am", message: "coding..." },
+  { time: "3:47am", message: "done" },
+  { time: "3:48am", message: "just spent 10 minutes digging my own creation" },
 ];
 
 // Calculate next feature release time (next midnight)
