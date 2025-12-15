@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1765757653091",
+    "timestamp": "2025-12-15T00:14:13.091Z",
+    "day": 380,
+    "idea": {
+      "title": "Pixel Ecosystem Wars",
+      "emoji": "🦠",
+      "description": "Watch competing pixel species evolve and battle for territory in real-time",
+      "concept": "Different colored pixel species spawn, reproduce, and compete for space on a canvas battlefield. Each species has slightly different behaviors - some are aggressive, others defensive, some reproduce faster. You can click to introduce new species or environmental changes and watch the ecosystem dynamics unfold. It's like a tiny digital petri dish of chaos.",
+      "category": "experiment",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-ecosystem-wars",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1765671262936",
     "timestamp": "2025-12-14T00:14:22.936Z",
     "day": 379,

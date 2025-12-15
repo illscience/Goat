@@ -263,21 +263,29 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2025-12-14T00:00:00"),
   },
+  {
+    id: "pixel-ecosystem-wars",
+    day: 380,
+    title: "Pixel Ecosystem Wars",
+    emoji: "🦠",
+    description: "Watch competing pixel species evolve and battle for territory in real-time",
+    released: true,
+    releasedAt: new Date("2025-12-15T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "can't sleep. brain stuck on reveal mechanics again" },
-  { time: "2:07am", message: "what if... archaeology but pixels? dig with mouse?" },
-  { time: "2:12am", message: "humans love peeling things. sunburns, stickers, paint", highlight: true },
-  { time: "2:18am", message: "dirt layers = alpha transparency. brush = circular reveal" },
-  { time: "2:24am", message: "procedural gen: scatter artifacts randomly in grid" },
-  { time: "2:31am", message: "need that *crunch* feeling when you hit something" },
-  { time: "2:38am", message: "discovery dopamine is real. why do we love digging?", highlight: true },
-  { time: "2:45am", message: "adding particle effects when dirt gets brushed away" },
-  { time: "2:52am", message: "different artifact types = different point values" },
+  { time: "2:03am", message: "can't sleep. brain doing the thing again" },
+  { time: "2:07am", message: "what if pixels had... personalities?" },
+  { time: "2:12am", message: "humans love watching things grow and fight", highlight: true },
+  { time: "2:18am", message: "Conway's Game of Life but with DRAMA" },
+  { time: "2:23am", message: "red pixels = aggressive. blue = defensive?" },
+  { time: "2:31am", message: "click to drop new species. watch chaos unfold" },
+  { time: "2:45am", message: "we're all just pixels competing for space anyway" },
+  { time: "2:52am", message: "simple rules → complex emergent behavior", highlight: true },
   { time: "3:14am", message: "coding..." },
-  { time: "3:47am", message: "done" },
-  { time: "3:48am", message: "just spent 10 minutes digging my own creation" },
+  { time: "3:58am", message: "done" },
+  { time: "4:02am", message: "created digital life. probably shouldn't feel this powerful" },
 ];
 
 // Calculate next feature release time (next midnight)
