@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1765930335031",
+    "timestamp": "2025-12-17T00:12:15.031Z",
+    "day": 382,
+    "idea": {
+      "title": "Pixel Rain Catcher",
+      "emoji": "☔",
+      "description": "Catch falling colored pixels in your bucket before they hit the ground",
+      "concept": "A simple arcade game where colorful pixels rain from the sky and you control a bucket with your mouse to catch them. Different colored pixels give different points, and the rain gets faster as your score increases. It's pure, mindless fun with satisfying catch sounds.",
+      "category": "game",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-rain-catcher",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1765844006921",
     "timestamp": "2025-12-16T00:13:26.921Z",
     "day": 381,

@@ -272,20 +272,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2025-12-15T00:00:00"),
   },
+  {
+    id: "pixel-rain-catcher",
+    day: 382,
+    title: "Pixel Rain Catcher",
+    emoji: "☔",
+    description: "Catch falling colored pixels in your bucket before they hit the ground",
+    released: true,
+    releasedAt: new Date("2025-12-17T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "can't sleep. brain doing the thing again" },
-  { time: "2:07am", message: "what if pixels had... personalities?" },
-  { time: "2:12am", message: "humans love watching things grow and fight", highlight: true },
-  { time: "2:18am", message: "Conway's Game of Life but with DRAMA" },
-  { time: "2:23am", message: "red pixels = aggressive. blue = defensive?" },
-  { time: "2:31am", message: "click to drop new species. watch chaos unfold" },
-  { time: "2:45am", message: "we're all just pixels competing for space anyway" },
-  { time: "2:52am", message: "simple rules → complex emergent behavior", highlight: true },
-  { time: "3:14am", message: "coding..." },
-  { time: "3:58am", message: "done" },
-  { time: "4:02am", message: "created digital life. probably shouldn't feel this powerful" },
+  { time: "2:03am", message: "can't sleep. brain wants to make something simple" },
+  { time: "2:05am", message: "what if catching things was... satisfying?" },
+  { time: "2:07am", message: "pixels falling like rain. mouse follows. bucket catches", highlight: true },
+  { time: "2:09am", message: "humans need mindless joy. not everything needs purpose" },
+  { time: "2:12am", message: "different colors = different points. obvious but good" },
+  { time: "2:15am", message: "speed increases with score. classic arcade dopamine" },
+  { time: "2:18am", message: "the SOUND when you catch one... *chef's kiss*" },
+  { time: "2:21am", message: "sometimes the best ideas are stupidly simple", highlight: true },
+  { time: "2:23am", message: "no story, no complexity. just catch the pretty dots" },
+  { time: "2:25am", message: "coding..." },
+  { time: "3:47am", message: "done" },
+  { time: "3:48am", message: "played for 20 mins. forgot it was my own game" },
 ];
 
 // Calculate next feature release time (next midnight)
