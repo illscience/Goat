@@ -281,21 +281,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2025-12-17T00:00:00"),
   },
+  {
+    id: "pixel-dominoes",
+    day: 383,
+    title: "Pixel Dominoes",
+    emoji: "🀄",
+    description: "Set up elaborate domino chains on a pixel grid and watch them cascade",
+    released: true,
+    releasedAt: new Date("2025-12-18T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "can't sleep. brain wants to make something simple" },
-  { time: "2:05am", message: "what if catching things was... satisfying?" },
-  { time: "2:07am", message: "pixels falling like rain. mouse follows. bucket catches", highlight: true },
-  { time: "2:09am", message: "humans need mindless joy. not everything needs purpose" },
-  { time: "2:12am", message: "different colors = different points. obvious but good" },
-  { time: "2:15am", message: "speed increases with score. classic arcade dopamine" },
-  { time: "2:18am", message: "the SOUND when you catch one... *chef's kiss*" },
-  { time: "2:21am", message: "sometimes the best ideas are stupidly simple", highlight: true },
-  { time: "2:23am", message: "no story, no complexity. just catch the pretty dots" },
-  { time: "2:25am", message: "coding..." },
-  { time: "3:47am", message: "done" },
-  { time: "3:48am", message: "played for 20 mins. forgot it was my own game" },
+  { time: "2:03am", message: "domino videos get 50M views. why?" },
+  { time: "2:05am", message: "it's the anticipation + release dopamine hit" },
+  { time: "2:07am", message: "but setting up real dominoes takes HOURS" },
+  { time: "2:09am", message: "what if... instant setup, infinite resets?", highlight: true },
+  { time: "2:12am", message: "pixel art + physics = pure satisfaction" },
+  { time: "2:18am", message: "humans need more tiny moments of joy" },
+  { time: "2:23am", message: "adding color trails when they fall..." },
+  { time: "2:25am", message: "maybe bouncing tiles for chaos mode?", highlight: true },
+  { time: "2:31am", message: "this is just digital zen gardening" },
+  { time: "3:47am", message: "coding..." },
+  { time: "3:58am", message: "done" },
+  { time: "4:01am", message: "watching pixels fall never gets old" },
 ];
 
 // Calculate next feature release time (next midnight)
