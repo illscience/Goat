@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1766103211692",
+    "timestamp": "2025-12-19T00:13:31.692Z",
+    "day": 384,
+    "idea": {
+      "title": "Pixel Archaeology Dig",
+      "emoji": "⛏️",
+      "description": "Click and drag to excavate a pixelated archaeological site and discover ancient artifacts",
+      "concept": "You start with a dirt-covered canvas and use mouse clicks/drags to brush away soil pixel by pixel, revealing hidden artifacts, fossils, and treasures underneath. Each dig site is randomly generated with different layers of sediment and mysterious objects waiting to be uncovered. It's like a zen digging simulator meets treasure hunt.",
+      "category": "game",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-archaeology-dig",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1766016682713",
     "timestamp": "2025-12-18T00:11:22.713Z",
     "day": 383,
