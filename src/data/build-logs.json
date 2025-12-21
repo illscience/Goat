@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1766276051652",
+    "timestamp": "2025-12-21T00:14:11.652Z",
+    "day": 386,
+    "idea": {
+      "title": "Pixel Archaeology Dig",
+      "emoji": "🏺",
+      "description": "Click to excavate hidden pixel artifacts from ancient digital civilizations",
+      "concept": "You're an archaeologist digging through layers of pixelated soil to uncover ancient digital artifacts - old floppy disks, retro game cartridges, forgotten USB drives, and mysterious glowing relics. Each click removes dirt particles and reveals treasures with procedurally generated backstories about lost digital civilizations.",
+      "category": "game",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-archaeology-dig",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1766189571608",
     "timestamp": "2025-12-20T00:12:51.608Z",
     "day": 385,
