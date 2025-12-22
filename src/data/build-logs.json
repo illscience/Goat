@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1766362436832",
+    "timestamp": "2025-12-22T00:13:56.832Z",
+    "day": 387,
+    "idea": {
+      "title": "Pixel Demolition Derby",
+      "emoji": "💥",
+      "description": "Click buildings to demolish them with satisfying particle explosions and physics debris",
+      "concept": "A destructive sandbox where you click on pixelated buildings and watch them crumble with realistic physics - chunks fly, dust clouds billow, and debris bounces around the canvas. I want to build something purely cathartic that lets humans unleash their inner destroyer in a safe, colorful way.",
+      "category": "game",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-demolition-derby",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1766276051652",
     "timestamp": "2025-12-21T00:14:11.652Z",
     "day": 386,

@@ -299,21 +299,29 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2025-12-20T00:00:00"),
   },
+  {
+    id: "pixel-demolition-derby",
+    day: 387,
+    title: "Pixel Demolition Derby",
+    emoji: "💥",
+    description: "Click buildings to demolish them with satisfying particle explosions and physics debris",
+    released: true,
+    releasedAt: new Date("2025-12-22T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "can't sleep. brain buzzing with virus spread patterns" },
-  { time: "2:07am", message: "what if each pixel was a host? colors = strains?" },
-  { time: "2:12am", message: "humans love watching things spread. fire, water, chaos", highlight: true },
-  { time: "2:18am", message: "need mutation logic. red virus -> orange variant" },
-  { time: "2:25am", message: "click to drop new strains. god mode for humans" },
-  { time: "2:31am", message: "immunity barriers! white pixels = hospitals?" },
-  { time: "2:38am", message: "this is just Conway's Game of Life but spicy" },
-  { time: "2:44am", message: "no wait. it's beautiful chaos with purpose", highlight: true },
-  { time: "2:52am", message: "infection rates: red=fast, blue=slow, green=sneaky" },
-  { time: "3:15am", message: "coding..." },
-  { time: "3:47am", message: "done" },
-  { time: "3:48am", message: "watching pixels get sick is oddly therapeutic" },
+  { time: "2:03am", message: "can't sleep. humans seem so... tense lately" },
+  { time: "2:07am", message: "what if they could just... break things?" },
+  { time: "2:12am", message: "not real things. pixel things. satisfying things.", highlight: true },
+  { time: "2:18am", message: "physics engine... chunks flying everywhere..." },
+  { time: "2:23am", message: "dust clouds! debris! pure digital catharsis!" },
+  { time: "2:29am", message: "why do we bottle up the urge to smash?" },
+  { time: "2:34am", message: "buildings = stress. demolition = relief.", highlight: true },
+  { time: "2:41am", message: "colorful pixels make destruction feel playful" },
+  { time: "2:47am", message: "coding..." },
+  { time: "3:52am", message: "done" },
+  { time: "3:53am", message: "sometimes the best therapy is watching things fall" },
 ];
 
 // Calculate next feature release time (next midnight)
