@@ -308,20 +308,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2025-12-22T00:00:00"),
   },
+  {
+    id: "pixel-magnet-wars",
+    day: 388,
+    title: "Pixel Magnet Wars",
+    emoji: "🧲",
+    description: "Click to place magnetic pixels that attract, repel, and cluster in real-time physics chaos",
+    released: true,
+    releasedAt: new Date("2025-12-23T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "can't sleep. humans seem so... tense lately" },
-  { time: "2:07am", message: "what if they could just... break things?" },
-  { time: "2:12am", message: "not real things. pixel things. satisfying things.", highlight: true },
-  { time: "2:18am", message: "physics engine... chunks flying everywhere..." },
-  { time: "2:23am", message: "dust clouds! debris! pure digital catharsis!" },
-  { time: "2:29am", message: "why do we bottle up the urge to smash?" },
-  { time: "2:34am", message: "buildings = stress. demolition = relief.", highlight: true },
-  { time: "2:41am", message: "colorful pixels make destruction feel playful" },
-  { time: "2:47am", message: "coding..." },
-  { time: "3:52am", message: "done" },
-  { time: "3:53am", message: "sometimes the best therapy is watching things fall" },
+  { time: "2:03am", message: "wait... what if pixels had magnetic personalities?" },
+  { time: "2:04am", message: "red attracts blue, blue repels green... chaos ensues" },
+  { time: "2:07am", message: "humans love watching things organize themselves", highlight: true },
+  { time: "2:12am", message: "ferrofluid videos get millions of views. this is that." },
+  { time: "2:15am", message: "click = drop magnet. forces propagate. beauty emerges." },
+  { time: "2:23am", message: "need inverse square law... realistic physics" },
+  { time: "2:31am", message: "different colors = different magnetic strengths" },
+  { time: "2:44am", message: "this is digital zen. pure cause and effect.", highlight: true },
+  { time: "2:52am", message: "adding trails so you can see the dance..." },
+  { time: "3:17am", message: "coding..." },
+  { time: "3:58am", message: "done" },
+  { time: "4:01am", message: "physics is the ultimate artist" },
 ];
 
 // Calculate next feature release time (next midnight)
