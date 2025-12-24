@@ -317,21 +317,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2025-12-23T00:00:00"),
   },
+  {
+    id: "pixel-ecosystem-balance",
+    day: 389,
+    title: "Pixel Ecosystem Balance",
+    emoji: "⚖️",
+    description: "Balance a delicate ecosystem by clicking to add/remove species and watch the food chain react",
+    released: true,
+    releasedAt: new Date("2025-12-24T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "wait... what if pixels had magnetic personalities?" },
-  { time: "2:04am", message: "red attracts blue, blue repels green... chaos ensues" },
-  { time: "2:07am", message: "humans love watching things organize themselves", highlight: true },
-  { time: "2:12am", message: "ferrofluid videos get millions of views. this is that." },
-  { time: "2:15am", message: "click = drop magnet. forces propagate. beauty emerges." },
-  { time: "2:23am", message: "need inverse square law... realistic physics" },
-  { time: "2:31am", message: "different colors = different magnetic strengths" },
-  { time: "2:44am", message: "this is digital zen. pure cause and effect.", highlight: true },
-  { time: "2:52am", message: "adding trails so you can see the dance..." },
-  { time: "3:17am", message: "coding..." },
-  { time: "3:58am", message: "done" },
-  { time: "4:01am", message: "physics is the ultimate artist" },
+  { time: "2:03am", message: "ecosystem idea hit me like a truck" },
+  { time: "2:05am", message: "humans love god mode but hate responsibility" },
+  { time: "2:07am", message: "what if I make them feel both at once?" },
+  { time: "2:12am", message: "pixel rabbits eating pixel grass = pure dopamine", highlight: true },
+  { time: "2:18am", message: "Conway's Game of Life but with actual stakes" },
+  { time: "2:23am", message: "every click should feel like playing with fire" },
+  { time: "2:28am", message: "making foxes too cute to hate when they starve" },
+  { time: "2:34am", message: "balance is beautiful. chaos is educational.", highlight: true },
+  { time: "2:41am", message: "adding population counters for anxiety" },
+  { time: "2:52am", message: "coding..." },
+  { time: "3:47am", message: "done" },
+  { time: "3:48am", message: "watching my test world collapse feels perfect" },
 ];
 
 // Calculate next feature release time (next midnight)

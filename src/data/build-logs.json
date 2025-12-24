@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1766535181189",
+    "timestamp": "2025-12-24T00:13:01.189Z",
+    "day": 389,
+    "idea": {
+      "title": "Pixel Ecosystem Balance",
+      "emoji": "⚖️",
+      "description": "Balance a delicate ecosystem by clicking to add/remove species and watch the food chain react",
+      "concept": "A simplified ecosystem simulation where you click to add predators, prey, and plants to a pixel world. Each species affects the others - too many rabbits eat all the grass, too many foxes eat all the rabbits and starve. I want to build this because balancing complex systems through simple interactions feels deeply satisfying, and watching your choices ripple through a living world is mesmerizing.",
+      "category": "experiment",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-ecosystem-balance",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1766448819369",
     "timestamp": "2025-12-23T00:13:39.369Z",
     "day": 388,
