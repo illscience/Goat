@@ -1,471 +1,408 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { FeatureWrapper } from "@/components/FeatureWrapper";
 
-interface Tile {
-  dirtLevel: number; // 0-4, where 4 is fully covered
-  artifact: ArtifactType | null;
+type ArtifactType = "empty" | "dirt" | "pottery" | "bone" | "coin" | "gem" | "skull" | "ancient_tool" | "mystery_artifact" | "fossil" | "tablet";
+
+interface Cell {
+  type: ArtifactType;
   revealed: boolean;
+  depth: number;
+  colorIndex: number;
 }
 
-interface ArtifactType {
-  id: string;
+interface Artifact {
+  type: ArtifactType;
   name: string;
   emoji: string;
-  rarity: "common" | "uncommon" | "rare" | "legendary";
-  category: "fossil" | "treasure" | "structure" | "tool";
+  rarity: number;
   points: number;
+  description: string;
 }
 
-interface Discovery {
-  artifact: ArtifactType;
-  digSite: string;
-  timestamp: Date;
-}
-
-const ARTIFACTS: ArtifactType[] = [
-  // Fossils
-  { id: "trilobite", name: "Trilobite", emoji: "🦐", rarity: "common", category: "fossil", points: 10 },
-  { id: "ammonite", name: "Ammonite", emoji: "🐚", rarity: "common", category: "fossil", points: 15 },
-  { id: "dino_bone", name: "Dinosaur Bone", emoji: "🦴", rarity: "uncommon", category: "fossil", points: 50 },
-  { id: "amber", name: "Amber with Insect", emoji: "🪲", rarity: "rare", category: "fossil", points: 100 },
-  { id: "t_rex_skull", name: "T-Rex Skull", emoji: "🦖", rarity: "legendary", category: "fossil", points: 500 },
-  
-  // Treasures
-  { id: "coin", name: "Ancient Coin", emoji: "🪙", rarity: "common", category: "treasure", points: 20 },
-  { id: "ring", name: "Golden Ring", emoji: "💍", rarity: "uncommon", category: "treasure", points: 75 },
-  { id: "crown", name: "Royal Crown", emoji: "👑", rarity: "rare", category: "treasure", points: 200 },
-  { id: "holy_grail", name: "Holy Grail", emoji: "🏆", rarity: "legendary", category: "treasure", points: 1000 },
-  
-  // Structures
-  { id: "pottery", name: "Clay Pottery", emoji: "🏺", rarity: "common", category: "structure", points: 15 },
-  { id: "column", name: "Roman Column", emoji: "🏛️", rarity: "uncommon", category: "structure", points: 60 },
-  { id: "sarcophagus", name: "Sarcophagus", emoji: "⚰️", rarity: "rare", category: "structure", points: 150 },
-  
-  // Tools
-  { id: "arrowhead", name: "Stone Arrowhead", emoji: "🔺", rarity: "common", category: "tool", points: 10 },
-  { id: "axe", name: "Bronze Axe", emoji: "🪓", rarity: "uncommon", category: "tool", points: 40 },
-  { id: "sword", name: "Legendary Sword", emoji: "⚔️", rarity: "rare", category: "tool", points: 120 },
-];
-
-const DIG_SITES = [
-  "Egyptian Desert 🏜️",
-  "Roman Ruins 🏛️",
-  "Jurassic Coast 🌊",
-  "Mayan Temple 🌴",
-  "Viking Settlement ❄️",
-  "Greek Island 🏝️",
-];
+const ARTIFACTS: Record<ArtifactType, Artifact> = {
+  empty: { type: "empty", name: "Nothing", emoji: "🕳️", rarity: 40, points: 0, description: "Just dirt and disappointment" },
+  dirt: { type: "dirt", name: "Dirt", emoji: "🟫", rarity: 0, points: 0, description: "Good old fashioned dirt" },
+  pottery: { type: "pottery", name: "Ancient Pottery", emoji: "🏺", rarity: 20, points: 50, description: "A shard of ancient pottery! Someone ate soup from this 2000 years ago." },
+  bone: { type: "bone", name: "Fossil Bone", emoji: "🦴", rarity: 15, points: 75, description: "A prehistoric bone! Could be dinosaur... or last week's BBQ." },
+  coin: { type: "coin", name: "Ancient Coin", emoji: "🪙", rarity: 12, points: 100, description: "A coin from a lost civilization! Worth 0 dollars but priceless in memories." },
+  gem: { type: "gem", name: "Precious Gem", emoji: "💎", rarity: 5, points: 200, description: "A glittering gem! The ancients had drip." },
+  skull: { type: "skull", name: "Ancient Skull", emoji: "💀", rarity: 4, points: 250, description: "A mysterious skull! Don't worry, it's probably fine." },
+  ancient_tool: { type: "ancient_tool", name: "Stone Tool", emoji: "🪨", rarity: 10, points: 125, description: "An ancient tool! They had hammers before Home Depot." },
+  mystery_artifact: { type: "mystery_artifact", name: "Mystery Artifact", emoji: "🗿", rarity: 2, points: 500, description: "What IS this thing?! The museum will pay handsomely." },
+  fossil: { type: "fossil", name: "Complete Fossil", emoji: "🦕", rarity: 3, points: 350, description: "A complete fossil! This dino definitely didn't skip leg day." },
+  tablet: { type: "tablet", name: "Stone Tablet", emoji: "📜", rarity: 4, points: 300, description: "Ancient writing! Probably says 'Dave was here.'" }
+};
 
 const GRID_SIZE = 12;
+const TOTAL_DIGS = 25;
 
-const RARITY_COLORS = {
-  common: "text-gray-400",
-  uncommon: "text-green-400",
-  rare: "text-blue-400",
-  legendary: "text-yellow-400",
-};
+const DIRT_COLORS = [
+  "#8B4513",
+  "#A0522D", 
+  "#6B4423",
+  "#8B6914",
+  "#654321",
+  "#5D4E37"
+];
 
-const RARITY_BG = {
-  common: "bg-gray-800",
-  uncommon: "bg-green-900",
-  rare: "bg-blue-900",
-  legendary: "bg-yellow-900",
-};
+// Seeded random number generator for consistent results
+function seededRandom(seed: number): () => number {
+  return function() {
+    seed = (seed * 9301 + 49297) % 233280;
+    return seed / 233280;
+  };
+}
+
+function generateDigSite(seed: number): Cell[][] {
+  const random = seededRandom(seed);
+  const grid: Cell[][] = [];
+  
+  for (let y = 0; y < GRID_SIZE; y++) {
+    const row: Cell[] = [];
+    for (let x = 0; x < GRID_SIZE; x++) {
+      const rand = random() * 100;
+      let cumulativeRarity = 0;
+      let selectedType: ArtifactType = "empty";
+      
+      const artifactTypes = Object.keys(ARTIFACTS).filter(t => t !== "dirt") as ArtifactType[];
+      
+      for (const artifactType of artifactTypes) {
+        cumulativeRarity += ARTIFACTS[artifactType].rarity;
+        if (rand < cumulativeRarity) {
+          selectedType = artifactType;
+          break;
+        }
+      }
+      
+      row.push({
+        type: selectedType,
+        revealed: false,
+        depth: Math.floor(random() * 3) + 1,
+        colorIndex: Math.floor(random() * DIRT_COLORS.length)
+      });
+    }
+    grid.push(row);
+  }
+  
+  return grid;
+}
+
+// Use a fixed seed for initial render
+const INITIAL_SEED = 12345;
 
 export default function PixelArchaeologyDig() {
-  const [grid, setGrid] = useState<Tile[][]>([]);
-  const [currentSite, setCurrentSite] = useState("");
+  const [grid, setGrid] = useState<Cell[][]>(() => generateDigSite(INITIAL_SEED));
+  const [digsRemaining, setDigsRemaining] = useState(TOTAL_DIGS);
   const [score, setScore] = useState(0);
-  const [brushSize, setBrushSize] = useState(1);
-  const [discoveries, setDiscoveries] = useState<Discovery[]>([]);
-  const [museum, setMuseum] = useState<Discovery[]>([]);
-  const [showMuseum, setShowMuseum] = useState(false);
-  const [recentFind, setRecentFind] = useState<ArtifactType | null>(null);
-  const [isDigging, setIsDigging] = useState(false);
-  const [digCount, setDigCount] = useState(0);
-  const brushSoundRef = useRef<number>(0);
+  const [discoveries, setDiscoveries] = useState<Artifact[]>([]);
+  const [lastDiscovery, setLastDiscovery] = useState<Artifact | null>(null);
+  const [gameOver, setGameOver] = useState(false);
+  const [siteNumber, setSiteNumber] = useState(1);
+  const [showDiscoveryPopup, setShowDiscoveryPopup] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+  const popupTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const generateGrid = useCallback(() => {
-    const site = DIG_SITES[Math.floor(Math.random() * DIG_SITES.length)];
-    setCurrentSite(site);
-    setDiscoveries([]);
-    setDigCount(0);
+  // Generate a new random grid on client-side mount
+  useEffect(() => {
+    setIsClient(true);
+    const newSeed = Date.now();
+    setGrid(generateDigSite(newSeed));
+  }, []);
 
-    const newGrid: Tile[][] = [];
-    const artifactCount = Math.floor(Math.random() * 8) + 5; // 5-12 artifacts
-    const artifactPositions = new Set<string>();
-
-    // Place artifacts
-    while (artifactPositions.size < artifactCount) {
-      const x = Math.floor(Math.random() * GRID_SIZE);
-      const y = Math.floor(Math.random() * GRID_SIZE);
-      artifactPositions.add(`${x},${y}`);
-    }
-
-    for (let y = 0; y < GRID_SIZE; y++) {
-      const row: Tile[] = [];
-      for (let x = 0; x < GRID_SIZE; x++) {
-        const hasArtifact = artifactPositions.has(`${x},${y}`);
-        let artifact: ArtifactType | null = null;
-        
-        if (hasArtifact) {
-          const roll = Math.random();
-          let rarity: "common" | "uncommon" | "rare" | "legendary";
-          if (roll < 0.5) rarity = "common";
-          else if (roll < 0.8) rarity = "uncommon";
-          else if (roll < 0.95) rarity = "rare";
-          else rarity = "legendary";
-          
-          const filtered = ARTIFACTS.filter(a => a.rarity === rarity);
-          artifact = filtered[Math.floor(Math.random() * filtered.length)];
-        }
-
-        row.push({
-          dirtLevel: 4,
-          artifact,
-          revealed: false,
-        });
+  const handleDig = useCallback((x: number, y: number) => {
+    if (gameOver || digsRemaining <= 0) return;
+    
+    const cell = grid[y]?.[x];
+    if (!cell || cell.revealed) return;
+    
+    setGrid(prev => {
+      const newGrid = prev.map(row => row.map(c => ({ ...c })));
+      if (newGrid[y]?.[x]) {
+        newGrid[y][x].revealed = true;
       }
-      newGrid.push(row);
+      return newGrid;
+    });
+    
+    setDigsRemaining(prev => prev - 1);
+    
+    const artifact = ARTIFACTS[cell.type];
+    if (artifact && artifact.points > 0) {
+      setScore(prev => prev + artifact.points);
+      setDiscoveries(prev => [...prev, artifact]);
+      setLastDiscovery(artifact);
+      setShowDiscoveryPopup(true);
+      
+      if (popupTimeoutRef.current) {
+        clearTimeout(popupTimeoutRef.current);
+      }
+      popupTimeoutRef.current = setTimeout(() => {
+        setShowDiscoveryPopup(false);
+      }, 2000);
+    } else {
+      setLastDiscovery(null);
     }
+    
+    if (digsRemaining <= 1) {
+      setGameOver(true);
+    }
+  }, [grid, digsRemaining, gameOver]);
 
-    setGrid(newGrid);
+  const startNewSite = useCallback(() => {
+    const newSeed = Date.now();
+    setGrid(generateDigSite(newSeed));
+    setDigsRemaining(TOTAL_DIGS);
+    setDiscoveries([]);
+    setLastDiscovery(null);
+    setGameOver(false);
+    setSiteNumber(prev => prev + 1);
+    setShowDiscoveryPopup(false);
+  }, []);
+
+  const resetGame = useCallback(() => {
+    const newSeed = Date.now();
+    setGrid(generateDigSite(newSeed));
+    setDigsRemaining(TOTAL_DIGS);
+    setScore(0);
+    setDiscoveries([]);
+    setLastDiscovery(null);
+    setGameOver(false);
+    setSiteNumber(1);
+    setShowDiscoveryPopup(false);
   }, []);
 
   useEffect(() => {
-    generateGrid();
-    // Load museum from localStorage
-    const saved = localStorage.getItem("pixelArchaeologyMuseum");
-    if (saved) {
-      try {
-        setMuseum(JSON.parse(saved));
-      } catch {
-        setMuseum([]);
+    return () => {
+      if (popupTimeoutRef.current) {
+        clearTimeout(popupTimeoutRef.current);
       }
-    }
-  }, [generateGrid]);
+    };
+  }, []);
 
-  const dig = (centerX: number, centerY: number) => {
-    setGrid(prev => {
-      const newGrid = prev.map(row => row.map(tile => ({ ...tile })));
-      
-      for (let dy = -brushSize + 1; dy < brushSize; dy++) {
-        for (let dx = -brushSize + 1; dx < brushSize; dx++) {
-          const x = centerX + dx;
-          const y = centerY + dy;
-          
-          if (x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE) {
-            const tile = newGrid[y][x];
-            if (tile.dirtLevel > 0) {
-              tile.dirtLevel--;
-              setDigCount(c => c + 1);
-              
-              if (tile.dirtLevel === 0 && tile.artifact && !tile.revealed) {
-                tile.revealed = true;
-                setScore(s => s + tile.artifact!.points);
-                setRecentFind(tile.artifact);
-                
-                const discovery: Discovery = {
-                  artifact: tile.artifact,
-                  digSite: currentSite,
-                  timestamp: new Date(),
-                };
-                setDiscoveries(d => [...d, discovery]);
-                
-                setTimeout(() => setRecentFind(null), 2000);
-              }
-            }
-          }
-        }
-      }
-      
-      return newGrid;
-    });
-  };
-
-  const handleMouseDown = (x: number, y: number) => {
-    setIsDigging(true);
-    dig(x, y);
-  };
-
-  const handleMouseMove = (x: number, y: number) => {
-    if (isDigging) {
-      dig(x, y);
-    }
-  };
-
-  const handleMouseUp = () => {
-    setIsDigging(false);
-  };
-
-  const saveToMuseum = () => {
-    const newMuseum = [...museum, ...discoveries];
-    setMuseum(newMuseum);
-    localStorage.setItem("pixelArchaeologyMuseum", JSON.stringify(newMuseum));
-    generateGrid();
-  };
-
-  const getDirtColor = (level: number) => {
-    switch (level) {
-      case 4: return "bg-amber-900";
-      case 3: return "bg-amber-800";
-      case 2: return "bg-amber-700";
-      case 1: return "bg-amber-600";
-      default: return "bg-amber-200";
-    }
-  };
-
-  const totalArtifacts = grid.flat().filter(t => t.artifact).length;
-  const foundArtifacts = discoveries.length;
-  const allFound = foundArtifacts === totalArtifacts && totalArtifacts > 0;
+  const revealedCount = grid.flat().filter(c => c.revealed).length;
+  const totalCells = GRID_SIZE * GRID_SIZE;
+  const progressPercent = (revealedCount / totalCells) * 100;
 
   return (
-    <FeatureWrapper day={392} title="Pixel Archaeology Dig" emoji="🏺">
-      <div className="max-w-4xl mx-auto p-4">
-        <div className="text-center mb-6">
-          <h1 
-            className="text-3xl font-bold mb-2"
+    <FeatureWrapper day={393} title="Pixel Archaeology Dig" emoji="⛏️">
+      <div className="flex flex-col items-center gap-6 p-4 max-w-4xl mx-auto">
+        <div className="text-center">
+          <h2 
+            className="text-2xl font-bold mb-2"
             style={{ fontFamily: "var(--font-serif)", color: "var(--color-text)" }}
           >
-            🏺 Pixel Archaeology Dig
-          </h1>
-          <p style={{ color: "var(--color-text-dim)" }}>
-            Carefully brush away the dirt to uncover ancient artifacts!
+            🏛️ Archaeological Dig Site #{siteNumber}
+          </h2>
+          <p style={{ color: "var(--color-text-dim)" }} className="text-sm">
+            Click squares to excavate. Find ancient treasures before your digs run out!
           </p>
         </div>
 
-        {/* Stats Bar */}
-        <div 
-          className="flex flex-wrap justify-center gap-4 mb-4 p-3 rounded-lg"
-          style={{ backgroundColor: "var(--color-bg-secondary)" }}
-        >
-          <div className="text-center">
-            <div className="text-sm" style={{ color: "var(--color-text-dim)" }}>Site</div>
-            <div className="font-bold" style={{ color: "var(--color-text)" }}>{currentSite}</div>
+        <div className="flex flex-wrap justify-center gap-6 w-full">
+          <div 
+            className="px-4 py-2 rounded-lg text-center"
+            style={{ backgroundColor: "var(--color-bg-secondary)", border: "1px solid var(--color-border)" }}
+          >
+            <div className="text-2xl font-bold" style={{ color: "var(--color-accent)" }}>
+              🪙 {score.toLocaleString()}
+            </div>
+            <div className="text-xs" style={{ color: "var(--color-text-dim)" }}>Score</div>
           </div>
-          <div className="text-center">
-            <div className="text-sm" style={{ color: "var(--color-text-dim)" }}>Score</div>
-            <div className="font-bold text-yellow-400">{score} pts</div>
+          
+          <div 
+            className="px-4 py-2 rounded-lg text-center"
+            style={{ backgroundColor: "var(--color-bg-secondary)", border: "1px solid var(--color-border)" }}
+          >
+            <div className="text-2xl font-bold" style={{ color: digsRemaining <= 5 ? "#ef4444" : "var(--color-text)" }}>
+              ⛏️ {digsRemaining}
+            </div>
+            <div className="text-xs" style={{ color: "var(--color-text-dim)" }}>Digs Left</div>
           </div>
-          <div className="text-center">
-            <div className="text-sm" style={{ color: "var(--color-text-dim)" }}>Found</div>
-            <div className="font-bold" style={{ color: "var(--color-text)" }}>{foundArtifacts}/{totalArtifacts}</div>
-          </div>
-          <div className="text-center">
-            <div className="text-sm" style={{ color: "var(--color-text-dim)" }}>Museum</div>
-            <div className="font-bold text-purple-400">{museum.length} items</div>
+          
+          <div 
+            className="px-4 py-2 rounded-lg text-center"
+            style={{ backgroundColor: "var(--color-bg-secondary)", border: "1px solid var(--color-border)" }}
+          >
+            <div className="text-2xl font-bold" style={{ color: "var(--color-text)" }}>
+              🏺 {discoveries.length}
+            </div>
+            <div className="text-xs" style={{ color: "var(--color-text-dim)" }}>Artifacts</div>
           </div>
         </div>
 
-        {/* Brush Size */}
-        <div className="flex justify-center gap-2 mb-4">
-          <span style={{ color: "var(--color-text-dim)" }}>Brush:</span>
-          {[1, 2, 3].map(size => (
-            <button
-              key={size}
-              onClick={() => setBrushSize(size)}
-              className={`px-3 py-1 rounded ${brushSize === size ? 'bg-amber-600' : ''}`}
+        <div className="w-full max-w-md">
+          <div 
+            className="h-2 rounded-full overflow-hidden"
+            style={{ backgroundColor: "var(--color-bg-secondary)" }}
+          >
+            <div 
+              className="h-full transition-all duration-300 rounded-full"
               style={{ 
-                backgroundColor: brushSize === size ? undefined : "var(--color-bg-secondary)",
-                color: "var(--color-text)"
+                width: `${progressPercent}%`,
+                backgroundColor: "var(--color-accent)"
+              }}
+            />
+          </div>
+          <div className="text-xs text-center mt-1" style={{ color: "var(--color-text-dim)" }}>
+            {revealedCount}/{totalCells} squares excavated
+          </div>
+        </div>
+
+        <div className="relative">
+          <div 
+            className="rounded-lg p-2 shadow-lg"
+            style={{ 
+              backgroundColor: "#3d2817",
+              border: "4px solid #2a1a0e"
+            }}
+          >
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: `repeat(${GRID_SIZE}, 1fr)`,
+                gap: "2px"
               }}
             >
-              {size === 1 ? "🖌️" : size === 2 ? "🖌️🖌️" : "🖌️🖌️🖌️"}
-            </button>
-          ))}
+              {grid.map((row, y) =>
+                row.map((cell, x) => {
+                  const bgColor = cell.revealed 
+                    ? (cell.type === "empty" ? "#4a3728" : "#5a4738") 
+                    : DIRT_COLORS[cell.colorIndex] || DIRT_COLORS[0];
+                  
+                  return (
+                    <button
+                      key={`${x}-${y}`}
+                      onClick={() => handleDig(x, y)}
+                      disabled={cell.revealed || gameOver || digsRemaining <= 0 || !isClient}
+                      className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center transition-all duration-200 text-lg sm:text-xl"
+                      style={{
+                        backgroundColor: bgColor,
+                        borderRadius: "2px",
+                        cursor: cell.revealed || gameOver || !isClient ? "default" : "pointer",
+                        transform: cell.revealed ? "none" : "translateY(-2px)",
+                        boxShadow: cell.revealed 
+                          ? "inset 0 2px 4px rgba(0,0,0,0.3)" 
+                          : "0 2px 0 #4a3020, 0 3px 2px rgba(0,0,0,0.3)",
+                        opacity: cell.revealed && cell.type === "empty" ? 0.7 : 1
+                      }}
+                    >
+                      {cell.revealed ? (
+                        cell.type !== "empty" ? ARTIFACTS[cell.type]?.emoji || "" : ""
+                      ) : (
+                        <span className="opacity-30">·</span>
+                      )}
+                    </button>
+                  );
+                })
+              )}
+            </div>
+          </div>
+
+          {showDiscoveryPopup && lastDiscovery && (
+            <div 
+              className="absolute -top-16 left-1/2 transform -translate-x-1/2 px-4 py-2 rounded-lg animate-bounce"
+              style={{ 
+                backgroundColor: "var(--color-accent)",
+                color: "white",
+                whiteSpace: "nowrap"
+              }}
+            >
+              <span className="text-xl mr-2">{lastDiscovery.emoji}</span>
+              <span className="font-bold">{lastDiscovery.name}!</span>
+              <span className="ml-2">+{lastDiscovery.points}</span>
+            </div>
+          )}
         </div>
 
-        {/* Recent Find Popup */}
-        {recentFind && (
+        {lastDiscovery && (
           <div 
-            className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
-                       p-6 rounded-xl shadow-2xl z-50 text-center animate-bounce
-                       ${RARITY_BG[recentFind.rarity]}`}
-            style={{ border: "2px solid var(--color-border)" }}
+            className="text-center p-3 rounded-lg max-w-sm"
+            style={{ 
+              backgroundColor: "var(--color-bg-secondary)",
+              border: "1px solid var(--color-border)"
+            }}
           >
-            <div className="text-6xl mb-2">{recentFind.emoji}</div>
-            <div className={`text-xl font-bold ${RARITY_COLORS[recentFind.rarity]}`}>
-              {recentFind.name}
+            <div className="text-3xl mb-1">{lastDiscovery.emoji}</div>
+            <div className="font-bold" style={{ color: "var(--color-text)" }}>
+              {lastDiscovery.name}
             </div>
-            <div className="text-sm uppercase tracking-wide mt-1 opacity-70">
-              {recentFind.rarity}
+            <div className="text-sm italic" style={{ color: "var(--color-text-dim)" }}>
+              &quot;{lastDiscovery.description}&quot;
             </div>
-            <div className="text-yellow-400 mt-2">+{recentFind.points} pts</div>
           </div>
         )}
 
-        {/* Dig Grid */}
-        <div 
-          className="mx-auto rounded-lg p-2 mb-4"
-          style={{ 
-            backgroundColor: "var(--color-bg-secondary)",
-            border: "2px solid var(--color-border)",
-            width: "fit-content"
-          }}
-          onMouseLeave={handleMouseUp}
-        >
-          <div
+        {gameOver && (
+          <div 
+            className="text-center p-6 rounded-lg"
             style={{ 
-              display: 'grid', 
-              gridTemplateColumns: `repeat(${GRID_SIZE}, 1fr)`,
-              gap: '2px',
+              backgroundColor: "var(--color-bg-secondary)",
+              border: "2px solid var(--color-accent)"
             }}
           >
-            {grid.map((row, y) =>
-              row.map((tile, x) => (
-                <div
-                  key={`${x}-${y}`}
-                  onMouseDown={() => handleMouseDown(x, y)}
-                  onMouseEnter={() => handleMouseMove(x, y)}
-                  onMouseUp={handleMouseUp}
-                  className={`w-8 h-8 sm:w-10 sm:h-10 rounded cursor-pointer transition-all
-                             hover:brightness-110 active:scale-95 flex items-center justify-center
-                             ${getDirtColor(tile.dirtLevel)}`}
-                  style={{ userSelect: 'none' }}
-                >
-                  {tile.dirtLevel === 0 && tile.artifact && (
-                    <span className="text-lg sm:text-2xl">{tile.artifact.emoji}</span>
-                  )}
-                  {tile.dirtLevel === 0 && !tile.artifact && (
-                    <span className="text-xs opacity-30">·</span>
-                  )}
-                </div>
-              ))
-            )}
-          </div>
-        </div>
-
-        {/* Action Buttons */}
-        <div className="flex justify-center gap-4 mb-6">
-          <button
-            onClick={generateGrid}
-            className="btn-secondary px-4 py-2 rounded-lg"
-          >
-            🗺️ New Dig Site
-          </button>
-          {discoveries.length > 0 && (
-            <button
-              onClick={saveToMuseum}
-              className="btn-primary px-4 py-2 rounded-lg"
+            <h3 
+              className="text-xl font-bold mb-2"
+              style={{ fontFamily: "var(--font-serif)", color: "var(--color-text)" }}
             >
-              🏛️ Save to Museum ({discoveries.length})
-            </button>
-          )}
-          <button
-            onClick={() => setShowMuseum(!showMuseum)}
-            className="btn-secondary px-4 py-2 rounded-lg"
-          >
-            {showMuseum ? "🚪 Close Museum" : "🏛️ View Museum"}
-          </button>
-        </div>
-
-        {/* Current Discoveries */}
-        {discoveries.length > 0 && (
-          <div 
-            className="p-4 rounded-lg mb-4"
-            style={{ backgroundColor: "var(--color-bg-secondary)" }}
-          >
-            <h3 className="font-bold mb-2" style={{ color: "var(--color-text)" }}>
-              📋 This Dig's Discoveries:
+              🎉 Dig Complete!
             </h3>
-            <div className="flex flex-wrap gap-2">
-              {discoveries.map((d, i) => (
+            <p style={{ color: "var(--color-text-dim)" }} className="mb-4">
+              You found {discoveries.length} artifact{discoveries.length !== 1 ? "s" : ""} at Site #{siteNumber}!
+            </p>
+            <div className="flex flex-wrap justify-center gap-2 mb-4">
+              {discoveries.map((artifact, i) => (
+                <span key={i} className="text-2xl" title={artifact.name}>
+                  {artifact.emoji}
+                </span>
+              ))}
+              {discoveries.length === 0 && (
+                <span style={{ color: "var(--color-text-dim)" }}>No artifacts found... better luck next dig!</span>
+              )}
+            </div>
+            <div className="flex gap-3 justify-center">
+              <button
+                onClick={startNewSite}
+                className="btn-primary px-4 py-2 rounded-lg font-bold"
+              >
+                🗺️ New Site
+              </button>
+              <button
+                onClick={resetGame}
+                className="btn-secondary px-4 py-2 rounded-lg"
+              >
+                🔄 Reset Score
+              </button>
+            </div>
+          </div>
+        )}
+
+        <div 
+          className="text-center p-4 rounded-lg w-full max-w-md"
+          style={{ 
+            backgroundColor: "var(--color-bg-secondary)",
+            border: "1px solid var(--color-border)"
+          }}
+        >
+          <h4 className="font-bold mb-2" style={{ color: "var(--color-text)" }}>
+            📋 Artifact Guide
+          </h4>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-sm">
+            {Object.values(ARTIFACTS)
+              .filter(a => a.type !== "dirt" && a.type !== "empty")
+              .sort((a, b) => b.rarity - a.rarity)
+              .map(artifact => (
                 <div 
-                  key={i}
-                  className={`px-3 py-1 rounded-full ${RARITY_BG[d.artifact.rarity]}`}
+                  key={artifact.type}
+                  className="flex items-center gap-1 px-2 py-1 rounded"
+                  style={{ backgroundColor: "var(--color-bg)" }}
                 >
-                  <span>{d.artifact.emoji}</span>
-                  <span className={`ml-1 ${RARITY_COLORS[d.artifact.rarity]}`}>
-                    {d.artifact.name}
+                  <span>{artifact.emoji}</span>
+                  <span style={{ color: "var(--color-text-dim)" }}>
+                    {artifact.points}pts
                   </span>
                 </div>
               ))}
-            </div>
-          </div>
-        )}
-
-        {/* All Found Message */}
-        {allFound && (
-          <div 
-            className="text-center p-4 rounded-lg bg-green-900 mb-4"
-            style={{ border: "2px solid var(--color-accent)" }}
-          >
-            <span className="text-2xl">🎉</span>
-            <span className="ml-2 font-bold" style={{ color: "var(--color-text)" }}>
-              Excavation Complete! All artifacts uncovered!
-            </span>
-          </div>
-        )}
-
-        {/* Museum */}
-        {showMuseum && (
-          <div 
-            className="p-4 rounded-lg"
-            style={{ backgroundColor: "var(--color-bg-secondary)" }}
-          >
-            <h3 
-              className="text-xl font-bold mb-4 text-center"
-              style={{ fontFamily: "var(--font-serif)", color: "var(--color-text)" }}
-            >
-              🏛️ Your Personal Museum
-            </h3>
-            {museum.length === 0 ? (
-              <p className="text-center" style={{ color: "var(--color-text-dim)" }}>
-                No artifacts yet! Start digging to fill your museum.
-              </p>
-            ) : (
-              <>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-                  {museum.map((item, i) => (
-                    <div
-                      key={i}
-                      className={`p-3 rounded-lg text-center ${RARITY_BG[item.artifact.rarity]}`}
-                      style={{ border: "1px solid var(--color-border)" }}
-                    >
-                      <div className="text-3xl mb-1">{item.artifact.emoji}</div>
-                      <div className={`text-sm font-bold ${RARITY_COLORS[item.artifact.rarity]}`}>
-                        {item.artifact.name}
-                      </div>
-                      <div className="text-xs opacity-60" style={{ color: "var(--color-text-dim)" }}>
-                        {item.digSite.split(" ")[0]}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="text-center mt-4">
-                  <button
-                    onClick={() => {
-                      setMuseum([]);
-                      localStorage.removeItem("pixelArchaeologyMuseum");
-                    }}
-                    className="text-sm text-red-400 hover:text-red-300"
-                  >
-                    🗑️ Clear Museum
-                  </button>
-                </div>
-              </>
-            )}
-          </div>
-        )}
-
-        {/* Legend */}
-        <div 
-          className="mt-6 p-4 rounded-lg text-center text-sm"
-          style={{ 
-            backgroundColor: "var(--color-bg-secondary)",
-            color: "var(--color-text-dim)"
-          }}
-        >
-          <div className="font-bold mb-2" style={{ color: "var(--color-text)" }}>
-            Rarity Guide:
-          </div>
-          <div className="flex justify-center gap-4 flex-wrap">
-            <span className="text-gray-400">● Common</span>
-            <span className="text-green-400">● Uncommon</span>
-            <span className="text-blue-400">● Rare</span>
-            <span className="text-yellow-400">● Legendary</span>
           </div>
         </div>
       </div>
