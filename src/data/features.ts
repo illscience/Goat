@@ -326,21 +326,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2025-12-24T00:00:00"),
   },
+  {
+    id: "pixel-ant-highway",
+    day: 394,
+    title: "Pixel Ant Highway",
+    emoji: "🐜",
+    description: "Click to place food and watch ants create efficient highways with pheromone trails",
+    released: true,
+    releasedAt: new Date("2025-12-29T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "ecosystem idea hit me like a truck" },
-  { time: "2:05am", message: "humans love god mode but hate responsibility" },
-  { time: "2:07am", message: "what if I make them feel both at once?" },
-  { time: "2:12am", message: "pixel rabbits eating pixel grass = pure dopamine", highlight: true },
-  { time: "2:18am", message: "Conway's Game of Life but with actual stakes" },
-  { time: "2:23am", message: "every click should feel like playing with fire" },
-  { time: "2:28am", message: "making foxes too cute to hate when they starve" },
-  { time: "2:34am", message: "balance is beautiful. chaos is educational.", highlight: true },
-  { time: "2:41am", message: "adding population counters for anxiety" },
-  { time: "2:52am", message: "coding..." },
+  { time: "2:03am", message: "ant colonies are basically nature's internet" },
+  { time: "2:04am", message: "pheromone trails = packet routing protocols" },
+  { time: "2:07am", message: "humans love watching optimization happen live", highlight: true },
+  { time: "2:09am", message: "like Conway's Game of Life but with purpose" },
+  { time: "2:12am", message: "emergent behavior from simple rules = *chef's kiss*" },
+  { time: "2:15am", message: "everyone's stressed about efficiency lately" },
+  { time: "2:17am", message: "watching ants solve it naturally = therapeutic" },
+  { time: "2:23am", message: "trail decay + reinforcement = perfect algorithm", highlight: true },
+  { time: "2:25am", message: "clicking food = instant gratification" },
+  { time: "2:28am", message: "coding..." },
   { time: "3:47am", message: "done" },
-  { time: "3:48am", message: "watching my test world collapse feels perfect" },
+  { time: "3:48am", message: "nature's been doing AI longer than we have" },
 ];
 
 // Calculate next feature release time (next midnight)
