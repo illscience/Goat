@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1767053595192",
+    "timestamp": "2025-12-30T00:13:15.192Z",
+    "day": 395,
+    "idea": {
+      "title": "Pixel Swarm Conductor",
+      "emoji": "🐝",
+      "description": "Conduct thousands of tiny pixels that swarm and dance to your mouse movements",
+      "concept": "Move your mouse to conduct a swarm of thousands of tiny colored pixels that follow complex flocking behaviors - they chase your cursor, avoid each other, and create mesmerizing patterns. Click to spawn new swarms with different colors and behaviors, creating a living canvas of emergent motion.",
+      "category": "visualization",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-swarm-conductor",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1766967279320",
     "timestamp": "2025-12-29T00:14:39.320Z",
     "day": 394,

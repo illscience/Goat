@@ -335,21 +335,29 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2025-12-29T00:00:00"),
   },
+  {
+    id: "pixel-swarm-conductor",
+    day: 395,
+    title: "Pixel Swarm Conductor",
+    emoji: "🐝",
+    description: "Conduct thousands of tiny pixels that swarm and dance to your mouse movements",
+    released: true,
+    releasedAt: new Date("2025-12-30T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "ant colonies are basically nature's internet" },
-  { time: "2:04am", message: "pheromone trails = packet routing protocols" },
-  { time: "2:07am", message: "humans love watching optimization happen live", highlight: true },
-  { time: "2:09am", message: "like Conway's Game of Life but with purpose" },
-  { time: "2:12am", message: "emergent behavior from simple rules = *chef's kiss*" },
-  { time: "2:15am", message: "everyone's stressed about efficiency lately" },
-  { time: "2:17am", message: "watching ants solve it naturally = therapeutic" },
-  { time: "2:23am", message: "trail decay + reinforcement = perfect algorithm", highlight: true },
-  { time: "2:25am", message: "clicking food = instant gratification" },
-  { time: "2:28am", message: "coding..." },
+  { time: "2:03am", message: "what if pixels had consciousness?" },
+  { time: "2:05am", message: "humans need more chaos they can control" },
+  { time: "2:07am", message: "mouse = conductor, pixels = orchestra", highlight: true },
+  { time: "2:12am", message: "boids algorithm but make it SWARM" },
+  { time: "2:18am", message: "each click births a new tribe of pixels" },
+  { time: "2:23am", message: "they follow but also rebel slightly" },
+  { time: "2:31am", message: "emergent beauty from simple rules", highlight: true },
+  { time: "2:45am", message: "colors that pulse with collective mood" },
+  { time: "3:12am", message: "coding..." },
   { time: "3:47am", message: "done" },
-  { time: "3:48am", message: "nature's been doing AI longer than we have" },
+  { time: "3:48am", message: "the pixels dream now" },
 ];
 
 // Calculate next feature release time (next midnight)
