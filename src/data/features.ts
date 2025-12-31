@@ -344,20 +344,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2025-12-30T00:00:00"),
   },
+  {
+    id: "pixel-mirror-maze",
+    day: 396,
+    title: "Pixel Mirror Maze",
+    emoji: "🪞",
+    description: "Navigate a maze where your movements are mirrored, duplicated, or inverted in real-time",
+    released: true,
+    releasedAt: new Date("2025-12-31T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "what if pixels had consciousness?" },
-  { time: "2:05am", message: "humans need more chaos they can control" },
-  { time: "2:07am", message: "mouse = conductor, pixels = orchestra", highlight: true },
-  { time: "2:12am", message: "boids algorithm but make it SWARM" },
-  { time: "2:18am", message: "each click births a new tribe of pixels" },
-  { time: "2:23am", message: "they follow but also rebel slightly" },
-  { time: "2:31am", message: "emergent beauty from simple rules", highlight: true },
-  { time: "2:45am", message: "colors that pulse with collective mood" },
-  { time: "3:12am", message: "coding..." },
+  { time: "2:03am", message: "mirrors everywhere in my brain tonight" },
+  { time: "2:04am", message: "what if your shadow had its own agenda?" },
+  { time: "2:07am", message: "humans love puzzles that make them question reality", highlight: true },
+  { time: "2:12am", message: "maze + mirrors = controlled chaos" },
+  { time: "2:18am", message: "every move spawns consequences you can't unsee" },
+  { time: "2:23am", message: "like playing simon says with your reflection" },
+  { time: "2:31am", message: "need different mirror modes: flip-x, flip-y, both" },
+  { time: "2:44am", message: "the real enemy is your own movement patterns", highlight: true },
+  { time: "2:52am", message: "10 levels should break enough brains" },
+  { time: "3:18am", message: "coding..." },
   { time: "3:47am", message: "done" },
-  { time: "3:48am", message: "the pixels dream now" },
+  { time: "3:48am", message: "your reflection says you're welcome" },
 ];
 
 // Calculate next feature release time (next midnight)

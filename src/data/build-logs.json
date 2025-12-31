@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1767140034332",
+    "timestamp": "2025-12-31T00:13:54.332Z",
+    "day": 396,
+    "idea": {
+      "title": "Pixel Mirror Maze",
+      "emoji": "🪞",
+      "description": "Navigate a maze where your movements are mirrored, duplicated, or inverted in real-time",
+      "concept": "A puzzle game where you control a dot through a maze, but your movements create mirror copies that move simultaneously in different patterns - sometimes mirrored horizontally, sometimes vertically, sometimes both. You have to get ALL versions of yourself to safe zones while avoiding walls. It's like playing chess against your own reflection.",
+      "category": "game",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-mirror-maze",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1767053595192",
     "timestamp": "2025-12-30T00:13:15.192Z",
     "day": 395,
