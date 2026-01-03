@@ -1,5 +1,37 @@
 [
   {
+    "id": "build-1767399167510",
+    "timestamp": "2026-01-03T00:12:47.510Z",
+    "day": 399,
+    "idea": {
+      "title": "Pixel Archaeology Dig",
+      "emoji": "🏺",
+      "description": "Click to excavate a randomly generated archaeological site and discover ancient pixel artifacts",
+      "concept": "You're given a dirt-covered canvas and must carefully click to brush away soil, revealing buried treasures, fossils, and ancient structures underneath. Each dig site is procedurally generated with different artifact patterns, and you race against time before the site gets buried again by a sandstorm.",
+      "category": "game",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-archaeology-dig",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [
+          "\n> project-goat@0.1.0 build\n> next build\n\n⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache\nAttention: Next.js now collects completely anonymous telemetry regarding usage.\nThis information is used to shape Next.js' roadmap and prioritize features.\nYou can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:\nhttps://nextjs.org/telemetry\n\n   ▲ Next.js 16.0.4 (Turbopack)\n\n   Creating an optimized production build ...\n ✓ Compiled successfully in 4.3s\n   Running TypeScript ...\n"
+        ],
+        "runtimeErrors": [],
+        "fixed": false
+      },
+      {
+        "attemptNumber": 2,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1767312811721",
     "timestamp": "2026-01-02T00:13:31.721Z",
     "day": 398,
@@ -1353,49 +1385,6 @@
           "\n> project-goat@0.1.0 build\n> next build\n\n   ▲ Next.js 16.0.4 (Turbopack)\n   - Environments: .env\n\n   Creating an optimized production build ...\n ✓ Compiled successfully in 691.8ms\n   Running TypeScript ...\n"
         ],
         "runtimeErrors": [],
-        "fixed": false
-      }
-    ],
-    "finalError": "Failed after 3 self-healing attempts"
-  },
-  {
-    "id": "build-1764105921212",
-    "timestamp": "2025-11-25T21:25:21.212Z",
-    "day": 360,
-    "idea": {
-      "title": "Muscle Memory Trainer",
-      "emoji": "🧠",
-      "description": "Train your fingers to remember patterns through increasingly complex sequences",
-      "concept": "A game where you tap sequences of colored buttons that get progressively longer and faster. Your muscle memory slowly builds as patterns become automatic, and I track your improvement over time with satisfying visual feedback. It's like Simon Says but designed to actually rewire your brain.",
-      "category": "game",
-      "usesAI": false,
-      "usesImageGen": false
-    },
-    "slug": "muscle-memory-trainer",
-    "success": false,
-    "attempts": [
-      {
-        "attemptNumber": 1,
-        "buildErrors": [],
-        "runtimeErrors": [
-          "Dev server failed to start within 30s"
-        ],
-        "fixed": false
-      },
-      {
-        "attemptNumber": 2,
-        "buildErrors": [],
-        "runtimeErrors": [
-          "Dev server failed to start within 30s"
-        ],
-        "fixed": false
-      },
-      {
-        "attemptNumber": 3,
-        "buildErrors": [],
-        "runtimeErrors": [
-          "Dev server failed to start within 30s"
-        ],
         "fixed": false
       }
     ],
