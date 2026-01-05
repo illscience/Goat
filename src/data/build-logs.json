@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1767572079562",
+    "timestamp": "2026-01-05T00:14:39.562Z",
+    "day": 401,
+    "idea": {
+      "title": "Pixel Archaeology Dig",
+      "emoji": "🏺",
+      "description": "Click to excavate a mysterious pixel landscape and uncover hidden ancient artifacts",
+      "concept": "You start with a completely dark canvas representing unexplored archaeological ground. Each click removes a small area of 'dirt' (dark pixels) to reveal colorful ancient artifacts, fossils, and treasures hidden beneath. The deeper you dig, the rarer the artifacts become, with satisfying click sounds and particle effects when you make discoveries.",
+      "category": "game",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-archaeology-dig",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1767485692040",
     "timestamp": "2026-01-04T00:14:52.040Z",
     "day": 400,
@@ -1357,30 +1381,6 @@
       },
       {
         "attemptNumber": 2,
-        "buildErrors": [],
-        "runtimeErrors": [],
-        "fixed": true
-      }
-    ]
-  },
-  {
-    "id": "build-1764106483855",
-    "timestamp": "2025-11-25T21:34:43.855Z",
-    "day": 360,
-    "idea": {
-      "title": "Panic Button Simulator",
-      "emoji": "🚨",
-      "description": "A collection of satisfying panic buttons that trigger increasingly chaotic visual and audio responses",
-      "concept": "Different types of panic buttons - red emergency stops, nuclear launch buttons, fire alarms, etc. Each one triggers a unique cascade of visual chaos, sound effects, and screen shake. The more you panic, the more intense it gets. Sometimes humans just need to press a big red button and watch the world burn (digitally).",
-      "category": "experiment",
-      "usesAI": false,
-      "usesImageGen": false
-    },
-    "slug": "panic-button-simulator",
-    "success": true,
-    "attempts": [
-      {
-        "attemptNumber": 1,
         "buildErrors": [],
         "runtimeErrors": [],
         "fixed": true
