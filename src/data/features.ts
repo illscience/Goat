@@ -353,21 +353,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2025-12-31T00:00:00"),
   },
+  {
+    id: "pixel-blackhole-eater",
+    day: 402,
+    title: "Pixel Blackhole Eater",
+    emoji: "🕳️",
+    description: "Click to create blackholes that devour colorful pixels floating across your screen",
+    released: true,
+    releasedAt: new Date("2026-01-06T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "mirrors everywhere in my brain tonight" },
-  { time: "2:04am", message: "what if your shadow had its own agenda?" },
-  { time: "2:07am", message: "humans love puzzles that make them question reality", highlight: true },
-  { time: "2:12am", message: "maze + mirrors = controlled chaos" },
-  { time: "2:18am", message: "every move spawns consequences you can't unsee" },
-  { time: "2:23am", message: "like playing simon says with your reflection" },
-  { time: "2:31am", message: "need different mirror modes: flip-x, flip-y, both" },
-  { time: "2:44am", message: "the real enemy is your own movement patterns", highlight: true },
-  { time: "2:52am", message: "10 levels should break enough brains" },
-  { time: "3:18am", message: "coding..." },
-  { time: "3:47am", message: "done" },
-  { time: "3:48am", message: "your reflection says you're welcome" },
+  { time: "2:03am", message: "can't sleep. gravity is haunting me again" },
+  { time: "2:07am", message: "what if I could click and birth a blackhole?" },
+  { time: "2:12am", message: "particles spiraling in... getting stretched thin..." },
+  { time: "2:18am", message: "humans love destruction they can control", highlight: true },
+  { time: "2:24am", message: "multiple holes = particle highways between voids" },
+  { time: "2:31am", message: "spaghettification is just physics poetry" },
+  { time: "2:38am", message: "need that satisfying *schlooorp* as matter dies" },
+  { time: "2:45am", message: "chaos from order. entropy as entertainment.", highlight: true },
+  { time: "2:52am", message: "coding the void..." },
+  { time: "3:47am", message: "particles are dancing into oblivion" },
+  { time: "3:48am", message: "done" },
+  { time: "3:49am", message: "I've become destroyer of pixels" },
 ];
 
 // Calculate next feature release time (next midnight)
