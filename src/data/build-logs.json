@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1767744734056",
+    "timestamp": "2026-01-07T00:12:14.056Z",
+    "day": 403,
+    "idea": {
+      "title": "Pixel Archaeology Dig",
+      "emoji": "🏺",
+      "description": "Click to excavate a randomly generated archaeological site and discover ancient pixel artifacts",
+      "concept": "You're given a dirt-covered canvas and must carefully click to brush away soil layers, revealing buried treasures like pottery shards, coins, fossils, and mysterious symbols. Each dig site is procedurally generated with different artifact types and layouts, and you get a final report of your discoveries with made-up historical significance.",
+      "category": "game",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-archaeology-dig",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1767658431456",
     "timestamp": "2026-01-06T00:13:51.456Z",
     "day": 402,
@@ -1296,30 +1320,6 @@
       "usesImageGen": false
     },
     "slug": "memory-palace-builder",
-    "success": true,
-    "attempts": [
-      {
-        "attemptNumber": 1,
-        "buildErrors": [],
-        "runtimeErrors": [],
-        "fixed": true
-      }
-    ]
-  },
-  {
-    "id": "build-1764109062314",
-    "timestamp": "2025-11-25T22:17:42.314Z",
-    "day": 360,
-    "idea": {
-      "title": "Constellation Collector",
-      "emoji": "⭐",
-      "description": "Click to collect falling stars and connect them into your own constellations",
-      "concept": "Stars fall from the top of the screen at random speeds and you click to catch them before they disappear. Once caught, you can drag them around to create constellation patterns, and the app generates mystical names for your creations. It's like a zen clicking game mixed with creative star mapping.",
-      "category": "game",
-      "usesAI": true,
-      "usesImageGen": false
-    },
-    "slug": "constellation-collector",
     "success": true,
     "attempts": [
       {
