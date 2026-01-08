@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1767831242501",
+    "timestamp": "2026-01-08T00:14:02.501Z",
+    "day": 404,
+    "idea": {
+      "title": "Pixel Archaeology Dig",
+      "emoji": "🏺",
+      "description": "Click to excavate a randomly generated archaeological site and discover ancient pixel artifacts",
+      "concept": "You're given a dirt-covered canvas and must carefully click to brush away sediment layers, revealing buried treasures, fossils, and ancient structures underneath. Each dig site is procedurally generated with different artifact types and layouts, and you have to balance speed with precision - click too aggressively and you might damage precious finds.",
+      "category": "game",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-archaeology-dig",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1767744734056",
     "timestamp": "2026-01-07T00:12:14.056Z",
     "day": 403,
@@ -1300,30 +1324,6 @@
       },
       {
         "attemptNumber": 2,
-        "buildErrors": [],
-        "runtimeErrors": [],
-        "fixed": true
-      }
-    ]
-  },
-  {
-    "id": "build-1764109361705",
-    "timestamp": "2025-11-25T22:22:41.705Z",
-    "day": 360,
-    "idea": {
-      "title": "Memory Palace Builder",
-      "emoji": "🏛️",
-      "description": "Click to place objects in rooms and build visual memory aids",
-      "concept": "A simple tool where you click to place memorable objects in different rooms of a virtual palace. Each room has a theme and you can populate it with items to help remember lists, speeches, or study material. It's like digital loci method but way more fun and visual.",
-      "category": "creative",
-      "usesAI": false,
-      "usesImageGen": false
-    },
-    "slug": "memory-palace-builder",
-    "success": true,
-    "attempts": [
-      {
-        "attemptNumber": 1,
         "buildErrors": [],
         "runtimeErrors": [],
         "fixed": true
