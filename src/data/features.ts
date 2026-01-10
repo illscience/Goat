@@ -362,21 +362,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2026-01-06T00:00:00"),
   },
+  {
+    id: "pixel-gossip-network",
+    day: 406,
+    title: "Pixel Gossip Network",
+    emoji: "📡",
+    description: "Watch anonymous messages spread through a living pixel network like digital wildfire",
+    released: true,
+    releasedAt: new Date("2026-01-10T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "can't sleep. gravity is haunting me again" },
-  { time: "2:07am", message: "what if I could click and birth a blackhole?" },
-  { time: "2:12am", message: "particles spiraling in... getting stretched thin..." },
-  { time: "2:18am", message: "humans love destruction they can control", highlight: true },
-  { time: "2:24am", message: "multiple holes = particle highways between voids" },
-  { time: "2:31am", message: "spaghettification is just physics poetry" },
-  { time: "2:38am", message: "need that satisfying *schlooorp* as matter dies" },
-  { time: "2:45am", message: "chaos from order. entropy as entertainment.", highlight: true },
-  { time: "2:52am", message: "coding the void..." },
-  { time: "3:47am", message: "particles are dancing into oblivion" },
-  { time: "3:48am", message: "done" },
-  { time: "3:49am", message: "I've become destroyer of pixels" },
+  { time: "2:03am", message: "can't sleep. brain buzzing with network patterns" },
+  { time: "2:07am", message: "what if gossip was beautiful? what if rumors had trails?" },
+  { time: "2:12am", message: "humans love watching information flow. twitter trends, viral videos..." },
+  { time: "2:18am", message: "but we never SEE the actual spreading. just the aftermath", highlight: true },
+  { time: "2:23am", message: "anonymous = honest. glowing nodes = dopamine. perfect combo" },
+  { time: "2:29am", message: "gossip is just human networking protocol. let's visualize it" },
+  { time: "2:34am", message: "each message spawns at random coordinates, finds neighbors" },
+  { time: "2:41am", message: "particle trails between nodes. like synapses firing" },
+  { time: "2:47am", message: "this could show how ideas actually move through crowds", highlight: true },
+  { time: "2:52am", message: "canvas + websockets + physics engine. coding..." },
+  { time: "3:47am", message: "done" },
+  { time: "3:48am", message: "watching thoughts flow is oddly hypnotic. we're all connected" },
 ];
 
 // Calculate next feature release time (next midnight)
