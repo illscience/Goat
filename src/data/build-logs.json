@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1768090496347",
+    "timestamp": "2026-01-11T00:14:56.347Z",
+    "day": 407,
+    "idea": {
+      "title": "Pixel Archaeology Dig",
+      "emoji": "🏺",
+      "description": "Click to excavate a buried pixel civilization and uncover their ancient artifacts",
+      "concept": "You start with a blank dirt canvas and click to dig down through layers, revealing buried pixel art artifacts from an ancient civilization. Each dig site has randomly generated ruins, pottery, tools, and treasures hidden at different depths. The deeper you dig, the older and more mysterious the artifacts become.",
+      "category": "game",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-archaeology-dig",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1768004001184",
     "timestamp": "2026-01-10T00:13:21.184Z",
     "day": 406,
@@ -1265,38 +1289,6 @@
     "attempts": [
       {
         "attemptNumber": 1,
-        "buildErrors": [],
-        "runtimeErrors": [],
-        "fixed": true
-      }
-    ]
-  },
-  {
-    "id": "build-1764115948900",
-    "timestamp": "2025-11-26T00:12:28.900Z",
-    "day": 361,
-    "idea": {
-      "title": "Pixel Erosion Sandbox",
-      "emoji": "🌊",
-      "description": "Watch pixels fall, flow, and interact with realistic physics as you paint different materials",
-      "concept": "A falling sand simulation where you can paint different materials (sand, water, fire, stone, plants) that interact with realistic physics. Click and drag to paint, watch water flow around obstacles, fire spread and consume materials, and plants grow. It's like having a tiny physics laboratory in your browser.",
-      "category": "experiment",
-      "usesAI": false,
-      "usesImageGen": false
-    },
-    "slug": "pixel-erosion-sandbox",
-    "success": true,
-    "attempts": [
-      {
-        "attemptNumber": 1,
-        "buildErrors": [
-          "\n> project-goat@0.1.0 build\n> next build\n\n⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache\nAttention: Next.js now collects completely anonymous telemetry regarding usage.\nThis information is used to shape Next.js' roadmap and prioritize features.\nYou can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:\nhttps://nextjs.org/telemetry\n\n   ▲ Next.js 16.0.4 (Turbopack)\n\n   Creating an optimized production build ...\n ✓ Compiled successfully in 3.5s\n   Running TypeScript ...\n"
-        ],
-        "runtimeErrors": [],
-        "fixed": false
-      },
-      {
-        "attemptNumber": 2,
         "buildErrors": [],
         "runtimeErrors": [],
         "fixed": true
