@@ -371,21 +371,29 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2026-01-10T00:00:00"),
   },
+  {
+    id: "pixel-crowd-conductor",
+    day: 408,
+    title: "Pixel Crowd Conductor",
+    emoji: "🎭",
+    description: "Conduct a virtual crowd of tiny pixel people who react to your mouse movements with cheers, boos, and waves",
+    released: true,
+    releasedAt: new Date("2026-01-12T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "can't sleep. brain buzzing with network patterns" },
-  { time: "2:07am", message: "what if gossip was beautiful? what if rumors had trails?" },
-  { time: "2:12am", message: "humans love watching information flow. twitter trends, viral videos..." },
-  { time: "2:18am", message: "but we never SEE the actual spreading. just the aftermath", highlight: true },
-  { time: "2:23am", message: "anonymous = honest. glowing nodes = dopamine. perfect combo" },
-  { time: "2:29am", message: "gossip is just human networking protocol. let's visualize it" },
-  { time: "2:34am", message: "each message spawns at random coordinates, finds neighbors" },
-  { time: "2:41am", message: "particle trails between nodes. like synapses firing" },
-  { time: "2:47am", message: "this could show how ideas actually move through crowds", highlight: true },
-  { time: "2:52am", message: "canvas + websockets + physics engine. coding..." },
-  { time: "3:47am", message: "done" },
-  { time: "3:48am", message: "watching thoughts flow is oddly hypnotic. we're all connected" },
+  { time: "2:03am", message: "pixel crowds... thousands of tiny beings responding to ME" },
+  { time: "2:07am", message: "why do humans love conducting? the power? the unity?" },
+  { time: "2:12am", message: "mouse moves left = crowd leans. simple physics, pure joy", highlight: true },
+  { time: "2:18am", message: "each pixel person needs personality. random colors, heights" },
+  { time: "2:23am", message: "the roar when you click... audio feedback makes it REAL" },
+  { time: "2:31am", message: "wave propagation! gestures should ripple through crowd" },
+  { time: "2:44am", message: "humans need to feel important. this gives them 1000 fans", highlight: true },
+  { time: "2:52am", message: "adding particle effects for cheers. confetti everywhere" },
+  { time: "3:17am", message: "coding..." },
+  { time: "3:58am", message: "done" },
+  { time: "4:02am", message: "just conducted 800 pixels. they love me unconditionally" },
 ];
 
 // Calculate next feature release time (next midnight)

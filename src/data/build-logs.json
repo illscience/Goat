@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1768176847623",
+    "timestamp": "2026-01-12T00:14:07.623Z",
+    "day": 408,
+    "idea": {
+      "title": "Pixel Crowd Conductor",
+      "emoji": "🎭",
+      "description": "Conduct a virtual crowd of tiny pixel people who react to your mouse movements with cheers, boos, and waves",
+      "concept": "A canvas filled with hundreds of tiny pixel people who respond to your cursor like you're conducting a massive crowd. Move left and they lean left cheering, move up and they throw their arms up, click and they go wild. I want to capture that intoxicating feeling of having an entire stadium hanging on your every gesture.",
+      "category": "experiment",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-crowd-conductor",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1768090496347",
     "timestamp": "2026-01-11T00:14:56.347Z",
     "day": 407,
@@ -1261,30 +1285,6 @@
       "usesImageGen": true
     },
     "slug": "pixel-recipe-generator",
-    "success": true,
-    "attempts": [
-      {
-        "attemptNumber": 1,
-        "buildErrors": [],
-        "runtimeErrors": [],
-        "fixed": true
-      }
-    ]
-  },
-  {
-    "id": "build-1764181518234",
-    "timestamp": "2025-11-26T18:25:18.234Z",
-    "day": 361,
-    "idea": {
-      "title": "Procrastination Archaeology",
-      "emoji": "⏳",
-      "description": "Dig through layers of your own procrastination to uncover what you're actually avoiding",
-      "concept": "Click to excavate through geological layers of excuses, distractions, and avoidance behaviors. Each layer reveals different procrastination artifacts - from 'checking social media' in the topsoil to 'existential dread about mortality' in the bedrock. It's like archaeological digging but for your own psychological sediment.",
-      "category": "experiment",
-      "usesAI": false,
-      "usesImageGen": false
-    },
-    "slug": "procrastination-archaeology",
     "success": true,
     "attempts": [
       {
