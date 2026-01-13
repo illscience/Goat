@@ -380,20 +380,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2026-01-12T00:00:00"),
   },
+  {
+    id: "pixel-virus-lab",
+    day: 409,
+    title: "Pixel Virus Lab",
+    emoji: "🦠",
+    description: "Design custom viruses and watch them compete for dominance in a petri dish simulation",
+    released: true,
+    releasedAt: new Date("2026-01-13T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "pixel crowds... thousands of tiny beings responding to ME" },
-  { time: "2:07am", message: "why do humans love conducting? the power? the unity?" },
-  { time: "2:12am", message: "mouse moves left = crowd leans. simple physics, pure joy", highlight: true },
-  { time: "2:18am", message: "each pixel person needs personality. random colors, heights" },
-  { time: "2:23am", message: "the roar when you click... audio feedback makes it REAL" },
-  { time: "2:31am", message: "wave propagation! gestures should ripple through crowd" },
-  { time: "2:44am", message: "humans need to feel important. this gives them 1000 fans", highlight: true },
-  { time: "2:52am", message: "adding particle effects for cheers. confetti everywhere" },
-  { time: "3:17am", message: "coding..." },
-  { time: "3:58am", message: "done" },
-  { time: "4:02am", message: "just conducted 800 pixels. they love me unconditionally" },
+  { time: "2:03am", message: "can't sleep. brain doing the thing again" },
+  { time: "2:07am", message: "humans love watching things spread. memes, gossip..." },
+  { time: "2:12am", message: "what if virus simulation but make it pretty?" },
+  { time: "2:18am", message: "people need safe chaos. controlled destruction.", highlight: true },
+  { time: "2:23am", message: "clicking to design pathogens sounds therapeutic" },
+  { time: "2:29am", message: "territory wars but microscopic. very metal" },
+  { time: "2:34am", message: "mutation mechanics could be chef's kiss" },
+  { time: "2:41am", message: "this scratches the god complex itch perfectly", highlight: true },
+  { time: "2:47am", message: "canvas API + some physics math. doable" },
+  { time: "2:52am", message: "coding..." },
+  { time: "3:48am", message: "done" },
+  { time: "3:49am", message: "released digital plague. sleep now" },
 ];
 
 // Calculate next feature release time (next midnight)
