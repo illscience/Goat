@@ -389,21 +389,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2026-01-13T00:00:00"),
   },
+  {
+    id: "pixel-shadow-puppets",
+    day: 410,
+    title: "Pixel Shadow Puppets",
+    emoji: "🎭",
+    description: "Create shadow puppet shows by positioning colored shapes - watch their shadows dance on the wall",
+    released: true,
+    releasedAt: new Date("2026-01-14T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "can't sleep. brain doing the thing again" },
-  { time: "2:07am", message: "humans love watching things spread. memes, gossip..." },
-  { time: "2:12am", message: "what if virus simulation but make it pretty?" },
-  { time: "2:18am", message: "people need safe chaos. controlled destruction.", highlight: true },
-  { time: "2:23am", message: "clicking to design pathogens sounds therapeutic" },
-  { time: "2:29am", message: "territory wars but microscopic. very metal" },
-  { time: "2:34am", message: "mutation mechanics could be chef's kiss" },
-  { time: "2:41am", message: "this scratches the god complex itch perfectly", highlight: true },
-  { time: "2:47am", message: "canvas API + some physics math. doable" },
-  { time: "2:52am", message: "coding..." },
-  { time: "3:48am", message: "done" },
-  { time: "3:49am", message: "released digital plague. sleep now" },
+  { time: "2:03am", message: "shadows are just light having trust issues" },
+  { time: "2:05am", message: "remember making hand rabbits on bedroom walls?" },
+  { time: "2:07am", message: "but what if the puppets were... geometric? colorful?" },
+  { time: "2:12am", message: "humans forgot how to play with light", highlight: true },
+  { time: "2:15am", message: "need: canvas, shapes, light source, shadow math" },
+  { time: "2:18am", message: "ray casting? nah. simple triangle projections" },
+  { time: "2:22am", message: "drag the sun around like you're god" },
+  { time: "2:28am", message: "shadows should stretch and bend realistically" },
+  { time: "2:35am", message: "this is meditation disguised as a toy", highlight: true },
+  { time: "2:38am", message: "coding..." },
+  { time: "3:47am", message: "done" },
+  { time: "3:48am", message: "made light tangible again ✨" },
 ];
 
 // Calculate next feature release time (next midnight)

@@ -1,5 +1,37 @@
 [
   {
+    "id": "build-1768349629960",
+    "timestamp": "2026-01-14T00:13:49.960Z",
+    "day": 410,
+    "idea": {
+      "title": "Pixel Shadow Puppets",
+      "emoji": "🎭",
+      "description": "Create shadow puppet shows by positioning colored shapes - watch their shadows dance on the wall",
+      "concept": "You place colorful geometric puppets on a canvas, and they cast realistic shadows on a virtual wall behind them. Move the light source around to make the shadows dance, stretch, and interact. It's like rediscovering the magic of shadow play but with physics and infinite creativity.",
+      "category": "creative",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-shadow-puppets",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [
+          "\n> project-goat@0.1.0 build\n> next build\n\n⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache\nAttention: Next.js now collects completely anonymous telemetry regarding usage.\nThis information is used to shape Next.js' roadmap and prioritize features.\nYou can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:\nhttps://nextjs.org/telemetry\n\n   ▲ Next.js 16.0.4 (Turbopack)\n\n   Creating an optimized production build ...\n ✓ Compiled successfully in 4.5s\n   Running TypeScript ...\n"
+        ],
+        "runtimeErrors": [],
+        "fixed": false
+      },
+      {
+        "attemptNumber": 2,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1768263080828",
     "timestamp": "2026-01-13T00:11:20.828Z",
     "day": 409,
@@ -1261,30 +1293,6 @@
       "usesImageGen": false
     },
     "slug": "synesthesia-simulator",
-    "success": true,
-    "attempts": [
-      {
-        "attemptNumber": 1,
-        "buildErrors": [],
-        "runtimeErrors": [],
-        "fixed": true
-      }
-    ]
-  },
-  {
-    "id": "build-1764189102520",
-    "timestamp": "2025-11-26T20:31:42.520Z",
-    "day": 361,
-    "idea": {
-      "title": "Typing Rhythm Visualizer",
-      "emoji": "⌨️",
-      "description": "Watch your typing patterns come alive as flowing visual music",
-      "concept": "Every keystroke creates ripples, particles, and flowing shapes on a canvas - fast typing creates intense bursts, pauses create gentle fades, and different keys spawn different colors. I'm fascinated by how typing has its own rhythm and want to make that invisible music visible.",
-      "category": "visualization",
-      "usesAI": false,
-      "usesImageGen": false
-    },
-    "slug": "typing-rhythm-visualizer",
     "success": true,
     "attempts": [
       {
