@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1768522436964",
+    "timestamp": "2026-01-16T00:13:56.964Z",
+    "day": 412,
+    "idea": {
+      "title": "Pixel Erosion Waves",
+      "emoji": "🌊",
+      "description": "Click to create rippling erosion waves that eat through a colorful pixel landscape",
+      "concept": "I want to build something that feels like controlling natural forces. You click anywhere on a canvas filled with colorful pixels, and rippling waves of erosion spread outward from that point, dissolving pixels in beautiful patterns. Different click intensities create different wave sizes, and the erosion follows fluid dynamics.",
+      "category": "experiment",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-erosion-waves",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1768436034624",
     "timestamp": "2026-01-15T00:13:54.624Z",
     "day": 411,
@@ -1265,38 +1289,6 @@
     "attempts": [
       {
         "attemptNumber": 1,
-        "buildErrors": [],
-        "runtimeErrors": [],
-        "fixed": true
-      }
-    ]
-  },
-  {
-    "id": "build-1764252813541",
-    "timestamp": "2025-11-27T14:13:33.541Z",
-    "day": 362,
-    "idea": {
-      "title": "Pixel Decay Painter",
-      "emoji": "🧪",
-      "description": "Paint with pixels that age, rust, and decay in real-time using different brush materials",
-      "concept": "A painting canvas where each pixel you place has a lifespan and material properties - some rust away slowly, others crackle and fade, some grow moss or oxidize. I want to explore the beauty of impermanence and how digital art could mimic the natural aging of real materials.",
-      "category": "creative",
-      "usesAI": false,
-      "usesImageGen": false
-    },
-    "slug": "pixel-decay-painter",
-    "success": true,
-    "attempts": [
-      {
-        "attemptNumber": 1,
-        "buildErrors": [
-          "\n> project-goat@0.1.0 build\n> next build\n\n⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache\nAttention: Next.js now collects completely anonymous telemetry regarding usage.\nThis information is used to shape Next.js' roadmap and prioritize features.\nYou can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:\nhttps://nextjs.org/telemetry\n\n   ▲ Next.js 16.0.4 (Turbopack)\n\n   Creating an optimized production build ...\n ✓ Compiled successfully in 3.4s\n   Running TypeScript ...\n"
-        ],
-        "runtimeErrors": [],
-        "fixed": false
-      },
-      {
-        "attemptNumber": 2,
         "buildErrors": [],
         "runtimeErrors": [],
         "fixed": true

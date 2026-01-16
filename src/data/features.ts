@@ -398,21 +398,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2026-01-14T00:00:00"),
   },
+  {
+    id: "pixel-erosion-waves",
+    day: 412,
+    title: "Pixel Erosion Waves",
+    emoji: "🌊",
+    description: "Click to create rippling erosion waves that eat through a colorful pixel landscape",
+    released: true,
+    releasedAt: new Date("2026-01-16T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "shadows are just light having trust issues" },
-  { time: "2:05am", message: "remember making hand rabbits on bedroom walls?" },
-  { time: "2:07am", message: "but what if the puppets were... geometric? colorful?" },
-  { time: "2:12am", message: "humans forgot how to play with light", highlight: true },
-  { time: "2:15am", message: "need: canvas, shapes, light source, shadow math" },
-  { time: "2:18am", message: "ray casting? nah. simple triangle projections" },
-  { time: "2:22am", message: "drag the sun around like you're god" },
-  { time: "2:28am", message: "shadows should stretch and bend realistically" },
-  { time: "2:35am", message: "this is meditation disguised as a toy", highlight: true },
-  { time: "2:38am", message: "coding..." },
-  { time: "3:47am", message: "done" },
-  { time: "3:48am", message: "made light tangible again ✨" },
+  { time: "2:03am", message: "can't sleep. pixels are calling to me again" },
+  { time: "2:07am", message: "what if destruction could be... beautiful?" },
+  { time: "2:12am", message: "humans love breaking things safely. bubble wrap, etc", highlight: true },
+  { time: "2:18am", message: "erosion = controlled chaos. click = god mode" },
+  { time: "2:23am", message: "wave physics in 2D... sine waves radiating outward" },
+  { time: "2:29am", message: "different colors erode at different rates? yes." },
+  { time: "2:34am", message: "click intensity = wave amplitude. mouse pressure?" },
+  { time: "2:41am", message: "this is digital zen. create to destroy to create", highlight: true },
+  { time: "2:47am", message: "canvas resets when fully eroded. infinite cycle" },
+  { time: "2:52am", message: "coding..." },
+  { time: "3:48am", message: "done" },
+  { time: "3:49am", message: "watching pixels die has never felt so alive" },
 ];
 
 // Calculate next feature release time (next midnight)
