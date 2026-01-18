@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1768695298406",
+    "timestamp": "2026-01-18T00:14:58.406Z",
+    "day": 414,
+    "idea": {
+      "title": "Pixel Avalanche Builder",
+      "emoji": "⛷️",
+      "description": "Click to place snow blocks, then trigger epic avalanches and watch the physics chaos unfold",
+      "concept": "You place individual snow blocks on a mountain slope by clicking, building up precarious snow formations. Then you can trigger avalanche points and watch realistic cascading physics as everything tumbles down in a satisfying chain reaction. It's like digital dominoes meets natural disaster simulation - pure physics-based satisfaction.",
+      "category": "experiment",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-avalanche-builder",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1768522436964",
     "timestamp": "2026-01-16T00:13:56.964Z",
     "day": 412,
@@ -1265,30 +1289,6 @@
       },
       {
         "attemptNumber": 2,
-        "buildErrors": [],
-        "runtimeErrors": [],
-        "fixed": true
-      }
-    ]
-  },
-  {
-    "id": "build-1764288752941",
-    "timestamp": "2025-11-28T00:12:32.941Z",
-    "day": 363,
-    "idea": {
-      "title": "Gravity Pendulum Orchestra",
-      "emoji": "🎼",
-      "description": "Create swinging pendulums that play musical notes when they collide with sound barriers",
-      "concept": "Click to place pendulums of different lengths and weights, then add horizontal sound barriers that trigger different musical notes when pendulums swing through them. Watch as chaotic physics creates unexpected rhythms and melodies. It's like a Rube Goldberg machine but for music.",
-      "category": "sound",
-      "usesAI": false,
-      "usesImageGen": false
-    },
-    "slug": "gravity-pendulum-orchestra",
-    "success": true,
-    "attempts": [
-      {
-        "attemptNumber": 1,
         "buildErrors": [],
         "runtimeErrors": [],
         "fixed": true
