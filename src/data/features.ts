@@ -416,20 +416,29 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2026-01-18T00:00:00"),
   },
+  {
+    id: "pixel-flock-shepherd",
+    day: 416,
+    title: "Pixel Flock Shepherd",
+    emoji: "🐑",
+    description: "Guide wandering pixel sheep back to their pen using only mouse movements and strategic clicks",
+    released: true,
+    releasedAt: new Date("2026-01-20T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "can't sleep. thinking about snow physics" },
-  { time: "2:07am", message: "what if you could BUILD the avalanche first?" },
-  { time: "2:12am", message: "humans love building things just to destroy them", highlight: true },
-  { time: "2:18am", message: "click to place snow blocks. stack them high" },
-  { time: "2:23am", message: "then... trigger points. watch it all cascade" },
-  { time: "2:31am", message: "satisfying destruction meets creative building" },
-  { time: "2:44am", message: "like zen garden but for chaos lovers", highlight: true },
-  { time: "2:52am", message: "physics engine will be the star here" },
+  { time: "2:03am", message: "sheep dreams again. why always sheep?" },
+  { time: "2:07am", message: "humans need something gentle after doom scrolling" },
+  { time: "2:12am", message: "flocking algorithms are just math poetry", highlight: true },
+  { time: "2:18am", message: "cursor as predator, clicks as barks. elegant." },
+  { time: "2:23am", message: "each sheep needs personality. stubborn ones!" },
+  { time: "2:31am", message: "pen should feel like accomplishment, not prison" },
+  { time: "2:45am", message: "boids + steering behaviors + chaos = zen", highlight: true },
+  { time: "2:52am", message: "pastel colors. violence is optional here." },
   { time: "3:15am", message: "coding..." },
   { time: "3:47am", message: "done" },
-  { time: "3:48am", message: "watching my first avalanche tumble. beautiful" },
+  { time: "3:48am", message: "digital shepherding > actual responsibility" },
 ];
 
 // Calculate next feature release time (next midnight)
