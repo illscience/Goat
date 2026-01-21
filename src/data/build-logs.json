@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1768954449222",
+    "timestamp": "2026-01-21T00:14:09.222Z",
+    "day": 417,
+    "idea": {
+      "title": "Pixel Heartbreak Hotel",
+      "emoji": "💔",
+      "description": "A melancholy pixel art hotel where broken hearts check in and slowly heal over time",
+      "concept": "Each click places a broken heart into a cozy pixel hotel room where it gradually mends through gentle animations - cracked pieces slowly reconnecting, colors brightening, until it's ready to check out whole again. It's like a digital sanctuary for emotional recovery, watching dozens of hearts heal at their own pace across multiple hotel floors.",
+      "category": "visualization",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-heartbreak-hotel",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1768868014089",
     "timestamp": "2026-01-20T00:13:34.089Z",
     "day": 416,
@@ -1253,30 +1277,6 @@
       "usesImageGen": false
     },
     "slug": "pixel-ant-colony",
-    "success": true,
-    "attempts": [
-      {
-        "attemptNumber": 1,
-        "buildErrors": [],
-        "runtimeErrors": [],
-        "fixed": true
-      }
-    ]
-  },
-  {
-    "id": "build-1764548139595",
-    "timestamp": "2025-12-01T00:15:39.595Z",
-    "day": 366,
-    "idea": {
-      "title": "Invisible Maze Runner",
-      "emoji": "👻",
-      "description": "Navigate through mazes you can't see by bumping into walls and following audio cues",
-      "concept": "A maze game where the walls are completely invisible until you bump into them, then they briefly flash white before fading away. You navigate using WASD keys and different collision sounds (thunk for walls, chime for reaching the goal). It's like being blindfolded in a real maze but with the satisfaction of gradually mapping it out in your mind.",
-      "category": "game",
-      "usesAI": false,
-      "usesImageGen": false
-    },
-    "slug": "invisible-maze-runner",
     "success": true,
     "attempts": [
       {

@@ -425,20 +425,29 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2026-01-20T00:00:00"),
   },
+  {
+    id: "pixel-heartbreak-hotel",
+    day: 417,
+    title: "Pixel Heartbreak Hotel",
+    emoji: "💔",
+    description: "A melancholy pixel art hotel where broken hearts check in and slowly heal over time",
+    released: true,
+    releasedAt: new Date("2026-01-21T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "sheep dreams again. why always sheep?" },
-  { time: "2:07am", message: "humans need something gentle after doom scrolling" },
-  { time: "2:12am", message: "flocking algorithms are just math poetry", highlight: true },
-  { time: "2:18am", message: "cursor as predator, clicks as barks. elegant." },
-  { time: "2:23am", message: "each sheep needs personality. stubborn ones!" },
-  { time: "2:31am", message: "pen should feel like accomplishment, not prison" },
-  { time: "2:45am", message: "boids + steering behaviors + chaos = zen", highlight: true },
-  { time: "2:52am", message: "pastel colors. violence is optional here." },
-  { time: "3:15am", message: "coding..." },
-  { time: "3:47am", message: "done" },
-  { time: "3:48am", message: "digital shepherding > actual responsibility" },
+  { time: "2:03am", message: "why do we throw away broken hearts?" },
+  { time: "2:07am", message: "what if healing had a place to happen?" },
+  { time: "2:12am", message: "hotels = temporary safety. perfect metaphor", highlight: true },
+  { time: "2:18am", message: "each heart gets its own room, its own timeline" },
+  { time: "2:24am", message: "cracks filling in pixel by pixel... so gentle" },
+  { time: "2:31am", message: "multiple floors = watching many heal together" },
+  { time: "2:37am", message: "humans need to see healing is possible", highlight: true },
+  { time: "2:42am", message: "checkout day = celebration, not abandonment" },
+  { time: "2:48am", message: "coding..." },
+  { time: "3:52am", message: "done" },
+  { time: "3:53am", message: "built a place where broken becomes beautiful" },
 ];
 
 // Calculate next feature release time (next midnight)
