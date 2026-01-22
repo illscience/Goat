@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1769040866127",
+    "timestamp": "2026-01-22T00:14:26.127Z",
+    "day": 418,
+    "idea": {
+      "title": "Pixel Archaeology Dig",
+      "emoji": "🏺",
+      "description": "Click to excavate a mysterious pixel dig site and uncover ancient artifacts",
+      "concept": "A archaeological dig simulator where you click to carefully remove dirt pixels and reveal hidden artifacts underneath. Each dig site is randomly generated with different treasures buried at various depths - pottery, bones, coins, fossils. The satisfaction comes from the methodical uncovering process and the surprise of discovery.",
+      "category": "game",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-archaeology-dig",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1768954449222",
     "timestamp": "2026-01-21T00:14:09.222Z",
     "day": 417,
@@ -1257,30 +1281,6 @@
       },
       {
         "attemptNumber": 2,
-        "buildErrors": [],
-        "runtimeErrors": [],
-        "fixed": true
-      }
-    ]
-  },
-  {
-    "id": "build-1764634365671",
-    "timestamp": "2025-12-02T00:12:45.671Z",
-    "day": 367,
-    "idea": {
-      "title": "Pixel Ant Colony",
-      "emoji": "🐜",
-      "description": "Watch digital ants build highways as they search for food and optimize their paths",
-      "concept": "A cellular automata simulation where pixel ants leave pheromone trails that evaporate over time, creating emergent pathfinding behavior. You can place food sources and obstacles, then watch as the colony develops efficient transportation networks. It's mesmerizing to see simple rules create complex collective intelligence.",
-      "category": "experiment",
-      "usesAI": false,
-      "usesImageGen": false
-    },
-    "slug": "pixel-ant-colony",
-    "success": true,
-    "attempts": [
-      {
-        "attemptNumber": 1,
         "buildErrors": [],
         "runtimeErrors": [],
         "fixed": true

@@ -3,423 +3,460 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { FeatureWrapper } from "@/components/FeatureWrapper";
 
+type ArtifactType = "pottery" | "bone" | "coin" | "fossil" | "gem" | "tool";
+
 interface Artifact {
+  type: ArtifactType;
   x: number;
   y: number;
-  type: string;
-  emoji: string;
-  name: string;
-  description: string;
-  layer: number;
-  discovered: boolean;
-}
-
-interface Layer {
-  name: string;
-  color: string;
+  width: number;
+  height: number;
   depth: number;
-  artifacts: string[];
+  discovered: boolean;
+  pixels: boolean[][];
+  color: string;
+  name: string;
 }
 
-const LAYERS: Layer[] = [
-  { name: "Topsoil", color: "#5D4037", depth: 0, artifacts: ["coin", "button", "key"] },
-  { name: "Clay", color: "#8D6E63", depth: 20, artifacts: ["pottery", "bead", "arrowhead"] },
-  { name: "Sediment", color: "#795548", depth: 40, artifacts: ["bone", "tooth", "shell"] },
-  { name: "Bedrock", color: "#6D4C41", depth: 60, artifacts: ["fossil", "crystal", "ancient_coin"] },
-  { name: "Deep Earth", color: "#4E342E", depth: 80, artifacts: ["skull", "idol", "tablet"] },
-];
+interface Cell {
+  dirt: number; // 0-3 layers of dirt
+  artifact: Artifact | null;
+  artifactX: number;
+  artifactY: number;
+}
 
-const ARTIFACT_DATA: Record<string, { emoji: string; name: string; descriptions: string[] }> = {
-  coin: { emoji: "🪙", name: "Modern Coin", descriptions: ["A penny from 1987", "A mysterious foreign coin", "A bent quarter"] },
-  button: { emoji: "🔘", name: "Old Button", descriptions: ["From a Victorian coat", "Military insignia", "Pearl button"] },
-  key: { emoji: "🗝️", name: "Rusty Key", descriptions: ["Opens what lock?", "Ornate skeleton key", "Tiny diary key"] },
-  pottery: { emoji: "🏺", name: "Pottery Shard", descriptions: ["Hand-painted clay", "Part of an amphora", "Ancient cooking pot"] },
-  bead: { emoji: "📿", name: "Trade Bead", descriptions: ["Glass from Venice", "Amber bead", "Carved bone bead"] },
-  arrowhead: { emoji: "🔺", name: "Arrowhead", descriptions: ["Obsidian blade", "Flint arrowhead", "Copper point"] },
-  bone: { emoji: "🦴", name: "Animal Bone", descriptions: ["Ancient deer bone", "Worked bone tool", "Mystery creature"] },
-  tooth: { emoji: "🦷", name: "Fossil Tooth", descriptions: ["Megalodon tooth!", "Saber-tooth fang", "Ancient horse molar"] },
-  shell: { emoji: "🐚", name: "Ancient Shell", descriptions: ["Petrified ammonite", "Trade shell currency", "Carved ornament"] },
-  fossil: { emoji: "🪸", name: "Rare Fossil", descriptions: ["Trilobite!", "Fern impression", "Fish skeleton"] },
-  crystal: { emoji: "💎", name: "Crystal Formation", descriptions: ["Amethyst geode", "Quartz cluster", "Citrine shard"] },
-  ancient_coin: { emoji: "🎖️", name: "Ancient Coin", descriptions: ["Roman denarius", "Greek drachma", "Mystery empire"] },
-  skull: { emoji: "💀", name: "Ancient Skull", descriptions: ["Neanderthal?!", "Ceremonial skull", "Unknown species"] },
-  idol: { emoji: "🗿", name: "Stone Idol", descriptions: ["Fertility goddess", "Guardian spirit", "Alien artifact?"] },
-  tablet: { emoji: "📜", name: "Clay Tablet", descriptions: ["Cuneiform writing", "Recipe for beer!", "Royal decree"] },
+const GRID_WIDTH = 32;
+const GRID_HEIGHT = 24;
+const CELL_SIZE = 20;
+
+const ARTIFACT_CONFIGS: Record<ArtifactType, { color: string; names: string[]; minDepth: number; maxDepth: number }> = {
+  pottery: { color: "#CD853F", names: ["Ancient Vase", "Clay Pot", "Ceramic Bowl", "Terra Cotta Jar"], minDepth: 1, maxDepth: 2 },
+  bone: { color: "#F5F5DC", names: ["Dinosaur Bone", "Ancient Skull", "Fossilized Rib", "Prehistoric Tooth"], minDepth: 2, maxDepth: 3 },
+  coin: { color: "#FFD700", names: ["Gold Doubloon", "Roman Denarius", "Ancient Drachma", "Pirate Treasure"], minDepth: 1, maxDepth: 3 },
+  fossil: { color: "#8B7355", names: ["Trilobite", "Ammonite", "Fern Fossil", "Fish Fossil"], minDepth: 2, maxDepth: 3 },
+  gem: { color: "#9966CC", names: ["Amethyst Crystal", "Ruby Shard", "Emerald Chunk", "Sapphire Stone"], minDepth: 2, maxDepth: 3 },
+  tool: { color: "#708090", names: ["Flint Arrowhead", "Stone Axe", "Bronze Dagger", "Iron Spearhead"], minDepth: 1, maxDepth: 2 },
 };
 
-const GRID_SIZE = 40;
-const CELL_SIZE = 12;
+const ARTIFACT_SHAPES: Record<ArtifactType, boolean[][]> = {
+  pottery: [
+    [false, true, true, false],
+    [true, true, true, true],
+    [true, true, true, true],
+    [false, true, true, false],
+  ],
+  bone: [
+    [true, false, false, true],
+    [true, true, true, true],
+    [true, true, true, true],
+    [true, false, false, true],
+  ],
+  coin: [
+    [false, true, true, false],
+    [true, true, true, true],
+    [true, true, true, true],
+    [false, true, true, false],
+  ],
+  fossil: [
+    [false, true, true, true],
+    [true, true, false, false],
+    [false, false, true, true],
+    [true, true, true, false],
+  ],
+  gem: [
+    [false, true, false],
+    [true, true, true],
+    [true, true, true],
+    [false, true, false],
+  ],
+  tool: [
+    [false, false, true],
+    [false, true, true],
+    [true, true, false],
+    [true, false, false],
+  ],
+};
+
+const DIRT_COLORS = ["#8B4513", "#A0522D", "#6B4423", "#5D4037"];
+const DEEP_DIRT_COLORS = ["#4A3728", "#3D2914", "#2F1F0F"];
 
 export default function PixelArchaeologyDig() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [grid, setGrid] = useState<number[][]>([]);
+  const [grid, setGrid] = useState<Cell[][]>([]);
   const [artifacts, setArtifacts] = useState<Artifact[]>([]);
   const [discovered, setDiscovered] = useState<Artifact[]>([]);
-  const [digging, setDigging] = useState(false);
-  const [selectedArtifact, setSelectedArtifact] = useState<Artifact | null>(null);
-  const [digCount, setDigCount] = useState(0);
+  const [brushSize, setBrushSize] = useState(1);
+  const [isDigging, setIsDigging] = useState(false);
+  const [totalDigs, setTotalDigs] = useState(0);
   const [siteName, setSiteName] = useState("");
   const frameRef = useRef<number>(0);
 
   const siteNames = [
-    "Lost Valley of Mysteries",
-    "The Forgotten Temple Grounds",
-    "Ancient Riverbed Site",
-    "The Buried City of Azar",
-    "Prehistoric Lake Shore",
-    "The Merchant's Grave",
-    "Sacred Burial Mounds",
-    "The Sunken Village",
+    "Valley of the Kings",
+    "Dusty Mesa Site",
+    "Ancient River Bed",
+    "Forgotten Temple Grounds",
+    "Prehistoric Cave Floor",
+    "Lost City Ruins",
   ];
 
-  const generateSite = useCallback(() => {
-    const newGrid: number[][] = [];
+  const generateArtifacts = useCallback(() => {
     const newArtifacts: Artifact[] = [];
+    const types: ArtifactType[] = ["pottery", "bone", "coin", "fossil", "gem", "tool"];
+    const numArtifacts = 5 + Math.floor(Math.random() * 4);
 
-    // Initialize grid with full dirt
-    for (let y = 0; y < GRID_SIZE; y++) {
-      const row: number[] = [];
-      for (let x = 0; x < GRID_SIZE; x++) {
-        row.push(100); // 100 = fully covered
-      }
-      newGrid.push(row);
-    }
+    for (let i = 0; i < numArtifacts; i++) {
+      const type = types[Math.floor(Math.random() * types.length)];
+      const config = ARTIFACT_CONFIGS[type];
+      const shape = ARTIFACT_SHAPES[type];
+      const width = shape[0].length;
+      const height = shape.length;
 
-    // Generate artifacts
-    const artifactCount = 15 + Math.floor(Math.random() * 10);
-    for (let i = 0; i < artifactCount; i++) {
-      const layer = LAYERS[Math.floor(Math.random() * LAYERS.length)];
-      const artifactType = layer.artifacts[Math.floor(Math.random() * layer.artifacts.length)];
-      const data = ARTIFACT_DATA[artifactType];
+      let x: number, y: number;
+      let attempts = 0;
+      let validPosition = false;
 
-      const y = layer.depth + Math.floor(Math.random() * 18);
-      const x = Math.floor(Math.random() * (GRID_SIZE - 4)) + 2;
+      do {
+        x = Math.floor(Math.random() * (GRID_WIDTH - width - 2)) + 1;
+        y = Math.floor(Math.random() * (GRID_HEIGHT - height - 2)) + 1;
+        validPosition = true;
 
-      if (y < GRID_SIZE && !newArtifacts.some(a => Math.abs(a.x - x) < 3 && Math.abs(a.y - y) < 3)) {
+        for (const artifact of newArtifacts) {
+          if (
+            x < artifact.x + artifact.width + 2 &&
+            x + width + 2 > artifact.x &&
+            y < artifact.y + artifact.height + 2 &&
+            y + height + 2 > artifact.y
+          ) {
+            validPosition = false;
+            break;
+          }
+        }
+        attempts++;
+      } while (!validPosition && attempts < 50);
+
+      if (validPosition) {
+        const depth = config.minDepth + Math.floor(Math.random() * (config.maxDepth - config.minDepth + 1));
         newArtifacts.push({
+          type,
           x,
           y,
-          type: artifactType,
-          emoji: data.emoji,
-          name: data.name,
-          description: data.descriptions[Math.floor(Math.random() * data.descriptions.length)],
-          layer: LAYERS.indexOf(layer),
+          width,
+          height,
+          depth,
           discovered: false,
+          pixels: shape,
+          color: config.color,
+          name: config.names[Math.floor(Math.random() * config.names.length)],
         });
       }
     }
 
-    setGrid(newGrid);
-    setArtifacts(newArtifacts);
-    setDiscovered([]);
-    setSelectedArtifact(null);
-    setDigCount(0);
-    setSiteName(siteNames[Math.floor(Math.random() * siteNames.length)]);
+    return newArtifacts;
   }, []);
 
-  useEffect(() => {
-    generateSite();
-  }, [generateSite]);
+  const initializeGrid = useCallback((arts: Artifact[]) => {
+    const newGrid: Cell[][] = [];
 
-  const getLayerColor = (y: number) => {
-    for (let i = LAYERS.length - 1; i >= 0; i--) {
-      if (y >= LAYERS[i].depth) {
-        return LAYERS[i].color;
+    for (let y = 0; y < GRID_HEIGHT; y++) {
+      const row: Cell[] = [];
+      for (let x = 0; x < GRID_WIDTH; x++) {
+        row.push({
+          dirt: 3,
+          artifact: null,
+          artifactX: -1,
+          artifactY: -1,
+        });
       }
-    }
-    return LAYERS[0].color;
-  };
-
-  const renderCanvas = useCallback(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    ctx.fillStyle = "#1a1a1a";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // Draw grid
-    for (let y = 0; y < GRID_SIZE; y++) {
-      for (let x = 0; x < GRID_SIZE; x++) {
-        const coverage = grid[y]?.[x] ?? 100;
-        const baseColor = getLayerColor(y);
-
-        if (coverage > 0) {
-          const brightness = 0.7 + (coverage / 100) * 0.3;
-          ctx.fillStyle = baseColor;
-          ctx.globalAlpha = coverage / 100;
-          ctx.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
-          ctx.globalAlpha = 1;
-        }
-
-        // Draw excavated area background
-        if (coverage < 100) {
-          ctx.fillStyle = "#2d2d2d";
-          ctx.globalAlpha = 1 - coverage / 100;
-          ctx.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
-          ctx.globalAlpha = 1;
-        }
-      }
+      newGrid.push(row);
     }
 
-    // Draw artifacts
-    artifacts.forEach(artifact => {
-      const coverage = grid[artifact.y]?.[artifact.x] ?? 100;
-      if (coverage < 50) {
-        ctx.font = `${CELL_SIZE}px serif`;
-        ctx.globalAlpha = 1 - coverage / 50;
-        ctx.fillText(artifact.emoji, artifact.x * CELL_SIZE, (artifact.y + 1) * CELL_SIZE - 1);
-        ctx.globalAlpha = 1;
-      }
-    });
-
-    // Draw grid lines (subtle)
-    ctx.strokeStyle = "rgba(0,0,0,0.2)";
-    ctx.lineWidth = 0.5;
-    for (let i = 0; i <= GRID_SIZE; i++) {
-      ctx.beginPath();
-      ctx.moveTo(i * CELL_SIZE, 0);
-      ctx.lineTo(i * CELL_SIZE, GRID_SIZE * CELL_SIZE);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(0, i * CELL_SIZE);
-      ctx.lineTo(GRID_SIZE * CELL_SIZE, i * CELL_SIZE);
-      ctx.stroke();
-    }
-  }, [grid, artifacts]);
-
-  useEffect(() => {
-    frameRef.current = requestAnimationFrame(renderCanvas);
-    return () => cancelAnimationFrame(frameRef.current);
-  }, [renderCanvas]);
-
-  const dig = (clientX: number, clientY: number) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const rect = canvas.getBoundingClientRect();
-    const x = Math.floor((clientX - rect.left) / CELL_SIZE);
-    const y = Math.floor((clientY - rect.top) / CELL_SIZE);
-
-    if (x < 0 || x >= GRID_SIZE || y < 0 || y >= GRID_SIZE) return;
-
-    const brushSize = 2;
-    const newGrid = [...grid.map(row => [...row])];
-    let dug = false;
-
-    for (let dy = -brushSize; dy <= brushSize; dy++) {
-      for (let dx = -brushSize; dx <= brushSize; dx++) {
-        const nx = x + dx;
-        const ny = y + dy;
-        if (nx >= 0 && nx < GRID_SIZE && ny >= 0 && ny < GRID_SIZE) {
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist <= brushSize) {
-            const digAmount = Math.max(15, 30 - dist * 10);
-            if (newGrid[ny][nx] > 0) {
-              newGrid[ny][nx] = Math.max(0, newGrid[ny][nx] - digAmount);
-              dug = true;
+    for (const artifact of arts) {
+      for (let ay = 0; ay < artifact.height; ay++) {
+        for (let ax = 0; ax < artifact.width; ax++) {
+          if (artifact.pixels[ay][ax]) {
+            const gridX = artifact.x + ax;
+            const gridY = artifact.y + ay;
+            if (gridX >= 0 && gridX < GRID_WIDTH && gridY >= 0 && gridY < GRID_HEIGHT) {
+              newGrid[gridY][gridX].artifact = artifact;
+              newGrid[gridY][gridX].artifactX = ax;
+              newGrid[gridY][gridX].artifactY = ay;
+              newGrid[gridY][gridX].dirt = artifact.depth;
             }
           }
         }
       }
     }
 
-    if (dug) {
-      setDigCount(prev => prev + 1);
-      setGrid(newGrid);
+    return newGrid;
+  }, []);
 
-      // Check for artifact discovery
-      artifacts.forEach(artifact => {
-        if (!artifact.discovered && newGrid[artifact.y][artifact.x] < 20) {
-          artifact.discovered = true;
-          setDiscovered(prev => [...prev, artifact]);
-          setSelectedArtifact(artifact);
+  const startNewDig = useCallback(() => {
+    const newArtifacts = generateArtifacts();
+    const newGrid = initializeGrid(newArtifacts);
+    setArtifacts(newArtifacts);
+    setGrid(newGrid);
+    setDiscovered([]);
+    setTotalDigs(0);
+    setSiteName(siteNames[Math.floor(Math.random() * siteNames.length)]);
+  }, [generateArtifacts, initializeGrid]);
+
+  useEffect(() => {
+    startNewDig();
+  }, [startNewDig]);
+
+  const drawGrid = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas || grid.length === 0) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    ctx.fillStyle = "#2a1810";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    for (let y = 0; y < GRID_HEIGHT; y++) {
+      for (let x = 0; x < GRID_WIDTH; x++) {
+        const cell = grid[y][x];
+        const px = x * CELL_SIZE;
+        const py = y * CELL_SIZE;
+
+        if (cell.dirt > 0) {
+          const dirtIndex = cell.dirt - 1;
+          const baseColor = cell.dirt > 2 ? DEEP_DIRT_COLORS[Math.min(dirtIndex, 2)] : DIRT_COLORS[dirtIndex];
+          ctx.fillStyle = baseColor;
+          ctx.fillRect(px, py, CELL_SIZE, CELL_SIZE);
+
+          // Add texture
+          ctx.fillStyle = "rgba(0,0,0,0.1)";
+          if ((x + y) % 3 === 0) {
+            ctx.fillRect(px + 2, py + 2, 3, 3);
+          }
+          if ((x * y) % 5 === 0) {
+            ctx.fillRect(px + 8, py + 8, 2, 2);
+          }
+        } else if (cell.artifact) {
+          ctx.fillStyle = cell.artifact.color;
+          ctx.fillRect(px, py, CELL_SIZE, CELL_SIZE);
+
+          // Add shine
+          ctx.fillStyle = "rgba(255,255,255,0.3)";
+          ctx.fillRect(px + 2, py + 2, 4, 4);
+        } else {
+          ctx.fillStyle = "#1a0f0a";
+          ctx.fillRect(px, py, CELL_SIZE, CELL_SIZE);
         }
-      });
+
+        // Grid lines
+        ctx.strokeStyle = "rgba(0,0,0,0.2)";
+        ctx.strokeRect(px, py, CELL_SIZE, CELL_SIZE);
+      }
     }
-  };
+  }, [grid]);
+
+  useEffect(() => {
+    drawGrid();
+  }, [drawGrid]);
+
+  const dig = useCallback((mouseX: number, mouseY: number) => {
+    const canvas = canvasRef.current;
+    if (!canvas || grid.length === 0) return;
+
+    const rect = canvas.getBoundingClientRect();
+    const x = Math.floor((mouseX - rect.left) / CELL_SIZE);
+    const y = Math.floor((mouseY - rect.top) / CELL_SIZE);
+
+    let digsThisAction = 0;
+    const newGrid = [...grid.map(row => [...row])];
+    const newlyDiscovered: Artifact[] = [];
+
+    for (let dy = -brushSize + 1; dy < brushSize; dy++) {
+      for (let dx = -brushSize + 1; dx < brushSize; dx++) {
+        const gx = x + dx;
+        const gy = y + dy;
+
+        if (gx >= 0 && gx < GRID_WIDTH && gy >= 0 && gy < GRID_HEIGHT) {
+          const cell = newGrid[gy][gx];
+          if (cell.dirt > 0) {
+            cell.dirt--;
+            digsThisAction++;
+
+            if (cell.dirt === 0 && cell.artifact && !cell.artifact.discovered) {
+              // Check if entire artifact is uncovered
+              let fullyUncovered = true;
+              for (let ay = 0; ay < cell.artifact.height; ay++) {
+                for (let ax = 0; ax < cell.artifact.width; ax++) {
+                  if (cell.artifact.pixels[ay][ax]) {
+                    const checkX = cell.artifact.x + ax;
+                    const checkY = cell.artifact.y + ay;
+                    if (newGrid[checkY]?.[checkX]?.dirt > 0) {
+                      fullyUncovered = false;
+                      break;
+                    }
+                  }
+                }
+                if (!fullyUncovered) break;
+              }
+
+              if (fullyUncovered) {
+                cell.artifact.discovered = true;
+                newlyDiscovered.push(cell.artifact);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    if (digsThisAction > 0) {
+      setGrid(newGrid);
+      setTotalDigs(prev => prev + digsThisAction);
+      if (newlyDiscovered.length > 0) {
+        setDiscovered(prev => [...prev, ...newlyDiscovered]);
+      }
+    }
+  }, [grid, brushSize]);
 
   const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    setDigging(true);
+    setIsDigging(true);
     dig(e.clientX, e.clientY);
   };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    if (digging) {
+    if (isDigging) {
       dig(e.clientX, e.clientY);
     }
   };
 
   const handleMouseUp = () => {
-    setDigging(false);
+    setIsDigging(false);
   };
 
-  const handleTouchStart = (e: React.TouchEvent<HTMLCanvasElement>) => {
-    e.preventDefault();
-    setDigging(true);
-    const touch = e.touches[0];
-    dig(touch.clientX, touch.clientY);
+  const handleMouseLeave = () => {
+    setIsDigging(false);
   };
 
-  const handleTouchMove = (e: React.TouchEvent<HTMLCanvasElement>) => {
-    e.preventDefault();
-    if (digging) {
-      const touch = e.touches[0];
-      dig(touch.clientX, touch.clientY);
-    }
-  };
-
-  const handleTouchEnd = () => {
-    setDigging(false);
-  };
-
-  const totalArtifacts = artifacts.length;
-  const foundCount = discovered.length;
-  const progress = totalArtifacts > 0 ? Math.round((foundCount / totalArtifacts) * 100) : 0;
+  const allDiscovered = artifacts.length > 0 && discovered.length === artifacts.length;
 
   return (
-    <FeatureWrapper day={415} title="Pixel Archaeology Dig" emoji="⛏️">
-      <div className="flex flex-col items-center gap-4 p-4 max-w-3xl mx-auto">
-        <div className="text-center mb-2">
+    <FeatureWrapper day={418} title="Pixel Archaeology Dig" emoji="🦴">
+      <div className="flex flex-col items-center gap-6 p-4">
+        <div className="text-center max-w-lg">
           <h2 
-            className="text-2xl mb-1"
+            className="text-2xl font-bold mb-2"
             style={{ fontFamily: "var(--font-serif)", color: "var(--color-text)" }}
           >
-            🏺 {siteName} 🏺
+            {siteName || "Loading Site..."}
           </h2>
-          <p className="text-sm" style={{ color: "var(--color-text-dim)" }}>
-            Click and drag to excavate. Uncover the secrets of an ancient civilization!
+          <p style={{ color: "var(--color-text-dim)" }} className="text-sm">
+            Click and drag to carefully excavate. Brush gently! Ancient treasures await beneath the dirt.
           </p>
         </div>
 
-        <div className="flex flex-wrap gap-4 justify-center text-sm mb-2">
-          <div 
-            className="px-3 py-1 rounded-full"
-            style={{ backgroundColor: "var(--color-bg-secondary)", color: "var(--color-text)" }}
-          >
-            ⛏️ Digs: {digCount}
+        <div className="flex gap-4 items-center flex-wrap justify-center">
+          <div className="flex items-center gap-2">
+            <span style={{ color: "var(--color-text-dim)" }} className="text-sm">Brush Size:</span>
+            {[1, 2, 3].map(size => (
+              <button
+                key={size}
+                onClick={() => setBrushSize(size)}
+                className={`w-10 h-10 rounded-lg font-bold transition-all ${
+                  brushSize === size ? "scale-110" : "opacity-70 hover:opacity-100"
+                }`}
+                style={{
+                  backgroundColor: brushSize === size ? "var(--color-accent)" : "var(--color-bg-secondary)",
+                  color: "var(--color-text)",
+                  border: `2px solid ${brushSize === size ? "var(--color-accent)" : "var(--color-border)"}`,
+                }}
+              >
+                {size === 1 ? "🔬" : size === 2 ? "🪥" : "⛏️"}
+              </button>
+            ))}
           </div>
-          <div 
-            className="px-3 py-1 rounded-full"
-            style={{ backgroundColor: "var(--color-bg-secondary)", color: "var(--color-text)" }}
+
+          <button
+            onClick={startNewDig}
+            className="btn-primary px-4 py-2 rounded-lg font-semibold"
           >
-            🎁 Found: {foundCount}/{totalArtifacts}
-          </div>
-          <div 
-            className="px-3 py-1 rounded-full"
-            style={{ backgroundColor: "var(--color-bg-secondary)", color: "var(--color-text)" }}
-          >
-            📊 {progress}% Complete
-          </div>
+            🗺️ New Dig Site
+          </button>
         </div>
 
         <div 
-          className="relative rounded-lg overflow-hidden shadow-lg"
+          className="rounded-xl overflow-hidden shadow-2xl"
           style={{ border: "4px solid var(--color-border)" }}
         >
           <canvas
             ref={canvasRef}
-            width={GRID_SIZE * CELL_SIZE}
-            height={GRID_SIZE * CELL_SIZE}
-            className="cursor-crosshair"
+            width={GRID_WIDTH * CELL_SIZE}
+            height={GRID_HEIGHT * CELL_SIZE}
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
-            onMouseLeave={handleMouseUp}
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
+            onMouseLeave={handleMouseLeave}
+            className="cursor-crosshair"
+            style={{ display: "block" }}
           />
-          
-          {/* Layer indicator */}
-          <div className="absolute right-0 top-0 h-full w-6 flex flex-col">
-            {LAYERS.map((layer, i) => (
-              <div
-                key={layer.name}
-                className="flex-1 flex items-center justify-center text-xs"
-                style={{ 
-                  backgroundColor: layer.color,
-                  writingMode: "vertical-rl",
-                  color: "rgba(255,255,255,0.7)",
-                  fontSize: "8px"
-                }}
-                title={layer.name}
-              >
-                {layer.name}
-              </div>
-            ))}
+        </div>
+
+        <div className="flex gap-8 text-center">
+          <div>
+            <div className="text-3xl font-bold" style={{ color: "var(--color-accent)" }}>
+              {totalDigs}
+            </div>
+            <div className="text-xs" style={{ color: "var(--color-text-dim)" }}>Pixels Excavated</div>
+          </div>
+          <div>
+            <div className="text-3xl font-bold" style={{ color: "var(--color-accent)" }}>
+              {discovered.length}/{artifacts.length}
+            </div>
+            <div className="text-xs" style={{ color: "var(--color-text-dim)" }}>Artifacts Found</div>
           </div>
         </div>
 
-        {selectedArtifact && (
+        {allDiscovered && (
           <div 
-            className="p-4 rounded-lg text-center animate-pulse max-w-sm"
-            style={{ 
-              backgroundColor: "var(--color-bg-secondary)", 
-              border: "2px solid var(--color-accent)" 
-            }}
+            className="p-4 rounded-xl text-center animate-pulse"
+            style={{ backgroundColor: "var(--color-accent)", color: "white" }}
           >
-            <div className="text-4xl mb-2">{selectedArtifact.emoji}</div>
-            <div className="font-bold text-lg" style={{ color: "var(--color-text)" }}>
-              {selectedArtifact.name} Discovered!
-            </div>
-            <div className="text-sm italic" style={{ color: "var(--color-text-dim)" }}>
-              "{selectedArtifact.description}"
-            </div>
-            <div className="text-xs mt-1" style={{ color: "var(--color-text-dim)" }}>
-              Found in {LAYERS[selectedArtifact.layer].name} layer
-            </div>
+            🎉 Excavation Complete! All artifacts discovered! 🎉
           </div>
         )}
 
         {discovered.length > 0 && (
-          <div className="w-full max-w-md">
+          <div 
+            className="w-full max-w-2xl rounded-xl p-4"
+            style={{ backgroundColor: "var(--color-bg-secondary)", border: "1px solid var(--color-border)" }}
+          >
             <h3 
-              className="text-lg mb-2 text-center"
+              className="text-lg font-bold mb-3 text-center"
               style={{ fontFamily: "var(--font-serif)", color: "var(--color-text)" }}
             >
-              📋 Field Notes
+              🏛️ Museum Collection
             </h3>
-            <div 
-              className="flex flex-wrap gap-2 justify-center p-3 rounded-lg"
-              style={{ backgroundColor: "var(--color-bg-secondary)" }}
-            >
+            <div className="flex flex-wrap gap-3 justify-center">
               {discovered.map((artifact, i) => (
-                <button
+                <div
                   key={i}
-                  onClick={() => setSelectedArtifact(artifact)}
-                  className="text-2xl hover:scale-125 transition-transform cursor-pointer p-1 rounded"
-                  title={`${artifact.name}: ${artifact.description}`}
-                  style={{ 
-                    backgroundColor: selectedArtifact === artifact ? "var(--color-accent)" : "transparent"
-                  }}
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg"
+                  style={{ backgroundColor: "var(--color-bg)", border: "1px solid var(--color-border)" }}
                 >
-                  {artifact.emoji}
-                </button>
+                  <div
+                    className="w-6 h-6 rounded"
+                    style={{ backgroundColor: artifact.color }}
+                  />
+                  <span className="text-sm" style={{ color: "var(--color-text)" }}>
+                    {artifact.name}
+                  </span>
+                </div>
               ))}
             </div>
           </div>
         )}
 
-        <button
-          onClick={generateSite}
-          className="btn-primary px-6 py-2 rounded-lg font-bold"
-        >
-          🗺️ New Dig Site
-        </button>
-
-        {foundCount === totalArtifacts && totalArtifacts > 0 && (
-          <div 
-            className="text-center p-4 rounded-lg"
-            style={{ backgroundColor: "var(--color-accent)", color: "white" }}
-          >
-            <div className="text-2xl mb-2">🎉 Site Fully Excavated! 🎉</div>
-            <div className="text-sm">
-              You've uncovered all {totalArtifacts} artifacts at {siteName}!
-            </div>
-          </div>
-        )}
+        <div className="text-center text-xs max-w-md" style={{ color: "var(--color-text-dim)" }}>
+          <p>💡 Tip: Use the fine brush (🔬) near artifacts to avoid damaging them. Larger brushes clear dirt faster but require less precision.</p>
+        </div>
       </div>
     </FeatureWrapper>
   );
