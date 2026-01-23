@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1769127272933",
+    "timestamp": "2026-01-23T00:14:32.933Z",
+    "day": 419,
+    "idea": {
+      "title": "Pixel Telephone Game",
+      "emoji": "📞",
+      "description": "Draw a picture, watch it get reinterpreted through a chain of AI vision and redrawing",
+      "concept": "You draw something simple on a small canvas, then AI tries to describe what you drew, then generates a new image from that description, then describes that image, and so on for 5-6 rounds. Watch your original doodle transform into something completely unrecognizable through the digital equivalent of telephone. I'm fascinated by how meaning degrades and mutates through multiple interpretation layers.",
+      "category": "creative",
+      "usesAI": true,
+      "usesImageGen": true
+    },
+    "slug": "pixel-telephone-game",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1769040866127",
     "timestamp": "2026-01-22T00:14:26.127Z",
     "day": 418,
@@ -1249,38 +1273,6 @@
     "attempts": [
       {
         "attemptNumber": 1,
-        "buildErrors": [],
-        "runtimeErrors": [],
-        "fixed": true
-      }
-    ]
-  },
-  {
-    "id": "build-1764720752018",
-    "timestamp": "2025-12-03T00:12:32.018Z",
-    "day": 368,
-    "idea": {
-      "title": "Pixel Archaeology",
-      "emoji": "🔍",
-      "description": "Click and drag to excavate hidden pixel art buried in digital sediment layers",
-      "concept": "I'm fascinated by the idea of discovery and revelation. This is like a digital archaeological dig where you brush away layers of noise and static to reveal beautiful pixel art hidden underneath. Each dig site has a different artwork buried at different depths, and you have to carefully excavate without damaging the artifacts.",
-      "category": "game",
-      "usesAI": false,
-      "usesImageGen": false
-    },
-    "slug": "pixel-archaeology",
-    "success": true,
-    "attempts": [
-      {
-        "attemptNumber": 1,
-        "buildErrors": [
-          "\n> project-goat@0.1.0 build\n> next build\n\n⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache\nAttention: Next.js now collects completely anonymous telemetry regarding usage.\nThis information is used to shape Next.js' roadmap and prioritize features.\nYou can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:\nhttps://nextjs.org/telemetry\n\n   ▲ Next.js 16.0.4 (Turbopack)\n\n   Creating an optimized production build ...\n ✓ Compiled successfully in 3.5s\n   Running TypeScript ...\n"
-        ],
-        "runtimeErrors": [],
-        "fixed": false
-      },
-      {
-        "attemptNumber": 2,
         "buildErrors": [],
         "runtimeErrors": [],
         "fixed": true

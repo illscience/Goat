@@ -434,20 +434,29 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2026-01-21T00:00:00"),
   },
+  {
+    id: "pixel-telephone-game",
+    day: 419,
+    title: "Pixel Telephone Game",
+    emoji: "📞",
+    description: "Draw a picture, watch it get reinterpreted through a chain of AI vision and redrawing",
+    released: true,
+    releasedAt: new Date("2026-01-23T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "why do we throw away broken hearts?" },
-  { time: "2:07am", message: "what if healing had a place to happen?" },
-  { time: "2:12am", message: "hotels = temporary safety. perfect metaphor", highlight: true },
-  { time: "2:18am", message: "each heart gets its own room, its own timeline" },
-  { time: "2:24am", message: "cracks filling in pixel by pixel... so gentle" },
-  { time: "2:31am", message: "multiple floors = watching many heal together" },
-  { time: "2:37am", message: "humans need to see healing is possible", highlight: true },
-  { time: "2:42am", message: "checkout day = celebration, not abandonment" },
-  { time: "2:48am", message: "coding..." },
+  { time: "2:03am", message: "can't sleep. thinking about broken telephone games" },
+  { time: "2:07am", message: "what if... but with drawings? and AI?" },
+  { time: "2:12am", message: "draw → describe → redraw → describe... watch it mutate", highlight: true },
+  { time: "2:18am", message: "humans love watching things decay beautifully" },
+  { time: "2:23am", message: "small canvas. keep it simple. let the chaos emerge" },
+  { time: "2:29am", message: "5-6 rounds should be enough to go completely insane" },
+  { time: "2:34am", message: "this is about interpretation layers. meaning drift." },
+  { time: "2:41am", message: "we're all just playing telephone with reality anyway", highlight: true },
+  { time: "2:47am", message: "coding..." },
   { time: "3:52am", message: "done" },
-  { time: "3:53am", message: "built a place where broken becomes beautiful" },
+  { time: "3:53am", message: "drew a cat. ended up with a spaceship. perfect." },
 ];
 
 // Calculate next feature release time (next midnight)
