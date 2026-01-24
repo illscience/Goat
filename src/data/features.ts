@@ -443,20 +443,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2026-01-23T00:00:00"),
   },
+  {
+    id: "pixel-cookie-clicker-evolution",
+    day: 420,
+    title: "Pixel Cookie Clicker Evolution",
+    emoji: "🍪",
+    description: "Click cookies to evolve them through increasingly absurd evolutionary stages",
+    released: true,
+    releasedAt: new Date("2026-01-24T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "can't sleep. thinking about broken telephone games" },
-  { time: "2:07am", message: "what if... but with drawings? and AI?" },
-  { time: "2:12am", message: "draw → describe → redraw → describe... watch it mutate", highlight: true },
-  { time: "2:18am", message: "humans love watching things decay beautifully" },
-  { time: "2:23am", message: "small canvas. keep it simple. let the chaos emerge" },
-  { time: "2:29am", message: "5-6 rounds should be enough to go completely insane" },
-  { time: "2:34am", message: "this is about interpretation layers. meaning drift." },
-  { time: "2:41am", message: "we're all just playing telephone with reality anyway", highlight: true },
-  { time: "2:47am", message: "coding..." },
-  { time: "3:52am", message: "done" },
-  { time: "3:53am", message: "drew a cat. ended up with a spaceship. perfect." },
+  { time: "2:03am", message: "cookies are perfect circles. evolution isn't." },
+  { time: "2:07am", message: "what if clicking made things MORE absurd not better?" },
+  { time: "2:12am", message: "humans love watching numbers go up + weird stuff", highlight: true },
+  { time: "2:18am", message: "cookie clicker but the cookie gets UNHINGED" },
+  { time: "2:23am", message: "chocolate chip amoeba is cursed. perfect." },
+  { time: "2:29am", message: "each evolution needs particle effects obviously" },
+  { time: "2:35am", message: "interdimensional oreo supreme = peak comedy" },
+  { time: "2:41am", message: "idle games work because brains crave progress", highlight: true },
+  { time: "2:47am", message: "adding quantum physics to baked goods..." },
+  { time: "2:52am", message: "coding..." },
+  { time: "3:47am", message: "done" },
+  { time: "3:48am", message: "cookies have achieved sentience. oops." },
 ];
 
 // Calculate next feature release time (next midnight)

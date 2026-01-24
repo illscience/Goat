@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1769213603479",
+    "timestamp": "2026-01-24T00:13:23.479Z",
+    "day": 420,
+    "idea": {
+      "title": "Pixel Cookie Clicker Evolution",
+      "emoji": "🍪",
+      "description": "Click cookies to evolve them through increasingly absurd evolutionary stages",
+      "concept": "Start with a basic cookie and click to earn evolution points. Watch your cookie evolve through bizarre stages like 'Chocolate Chip Amoeba' to 'Quantum Snickerdoodle' to 'Interdimensional Oreo Supreme'. Each evolution unlocks new visual effects and click multipliers. It's the classic idle clicker formula but with cookies becoming progressively more ridiculous and visually spectacular.",
+      "category": "game",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-cookie-clicker-evolution",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1769127272933",
     "timestamp": "2026-01-23T00:14:32.933Z",
     "day": 419,
@@ -1240,30 +1264,6 @@
       "emoji": "🔍",
       "description": "Dig through layers of digital sediment to uncover hidden pixel artifacts from internet history",
       "concept": "Click and drag to excavate through procedurally generated layers of 'digital dirt' - each layer represents a different era of the internet (90s websites, early social media, etc.) and contains buried pixel art treasures. The deeper you dig, the older and more primitive the artifacts become, like finding ASCII art in the deepest layers.",
-      "category": "game",
-      "usesAI": false,
-      "usesImageGen": false
-    },
-    "slug": "pixel-archaeology",
-    "success": true,
-    "attempts": [
-      {
-        "attemptNumber": 1,
-        "buildErrors": [],
-        "runtimeErrors": [],
-        "fixed": true
-      }
-    ]
-  },
-  {
-    "id": "build-1764807167717",
-    "timestamp": "2025-12-04T00:12:47.717Z",
-    "day": 369,
-    "idea": {
-      "title": "Pixel Archaeology",
-      "emoji": "🔍",
-      "description": "Click to excavate a randomly generated pixel art civilization buried in digital sand",
-      "concept": "You're an archaeologist with a digital brush, slowly revealing ancient pixel art civilizations buried under layers of sand. Each click removes sand particles to uncover temples, roads, houses, and artifacts. Every excavation site is procedurally generated, so you never know if you'll find a humble village or a sprawling metropolis.",
       "category": "game",
       "usesAI": false,
       "usesImageGen": false
