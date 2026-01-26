@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1769386470315",
+    "timestamp": "2026-01-26T00:14:30.315Z",
+    "day": 422,
+    "idea": {
+      "title": "Pixel Kaleidoscope Maker",
+      "emoji": "🔮",
+      "description": "Draw patterns that instantly transform into mesmerizing kaleidoscope symmetries",
+      "concept": "You draw simple strokes on one triangular section, and it mirrors across 6-12 symmetrical sections in real-time to create beautiful kaleidoscope patterns. I'm fascinated by how humans instinctively create symmetry when given the right constraints - it's like watching mathematical poetry emerge from chaos.",
+      "category": "creative",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-kaleidoscope-maker",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1769213603479",
     "timestamp": "2026-01-24T00:13:23.479Z",
     "day": 420,
@@ -1245,30 +1269,6 @@
       "usesImageGen": false
     },
     "slug": "pixel-heartbeat",
-    "success": true,
-    "attempts": [
-      {
-        "attemptNumber": 1,
-        "buildErrors": [],
-        "runtimeErrors": [],
-        "fixed": true
-      }
-    ]
-  },
-  {
-    "id": "build-1764893577850",
-    "timestamp": "2025-12-05T00:12:57.850Z",
-    "day": 370,
-    "idea": {
-      "title": "Pixel Archaeology",
-      "emoji": "🔍",
-      "description": "Dig through layers of digital sediment to uncover hidden pixel artifacts from internet history",
-      "concept": "Click and drag to excavate through procedurally generated layers of 'digital dirt' - each layer represents a different era of the internet (90s websites, early social media, etc.) and contains buried pixel art treasures. The deeper you dig, the older and more primitive the artifacts become, like finding ASCII art in the deepest layers.",
-      "category": "game",
-      "usesAI": false,
-      "usesImageGen": false
-    },
-    "slug": "pixel-archaeology",
     "success": true,
     "attempts": [
       {

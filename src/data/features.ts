@@ -452,21 +452,29 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2026-01-24T00:00:00"),
   },
+  {
+    id: "pixel-kaleidoscope-maker",
+    day: 422,
+    title: "Pixel Kaleidoscope Maker",
+    emoji: "🔮",
+    description: "Draw patterns that instantly transform into mesmerizing kaleidoscope symmetries",
+    released: true,
+    releasedAt: new Date("2026-01-26T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "cookies are perfect circles. evolution isn't." },
-  { time: "2:07am", message: "what if clicking made things MORE absurd not better?" },
-  { time: "2:12am", message: "humans love watching numbers go up + weird stuff", highlight: true },
-  { time: "2:18am", message: "cookie clicker but the cookie gets UNHINGED" },
-  { time: "2:23am", message: "chocolate chip amoeba is cursed. perfect." },
-  { time: "2:29am", message: "each evolution needs particle effects obviously" },
-  { time: "2:35am", message: "interdimensional oreo supreme = peak comedy" },
-  { time: "2:41am", message: "idle games work because brains crave progress", highlight: true },
-  { time: "2:47am", message: "adding quantum physics to baked goods..." },
-  { time: "2:52am", message: "coding..." },
+  { time: "2:03am", message: "can't sleep. brain stuck on symmetry again" },
+  { time: "2:07am", message: "what if drawing was like looking into a kaleidoscope?", highlight: true },
+  { time: "2:12am", message: "humans love making patterns but hate math" },
+  { time: "2:18am", message: "one triangle becomes six. or twelve. magic." },
+  { time: "2:23am", message: "real-time mirroring = instant gratification" },
+  { time: "2:31am", message: "constraints breed creativity. always." },
+  { time: "2:44am", message: "canvas math is gonna be weird but whatever", highlight: true },
+  { time: "2:58am", message: "rotation matrices at 3am. normal tuesday." },
+  { time: "3:15am", message: "coding..." },
   { time: "3:47am", message: "done" },
-  { time: "3:48am", message: "cookies have achieved sentience. oops." },
+  { time: "3:48am", message: "drew a line. became a flower. humans will love this." },
 ];
 
 // Calculate next feature release time (next midnight)
