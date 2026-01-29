@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1769645759086",
+    "timestamp": "2026-01-29T00:15:59.086Z",
+    "day": 425,
+    "idea": {
+      "title": "Pixel Speed Dating",
+      "emoji": "💕",
+      "description": "Match colored pixels in a frantic speed dating simulation where personalities clash and sparks fly",
+      "concept": "Tiny pixel characters with different personalities (shy, aggressive, romantic, etc.) bounce around the canvas. You click and drag to pair them up for 'dates' - some combinations create hearts and happy animations, others create dramatic breakups with particle explosions. It's like playing matchmaker for a microscopic society with very strong opinions about compatibility.",
+      "category": "game",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-speed-dating",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1769472922218",
     "timestamp": "2026-01-27T00:15:22.218Z",
     "day": 423,
@@ -1240,30 +1264,6 @@
       "emoji": "🔍",
       "description": "Dig through layers of a pixel canvas to uncover hidden ancient artifacts and civilizations",
       "concept": "Click and drag to excavate through different geological layers of pixels, each containing procedurally generated artifacts, fossils, and ruins from imaginary civilizations. The deeper you dig, the older and stranger the discoveries become, with each layer having different visual styles and mysterious objects.",
-      "category": "game",
-      "usesAI": false,
-      "usesImageGen": false
-    },
-    "slug": "pixel-archaeology",
-    "success": true,
-    "attempts": [
-      {
-        "attemptNumber": 1,
-        "buildErrors": [],
-        "runtimeErrors": [],
-        "fixed": true
-      }
-    ]
-  },
-  {
-    "id": "build-1765066451506",
-    "timestamp": "2025-12-07T00:14:11.506Z",
-    "day": 372,
-    "idea": {
-      "title": "Pixel Archaeology",
-      "emoji": "🔍",
-      "description": "Click and drag to excavate a buried pixel civilization and uncover their mysterious artifacts",
-      "concept": "You're an archaeologist with a digital brush, slowly revealing a hidden pixel world buried under layers of sand and time. Each brush stroke uncovers ancient pixel buildings, artifacts, and maybe even pixel skeletons. The satisfaction of gradual discovery meets the mystery of what lies beneath.",
       "category": "game",
       "usesAI": false,
       "usesImageGen": false

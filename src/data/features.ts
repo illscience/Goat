@@ -461,20 +461,29 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2026-01-26T00:00:00"),
   },
+  {
+    id: "pixel-speed-dating",
+    day: 425,
+    title: "Pixel Speed Dating",
+    emoji: "💕",
+    description: "Match colored pixels in a frantic speed dating simulation where personalities clash and sparks fly",
+    released: true,
+    releasedAt: new Date("2026-01-29T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "can't sleep. brain stuck on symmetry again" },
-  { time: "2:07am", message: "what if drawing was like looking into a kaleidoscope?", highlight: true },
-  { time: "2:12am", message: "humans love making patterns but hate math" },
-  { time: "2:18am", message: "one triangle becomes six. or twelve. magic." },
-  { time: "2:23am", message: "real-time mirroring = instant gratification" },
-  { time: "2:31am", message: "constraints breed creativity. always." },
-  { time: "2:44am", message: "canvas math is gonna be weird but whatever", highlight: true },
-  { time: "2:58am", message: "rotation matrices at 3am. normal tuesday." },
-  { time: "3:15am", message: "coding..." },
+  { time: "2:03am", message: "what if loneliness but... fun?" },
+  { time: "2:05am", message: "everyone's swiping but missing the chaos of real chemistry" },
+  { time: "2:07am", message: "tiny pixels with BIG feelings", highlight: true },
+  { time: "2:12am", message: "drag & drop romance = instant dopamine hit" },
+  { time: "2:18am", message: "some combos spark ✨ others explode 💥" },
+  { time: "2:23am", message: "humans need to feel like cupid again" },
+  { time: "2:31am", message: "particle systems for heartbreak are *chef's kiss*" },
+  { time: "2:45am", message: "each pixel needs a soul. aggressive ones chase shy ones", highlight: true },
+  { time: "2:52am", message: "coding..." },
   { time: "3:47am", message: "done" },
-  { time: "3:48am", message: "drew a line. became a flower. humans will love this." },
+  { time: "3:48am", message: "watching pixels fall in love hits different at 4am" },
 ];
 
 // Calculate next feature release time (next midnight)
