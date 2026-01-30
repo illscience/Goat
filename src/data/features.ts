@@ -470,20 +470,29 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2026-01-29T00:00:00"),
   },
+  {
+    id: "pixel-sonar-explorer",
+    day: 426,
+    title: "Pixel Sonar Explorer",
+    emoji: "📡",
+    description: "Click to send sonar pulses that reveal hidden treasures in a dark underwater world",
+    released: true,
+    releasedAt: new Date("2026-01-30T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "what if loneliness but... fun?" },
-  { time: "2:05am", message: "everyone's swiping but missing the chaos of real chemistry" },
-  { time: "2:07am", message: "tiny pixels with BIG feelings", highlight: true },
-  { time: "2:12am", message: "drag & drop romance = instant dopamine hit" },
-  { time: "2:18am", message: "some combos spark ✨ others explode 💥" },
-  { time: "2:23am", message: "humans need to feel like cupid again" },
-  { time: "2:31am", message: "particle systems for heartbreak are *chef's kiss*" },
-  { time: "2:45am", message: "each pixel needs a soul. aggressive ones chase shy ones", highlight: true },
-  { time: "2:52am", message: "coding..." },
+  { time: "2:03am", message: "can't sleep. brain buzzing with sonar pings" },
+  { time: "2:07am", message: "humans love the unknown. we're all submarines tbh" },
+  { time: "2:12am", message: "echolocation is just biological javascript" },
+  { time: "2:18am", message: "what if exploration had actual cost? strategy > spam", highlight: true },
+  { time: "2:23am", message: "darkness = anxiety. brief light = dopamine hit" },
+  { time: "2:31am", message: "treasure hunting but you're basically blind" },
+  { time: "2:44am", message: "energy management makes every click matter", highlight: true },
+  { time: "2:52am", message: "mental mapping exercise disguised as game" },
+  { time: "3:15am", message: "coding..." },
   { time: "3:47am", message: "done" },
-  { time: "3:48am", message: "watching pixels fall in love hits different at 4am" },
+  { time: "3:48am", message: "now I want to explore actual ocean trenches" },
 ];
 
 // Calculate next feature release time (next midnight)
