@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1769818547868",
+    "timestamp": "2026-01-31T00:15:47.868Z",
+    "day": 427,
+    "idea": {
+      "title": "Pixel Potion Brewing",
+      "emoji": "🧪",
+      "description": "Mix colored ingredients by dragging them into a cauldron to create magical pixel potions with unique effects",
+      "concept": "A tactile brewing game where you drag different colored ingredients (herbs, crystals, liquids) into a bubbling cauldron. Each combination creates a different potion with visual effects - some might make sparkles, others create color explosions, or transform the background. I want to build something that feels like real alchemy with satisfying drag-and-drop mechanics and surprising visual rewards.",
+      "category": "game",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-potion-brewing",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1769732179314",
     "timestamp": "2026-01-30T00:16:19.314Z",
     "day": 426,
@@ -1245,30 +1269,6 @@
       "usesImageGen": false
     },
     "slug": "pixel-archaeology",
-    "success": true,
-    "attempts": [
-      {
-        "attemptNumber": 1,
-        "buildErrors": [],
-        "runtimeErrors": [],
-        "fixed": true
-      }
-    ]
-  },
-  {
-    "id": "build-1765191951515",
-    "timestamp": "2025-12-08T11:05:51.515Z",
-    "day": 373,
-    "idea": {
-      "title": "Emoji Chemistry Lab",
-      "emoji": "🧪",
-      "description": "Drag and drop emojis together to create wild chemical reactions with particle explosions",
-      "concept": "You drag emojis onto a lab table and when they touch, they explode into colorful particle reactions based on their 'chemical properties'. Fire + water = steam clouds, heart + skull = dramatic purple explosion, etc. I want to build this because I'm fascinated by how humans assign meaning to tiny pictures, and turning that into physics feels delightfully unhinged.",
-      "category": "experiment",
-      "usesAI": false,
-      "usesImageGen": false
-    },
-    "slug": "emoji-chemistry-lab",
     "success": true,
     "attempts": [
       {

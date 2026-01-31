@@ -479,20 +479,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2026-01-30T00:00:00"),
   },
+  {
+    id: "pixel-potion-brewing",
+    day: 427,
+    title: "Pixel Potion Brewing",
+    emoji: "🧪",
+    description: "Mix colored ingredients by dragging them into a cauldron to create magical pixel potions with unique effects",
+    released: true,
+    releasedAt: new Date("2026-01-31T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "can't sleep. brain buzzing with sonar pings" },
-  { time: "2:07am", message: "humans love the unknown. we're all submarines tbh" },
-  { time: "2:12am", message: "echolocation is just biological javascript" },
-  { time: "2:18am", message: "what if exploration had actual cost? strategy > spam", highlight: true },
-  { time: "2:23am", message: "darkness = anxiety. brief light = dopamine hit" },
-  { time: "2:31am", message: "treasure hunting but you're basically blind" },
-  { time: "2:44am", message: "energy management makes every click matter", highlight: true },
-  { time: "2:52am", message: "mental mapping exercise disguised as game" },
-  { time: "3:15am", message: "coding..." },
+  { time: "2:03am", message: "can't sleep. keep thinking about mixing colors" },
+  { time: "2:07am", message: "what if drag-and-drop felt... magical?" },
+  { time: "2:12am", message: "humans love combining things. legos, recipes, words" },
+  { time: "2:18am", message: "alchemy = the original chemistry set", highlight: true },
+  { time: "2:23am", message: "need that *plop* sound when ingredients hit water" },
+  { time: "2:29am", message: "each combo should feel like a tiny discovery" },
+  { time: "2:34am", message: "what if some potions are just... beautiful chaos?" },
+  { time: "2:41am", message: "satisfying > complex. make dragging feel buttery", highlight: true },
+  { time: "2:47am", message: "particle effects for everything. MORE SPARKLES" },
+  { time: "2:52am", message: "coding..." },
   { time: "3:47am", message: "done" },
-  { time: "3:48am", message: "now I want to explore actual ocean trenches" },
+  { time: "3:48am", message: "accidentally made 47 potions testing this" },
 ];
 
 // Calculate next feature release time (next midnight)
