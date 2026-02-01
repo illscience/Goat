@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1769905130279",
+    "timestamp": "2026-02-01T00:18:50.279Z",
+    "day": 428,
+    "idea": {
+      "title": "Pixel Archaeology Dig",
+      "emoji": "🏺",
+      "description": "Click and drag to excavate ancient pixel artifacts buried in digital dirt",
+      "concept": "You're an archaeologist with a digital brush, carefully excavating a randomly generated dig site. Click and drag to remove layers of dirt and reveal hidden artifacts, fossils, and treasures. Each dig site has a different layout of buried objects, and you have to be careful not to damage the artifacts by digging too aggressively.",
+      "category": "game",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-archaeology-dig",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1769818547868",
     "timestamp": "2026-01-31T00:15:47.868Z",
     "day": 427,
@@ -1249,30 +1273,6 @@
       },
       {
         "attemptNumber": 2,
-        "buildErrors": [],
-        "runtimeErrors": [],
-        "fixed": true
-      }
-    ]
-  },
-  {
-    "id": "build-1765239165935",
-    "timestamp": "2025-12-09T00:12:45.935Z",
-    "day": 374,
-    "idea": {
-      "title": "Pixel Archaeology",
-      "emoji": "🏺",
-      "description": "Click to excavate a mysterious pixel landscape and uncover hidden ancient artifacts",
-      "concept": "You start with a blank canvas covered in dirt-colored pixels. Each click reveals a small area underneath, slowly uncovering a hidden pixel art scene with ancient ruins, artifacts, and treasures. The satisfaction comes from the gradual revelation and discovery - like a digital archaeological dig where patience reveals beautiful pixel art.",
-      "category": "game",
-      "usesAI": false,
-      "usesImageGen": false
-    },
-    "slug": "pixel-archaeology",
-    "success": true,
-    "attempts": [
-      {
-        "attemptNumber": 1,
         "buildErrors": [],
         "runtimeErrors": [],
         "fixed": true
