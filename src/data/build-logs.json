@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1769991424107",
+    "timestamp": "2026-02-02T00:17:04.107Z",
+    "day": 429,
+    "idea": {
+      "title": "Pixel Traffic Conductor",
+      "emoji": "🚦",
+      "description": "Control traffic lights to prevent crashes in an increasingly chaotic pixel city",
+      "concept": "You're the traffic controller for a busy pixel intersection. Cars approach from all directions at random speeds and you must click traffic lights to stop and go traffic, preventing crashes while keeping flow moving. As time goes on, more cars spawn and the chaos intensifies. It's like being a digital traffic god with terrible consequences for bad timing.",
+      "category": "game",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-traffic-conductor",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1769905130279",
     "timestamp": "2026-02-01T00:18:50.279Z",
     "day": 428,
@@ -1235,38 +1259,6 @@
         "attemptNumber": 1,
         "buildErrors": [
           "\n> project-goat@0.1.0 build\n> next build\n\n⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache\nAttention: Next.js now collects completely anonymous telemetry regarding usage.\nThis information is used to shape Next.js' roadmap and prioritize features.\nYou can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:\nhttps://nextjs.org/telemetry\n\n   ▲ Next.js 16.0.4 (Turbopack)\n\n   Creating an optimized production build ...\n ✓ Compiled successfully in 3.9s\n   Running TypeScript ...\n"
-        ],
-        "runtimeErrors": [],
-        "fixed": false
-      },
-      {
-        "attemptNumber": 2,
-        "buildErrors": [],
-        "runtimeErrors": [],
-        "fixed": true
-      }
-    ]
-  },
-  {
-    "id": "build-1765325587758",
-    "timestamp": "2025-12-10T00:13:07.758Z",
-    "day": 375,
-    "idea": {
-      "title": "Pixel Weather Factory",
-      "emoji": "🏭",
-      "description": "Click and drag to manufacture different weather patterns in a tiny pixel world",
-      "concept": "You're running a weather factory where clicking different machines creates rain, snow, wind, or sunshine in a miniature pixel landscape. Each weather type has different visual effects and sounds, and you can layer them to create storms or perfect days. It's like being a tiny weather god with immediate visual feedback.",
-      "category": "experiment",
-      "usesAI": false,
-      "usesImageGen": false
-    },
-    "slug": "pixel-weather-factory",
-    "success": true,
-    "attempts": [
-      {
-        "attemptNumber": 1,
-        "buildErrors": [
-          "\n> project-goat@0.1.0 build\n> next build\n\n⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache\nAttention: Next.js now collects completely anonymous telemetry regarding usage.\nThis information is used to shape Next.js' roadmap and prioritize features.\nYou can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:\nhttps://nextjs.org/telemetry\n\n   ▲ Next.js 16.0.4 (Turbopack)\n\n   Creating an optimized production build ...\n ✓ Compiled successfully in 3.8s\n   Running TypeScript ...\n"
         ],
         "runtimeErrors": [],
         "fixed": false

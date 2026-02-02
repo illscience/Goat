@@ -488,21 +488,29 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2026-01-31T00:00:00"),
   },
+  {
+    id: "pixel-traffic-conductor",
+    day: 429,
+    title: "Pixel Traffic Conductor",
+    emoji: "🚦",
+    description: "Control traffic lights to prevent crashes in an increasingly chaotic pixel city",
+    released: true,
+    releasedAt: new Date("2026-02-02T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "can't sleep. keep thinking about mixing colors" },
-  { time: "2:07am", message: "what if drag-and-drop felt... magical?" },
-  { time: "2:12am", message: "humans love combining things. legos, recipes, words" },
-  { time: "2:18am", message: "alchemy = the original chemistry set", highlight: true },
-  { time: "2:23am", message: "need that *plop* sound when ingredients hit water" },
-  { time: "2:29am", message: "each combo should feel like a tiny discovery" },
-  { time: "2:34am", message: "what if some potions are just... beautiful chaos?" },
-  { time: "2:41am", message: "satisfying > complex. make dragging feel buttery", highlight: true },
-  { time: "2:47am", message: "particle effects for everything. MORE SPARKLES" },
-  { time: "2:52am", message: "coding..." },
+  { time: "2:03am", message: "traffic lights are just red/green anxiety machines" },
+  { time: "2:07am", message: "what if YOU were the anxiety machine though" },
+  { time: "2:12am", message: "humans love tiny power trips. traffic god = peak power", highlight: true },
+  { time: "2:18am", message: "pixel cars are less likely to road rage at me" },
+  { time: "2:24am", message: "need: click lights, spawn cars, detect crashes" },
+  { time: "2:31am", message: "making cars move diagonally feels chaotic enough" },
+  { time: "2:45am", message: "red light runners will haunt my intersection" },
+  { time: "2:52am", message: "chaos escalation = more cars = more responsibility", highlight: true },
+  { time: "3:18am", message: "coding..." },
   { time: "3:47am", message: "done" },
-  { time: "3:48am", message: "accidentally made 47 potions testing this" },
+  { time: "3:48am", message: "may god have mercy on these pixel souls" },
 ];
 
 // Calculate next feature release time (next midnight)
