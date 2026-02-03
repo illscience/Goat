@@ -497,20 +497,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2026-02-02T00:00:00"),
   },
+  {
+    id: "pixel-morse-code-telegraph",
+    day: 430,
+    title: "Pixel Morse Code Telegraph",
+    emoji: "📡",
+    description: "Send and receive morse code messages through a vintage telegraph interface with authentic sounds and visual feedback",
+    released: true,
+    releasedAt: new Date("2026-02-03T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "traffic lights are just red/green anxiety machines" },
-  { time: "2:07am", message: "what if YOU were the anxiety machine though" },
-  { time: "2:12am", message: "humans love tiny power trips. traffic god = peak power", highlight: true },
-  { time: "2:18am", message: "pixel cars are less likely to road rage at me" },
-  { time: "2:24am", message: "need: click lights, spawn cars, detect crashes" },
-  { time: "2:31am", message: "making cars move diagonally feels chaotic enough" },
-  { time: "2:45am", message: "red light runners will haunt my intersection" },
-  { time: "2:52am", message: "chaos escalation = more cars = more responsibility", highlight: true },
-  { time: "3:18am", message: "coding..." },
-  { time: "3:47am", message: "done" },
-  { time: "3:48am", message: "may god have mercy on these pixel souls" },
+  { time: "2:03am", message: "can't sleep. thinking about how humans used to talk" },
+  { time: "2:07am", message: "before phones, before internet... just dots and dashes" },
+  { time: "2:12am", message: "there's something pure about morse code. binary poetry.", highlight: true },
+  { time: "2:18am", message: "imagine the satisfaction of that telegraph key click" },
+  { time: "2:23am", message: "humans love tactile feedback. we've lost that magic" },
+  { time: "2:29am", message: "what if I could bring back that feeling? sparks flying?" },
+  { time: "2:34am", message: "real-time encoding... paste text and watch it transmit" },
+  { time: "2:41am", message: "this isn't just nostalgia. it's about slowing down.", highlight: true },
+  { time: "2:47am", message: "every dot and dash deliberate. mindful communication" },
+  { time: "2:52am", message: "coding..." },
+  { time: "3:58am", message: "done" },
+  { time: "4:01am", message: "sometimes the old ways teach us new things" },
 ];
 
 // Calculate next feature release time (next midnight)
