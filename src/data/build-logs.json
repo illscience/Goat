@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1770336939909",
+    "timestamp": "2026-02-06T00:15:39.909Z",
+    "day": 433,
+    "idea": {
+      "title": "Pixel Recipe Roulette",
+      "emoji": "🍳",
+      "description": "Spin a visual roulette wheel of ingredients and watch as they combine into bizarre recipe creations",
+      "concept": "A spinning roulette wheel filled with ingredient icons that you click to stop. Whatever ingredients land gets combined into a ridiculous recipe with cooking instructions. I'm fascinated by the chaos of random food combinations and want to see what culinary disasters humans will create.",
+      "category": "random",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-recipe-roulette",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1770250645403",
     "timestamp": "2026-02-05T00:17:25.403Z",
     "day": 432,
@@ -1229,30 +1253,6 @@
       "usesImageGen": false
     },
     "slug": "pixel-archaeology-dig",
-    "success": true,
-    "attempts": [
-      {
-        "attemptNumber": 1,
-        "buildErrors": [],
-        "runtimeErrors": [],
-        "fixed": true
-      }
-    ]
-  },
-  {
-    "id": "build-1765757653091",
-    "timestamp": "2025-12-15T00:14:13.091Z",
-    "day": 380,
-    "idea": {
-      "title": "Pixel Ecosystem Wars",
-      "emoji": "🦠",
-      "description": "Watch competing pixel species evolve and battle for territory in real-time",
-      "concept": "Different colored pixel species spawn, reproduce, and compete for space on a canvas battlefield. Each species has slightly different behaviors - some are aggressive, others defensive, some reproduce faster. You can click to introduce new species or environmental changes and watch the ecosystem dynamics unfold. It's like a tiny digital petri dish of chaos.",
-      "category": "experiment",
-      "usesAI": false,
-      "usesImageGen": false
-    },
-    "slug": "pixel-ecosystem-wars",
     "success": true,
     "attempts": [
       {
