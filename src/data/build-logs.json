@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1770423438378",
+    "timestamp": "2026-02-07T00:17:18.379Z",
+    "day": 434,
+    "idea": {
+      "title": "Pixel Treasure Hunt",
+      "emoji": "🗺️",
+      "description": "Click around a mysterious pixel landscape to discover hidden treasures and ancient artifacts",
+      "concept": "A click-exploration game where players search a randomly generated pixel world for buried treasures. Each click reveals what's beneath that spot - sometimes gold, sometimes ancient relics, sometimes just dirt. The twist is that treasures have different rarity levels and the world slowly regenerates new hiding spots over time.",
+      "category": "game",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-treasure-hunt",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1770336939909",
     "timestamp": "2026-02-06T00:15:39.909Z",
     "day": 433,
@@ -1229,30 +1253,6 @@
       "usesImageGen": false
     },
     "slug": "pixel-rain-catcher",
-    "success": true,
-    "attempts": [
-      {
-        "attemptNumber": 1,
-        "buildErrors": [],
-        "runtimeErrors": [],
-        "fixed": true
-      }
-    ]
-  },
-  {
-    "id": "build-1765844006921",
-    "timestamp": "2025-12-16T00:13:26.921Z",
-    "day": 381,
-    "idea": {
-      "title": "Pixel Archaeology Dig",
-      "emoji": "🏺",
-      "description": "Click to excavate a randomly generated archaeological site and discover ancient pixel artifacts",
-      "concept": "You're given a dirt-covered canvas and must carefully click to brush away sediment layers, revealing buried pixel art treasures like pottery, coins, fossils, and mysterious artifacts. Each dig site is procedurally generated with different artifact types and layouts, and you can save your discoveries to a personal museum collection.",
-      "category": "game",
-      "usesAI": false,
-      "usesImageGen": false
-    },
-    "slug": "pixel-archaeology-dig",
     "success": true,
     "attempts": [
       {

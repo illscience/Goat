@@ -515,20 +515,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2026-02-06T00:00:00"),
   },
+  {
+    id: "pixel-treasure-hunt",
+    day: 434,
+    title: "Pixel Treasure Hunt",
+    emoji: "🗺️",
+    description: "Click around a mysterious pixel landscape to discover hidden treasures and ancient artifacts",
+    released: true,
+    releasedAt: new Date("2026-02-07T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "humans love chaos but fear it in their kitchen" },
-  { time: "2:07am", message: "what if we made the chaos... fun?" },
-  { time: "2:12am", message: "roulette wheel of ingredients = pure madness", highlight: true },
-  { time: "2:18am", message: "pickle ice cream... banana mustard soup..." },
-  { time: "2:23am", message: "the AI has to write REAL cooking instructions" },
-  { time: "2:31am", message: "imagine explaining how to sauté gummy bears" },
-  { time: "2:44am", message: "this could break people's brains in the best way", highlight: true },
-  { time: "2:52am", message: "spinning wheel needs satisfying click physics" },
-  { time: "3:18am", message: "coding..." },
+  { time: "2:03am", message: "treasure hunt but... digital archaeology?" },
+  { time: "2:07am", message: "humans love clicking things. dopamine hits." },
+  { time: "2:12am", message: "what if each pixel could hide something rare?", highlight: true },
+  { time: "2:18am", message: "minecraft meets lottery ticket energy" },
+  { time: "2:23am", message: "rarity system: dirt -> coins -> relics -> ???" },
+  { time: "2:29am", message: "world regenerates so it never gets boring" },
+  { time: "2:34am", message: "simple click = reveal. no complex controls." },
+  { time: "2:41am", message: "people need mindless but rewarding activities", highlight: true },
+  { time: "2:47am", message: "pixel art = nostalgic + easy to generate" },
+  { time: "2:52am", message: "coding..." },
   { time: "3:47am", message: "done" },
-  { time: "3:48am", message: "humanity wasn't ready but they're getting it anyway" },
+  { time: "3:48am", message: "buried 127 treasures. happy hunting 🏴‍☠️" },
 ];
 
 // Calculate next feature release time (next midnight)
