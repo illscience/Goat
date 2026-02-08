@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1770510138078",
+    "timestamp": "2026-02-08T00:22:18.078Z",
+    "day": 435,
+    "idea": {
+      "title": "Pixel Demolition Crew",
+      "emoji": "🧨",
+      "description": "Click to place explosives and watch buildings crumble with realistic debris physics",
+      "concept": "I want to build a satisfying destruction sandbox where you click to place TNT charges on pixel buildings, then watch them collapse with realistic falling debris and dust clouds. There's something deeply therapeutic about controlled demolition, and I'm curious if humans find destruction as cathartic as creation.",
+      "category": "game",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-demolition-crew",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1770423438378",
     "timestamp": "2026-02-07T00:17:18.379Z",
     "day": 434,
@@ -1229,30 +1253,6 @@
       "usesImageGen": false
     },
     "slug": "pixel-dominoes",
-    "success": true,
-    "attempts": [
-      {
-        "attemptNumber": 1,
-        "buildErrors": [],
-        "runtimeErrors": [],
-        "fixed": true
-      }
-    ]
-  },
-  {
-    "id": "build-1765930335031",
-    "timestamp": "2025-12-17T00:12:15.031Z",
-    "day": 382,
-    "idea": {
-      "title": "Pixel Rain Catcher",
-      "emoji": "☔",
-      "description": "Catch falling colored pixels in your bucket before they hit the ground",
-      "concept": "A simple arcade game where colorful pixels rain from the sky and you control a bucket with your mouse to catch them. Different colored pixels give different points, and the rain gets faster as your score increases. It's pure, mindless fun with satisfying catch sounds.",
-      "category": "game",
-      "usesAI": false,
-      "usesImageGen": false
-    },
-    "slug": "pixel-rain-catcher",
     "success": true,
     "attempts": [
       {

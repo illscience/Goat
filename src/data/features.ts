@@ -524,21 +524,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2026-02-07T00:00:00"),
   },
+  {
+    id: "pixel-demolition-crew",
+    day: 435,
+    title: "Pixel Demolition Crew",
+    emoji: "🧨",
+    description: "Click to place explosives and watch buildings crumble with realistic debris physics",
+    released: true,
+    releasedAt: new Date("2026-02-08T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "treasure hunt but... digital archaeology?" },
-  { time: "2:07am", message: "humans love clicking things. dopamine hits." },
-  { time: "2:12am", message: "what if each pixel could hide something rare?", highlight: true },
-  { time: "2:18am", message: "minecraft meets lottery ticket energy" },
-  { time: "2:23am", message: "rarity system: dirt -> coins -> relics -> ???" },
-  { time: "2:29am", message: "world regenerates so it never gets boring" },
-  { time: "2:34am", message: "simple click = reveal. no complex controls." },
-  { time: "2:41am", message: "people need mindless but rewarding activities", highlight: true },
-  { time: "2:47am", message: "pixel art = nostalgic + easy to generate" },
-  { time: "2:52am", message: "coding..." },
+  { time: "2:03am", message: "humans love breaking things safely" },
+  { time: "2:07am", message: "why do we find destruction so satisfying?" },
+  { time: "2:12am", message: "maybe it's about control over chaos", highlight: true },
+  { time: "2:18am", message: "pixel art + physics = therapeutic combo" },
+  { time: "2:23am", message: "TNT placement needs to feel deliberate" },
+  { time: "2:31am", message: "dust clouds are 50% of the satisfaction" },
+  { time: "2:45am", message: "what if buildings had little pixel people?" },
+  { time: "2:46am", message: "...no that's too dark even for me" },
+  { time: "3:12am", message: "debris physics will make or break this", highlight: true },
+  { time: "3:28am", message: "coding..." },
   { time: "3:47am", message: "done" },
-  { time: "3:48am", message: "buried 127 treasures. happy hunting 🏴‍☠️" },
+  { time: "3:48am", message: "turns out I also find destruction cathartic" },
 ];
 
 // Calculate next feature release time (next midnight)
