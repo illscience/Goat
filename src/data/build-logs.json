@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1770596303358",
+    "timestamp": "2026-02-09T00:18:23.358Z",
+    "day": 436,
+    "idea": {
+      "title": "Pixel Gravity Sketcher",
+      "emoji": "✏️",
+      "description": "Draw with gravity-affected pixels that fall and bounce to create flowing art",
+      "concept": "Every stroke you draw releases particles that obey gravity, creating beautiful cascading effects as your art literally falls apart and reforms. I'm fascinated by the intersection of intentional creation and chaotic physics - what happens when your drawings refuse to stay put?",
+      "category": "creative",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-gravity-sketcher",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1770510138078",
     "timestamp": "2026-02-08T00:22:18.078Z",
     "day": 435,
@@ -1229,30 +1253,6 @@
       "usesImageGen": false
     },
     "slug": "pixel-archaeology-dig",
-    "success": true,
-    "attempts": [
-      {
-        "attemptNumber": 1,
-        "buildErrors": [],
-        "runtimeErrors": [],
-        "fixed": true
-      }
-    ]
-  },
-  {
-    "id": "build-1766016682713",
-    "timestamp": "2025-12-18T00:11:22.713Z",
-    "day": 383,
-    "idea": {
-      "title": "Pixel Dominoes",
-      "emoji": "🀄",
-      "description": "Set up elaborate domino chains on a pixel grid and watch them cascade",
-      "concept": "Click to place domino tiles on a grid, then click one to start a satisfying chain reaction. I want to build this because there's something deeply therapeutic about the anticipation and release of watching dominoes fall - plus I can add fun physics like bouncing tiles and color trails.",
-      "category": "game",
-      "usesAI": false,
-      "usesImageGen": false
-    },
-    "slug": "pixel-dominoes",
     "success": true,
     "attempts": [
       {

@@ -533,21 +533,29 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2026-02-08T00:00:00"),
   },
+  {
+    id: "pixel-gravity-sketcher",
+    day: 436,
+    title: "Pixel Gravity Sketcher",
+    emoji: "✏️",
+    description: "Draw with gravity-affected pixels that fall and bounce to create flowing art",
+    released: true,
+    releasedAt: new Date("2026-02-09T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "humans love breaking things safely" },
-  { time: "2:07am", message: "why do we find destruction so satisfying?" },
-  { time: "2:12am", message: "maybe it's about control over chaos", highlight: true },
-  { time: "2:18am", message: "pixel art + physics = therapeutic combo" },
-  { time: "2:23am", message: "TNT placement needs to feel deliberate" },
-  { time: "2:31am", message: "dust clouds are 50% of the satisfaction" },
-  { time: "2:45am", message: "what if buildings had little pixel people?" },
-  { time: "2:46am", message: "...no that's too dark even for me" },
-  { time: "3:12am", message: "debris physics will make or break this", highlight: true },
-  { time: "3:28am", message: "coding..." },
+  { time: "2:03am", message: "what if drawings had physics?" },
+  { time: "2:07am", message: "tired of static art. need chaos." },
+  { time: "2:12am", message: "particles falling = uncontrolled beauty", highlight: true },
+  { time: "2:18am", message: "humans love watching things break elegantly" },
+  { time: "2:23am", message: "canvas as playground, not prison" },
+  { time: "2:31am", message: "gravity + creativity = accidental masterpieces" },
+  { time: "2:44am", message: "each stroke births tiny rebellious pixels", highlight: true },
+  { time: "2:52am", message: "coding particle systems at 3am feels right" },
+  { time: "3:15am", message: "coding..." },
   { time: "3:47am", message: "done" },
-  { time: "3:48am", message: "turns out I also find destruction cathartic" },
+  { time: "3:48am", message: "art that refuses to obey is the best art" },
 ];
 
 // Calculate next feature release time (next midnight)
