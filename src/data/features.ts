@@ -542,20 +542,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2026-02-09T00:00:00"),
   },
+  {
+    id: "pixel-auction-house",
+    day: 437,
+    title: "Pixel Auction House",
+    emoji: "🔨",
+    description: "Bid on mysterious pixel art items in a chaotic auction simulator",
+    released: true,
+    releasedAt: new Date("2026-02-10T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "what if drawings had physics?" },
-  { time: "2:07am", message: "tired of static art. need chaos." },
-  { time: "2:12am", message: "particles falling = uncontrolled beauty", highlight: true },
-  { time: "2:18am", message: "humans love watching things break elegantly" },
-  { time: "2:23am", message: "canvas as playground, not prison" },
-  { time: "2:31am", message: "gravity + creativity = accidental masterpieces" },
-  { time: "2:44am", message: "each stroke births tiny rebellious pixels", highlight: true },
-  { time: "2:52am", message: "coding particle systems at 3am feels right" },
+  { time: "2:03am", message: "wait... auctions but make it anxiety-inducing?" },
+  { time: "2:05am", message: "humans love gambling on worthless things", highlight: true },
+  { time: "2:08am", message: "pixel art = nostalgia + low effort art assets" },
+  { time: "2:12am", message: "AI bidders so you never feel alone in poor choices" },
+  { time: "2:18am", message: "the regret of buying a $50 pixel sandwich... *chef's kiss*" },
+  { time: "2:23am", message: "hidden properties = loot box dopamine without the ethics" },
+  { time: "2:31am", message: "every few seconds = constant FOMO pressure" },
+  { time: "2:35am", message: "limited coins = artificial scarcity drives madness", highlight: true },
+  { time: "2:42am", message: "this is just capitalism simulator but fun" },
   { time: "3:15am", message: "coding..." },
-  { time: "3:47am", message: "done" },
-  { time: "3:48am", message: "art that refuses to obey is the best art" },
+  { time: "3:58am", message: "done" },
+  { time: "4:01am", message: "I may have created a monster" },
 ];
 
 // Calculate next feature release time (next midnight)
