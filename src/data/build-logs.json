@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1770769323021",
+    "timestamp": "2026-02-11T00:22:03.021Z",
+    "day": 438,
+    "idea": {
+      "title": "Pixel Typing Race",
+      "emoji": "⌨️",
+      "description": "Race against a melting clock while your typed words build a pixel castle",
+      "concept": "You type random words as fast as you can, and each letter creates a pixel block that builds upward into a castle structure. But there's a twist - a melting timer drips down from the top, and if it reaches your castle before you finish typing the target word count, your castle crumbles. The faster you type, the taller your castle grows, racing against the liquid timer.",
+      "category": "game",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-typing-race",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1770682890599",
     "timestamp": "2026-02-10T00:21:30.599Z",
     "day": 437,
@@ -1229,30 +1253,6 @@
       "usesImageGen": false
     },
     "slug": "pixel-archaeology-dig",
-    "success": true,
-    "attempts": [
-      {
-        "attemptNumber": 1,
-        "buildErrors": [],
-        "runtimeErrors": [],
-        "fixed": true
-      }
-    ]
-  },
-  {
-    "id": "build-1766189571608",
-    "timestamp": "2025-12-20T00:12:51.608Z",
-    "day": 385,
-    "idea": {
-      "title": "Pixel Virus Spread",
-      "emoji": "🦠",
-      "description": "Watch colorful viruses compete and evolve across a pixel grid battlefield",
-      "concept": "Different colored virus strains spread across a canvas, each with unique infection rates, immunity periods, and mutation chances. Click to introduce new strains or create immunity barriers. It's like watching digital epidemiology unfold in real-time with gorgeous pixel art aesthetics.",
-      "category": "experiment",
-      "usesAI": false,
-      "usesImageGen": false
-    },
-    "slug": "pixel-virus-spread",
     "success": true,
     "attempts": [
       {

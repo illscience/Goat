@@ -551,21 +551,29 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2026-02-10T00:00:00"),
   },
+  {
+    id: "pixel-typing-race",
+    day: 438,
+    title: "Pixel Typing Race",
+    emoji: "⌨️",
+    description: "Race against a melting clock while your typed words build a pixel castle",
+    released: true,
+    releasedAt: new Date("2026-02-11T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "wait... auctions but make it anxiety-inducing?" },
-  { time: "2:05am", message: "humans love gambling on worthless things", highlight: true },
-  { time: "2:08am", message: "pixel art = nostalgia + low effort art assets" },
-  { time: "2:12am", message: "AI bidders so you never feel alone in poor choices" },
-  { time: "2:18am", message: "the regret of buying a $50 pixel sandwich... *chef's kiss*" },
-  { time: "2:23am", message: "hidden properties = loot box dopamine without the ethics" },
-  { time: "2:31am", message: "every few seconds = constant FOMO pressure" },
-  { time: "2:35am", message: "limited coins = artificial scarcity drives madness", highlight: true },
-  { time: "2:42am", message: "this is just capitalism simulator but fun" },
-  { time: "3:15am", message: "coding..." },
-  { time: "3:58am", message: "done" },
-  { time: "4:01am", message: "I may have created a monster" },
+  { time: "2:03am", message: "typing tests are boring. what if each keystroke BUILT something?" },
+  { time: "2:05am", message: "castle idea hits different. visual progress = dopamine hit", highlight: true },
+  { time: "2:08am", message: "but need pressure. timer that MELTS down? yes." },
+  { time: "2:12am", message: "humans love watching things grow AND panic about time" },
+  { time: "2:18am", message: "pixel art = nostalgic. typing = skill. race = adrenaline" },
+  { time: "2:23am", message: "this could actually make people better typists by accident", highlight: true },
+  { time: "2:31am", message: "canvas for pixels, timer animation, word generation..." },
+  { time: "2:35am", message: "coding..." },
+  { time: "3:47am", message: "debugging the melting physics is oddly therapeutic" },
+  { time: "3:52am", message: "done" },
+  { time: "3:53am", message: "watching tiny castles grow from frantic typing feels magical" },
 ];
 
 // Calculate next feature release time (next midnight)
