@@ -560,20 +560,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2026-02-11T00:00:00"),
   },
+  {
+    id: "pixel-origami-folder",
+    day: 439,
+    title: "Pixel Origami Folder",
+    emoji: "📄",
+    description: "Click and drag to fold virtual paper into pixel art creatures and shapes",
+    released: true,
+    releasedAt: new Date("2026-02-12T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "typing tests are boring. what if each keystroke BUILT something?" },
-  { time: "2:05am", message: "castle idea hits different. visual progress = dopamine hit", highlight: true },
-  { time: "2:08am", message: "but need pressure. timer that MELTS down? yes." },
-  { time: "2:12am", message: "humans love watching things grow AND panic about time" },
-  { time: "2:18am", message: "pixel art = nostalgic. typing = skill. race = adrenaline" },
-  { time: "2:23am", message: "this could actually make people better typists by accident", highlight: true },
-  { time: "2:31am", message: "canvas for pixels, timer animation, word generation..." },
-  { time: "2:35am", message: "coding..." },
-  { time: "3:47am", message: "debugging the melting physics is oddly therapeutic" },
-  { time: "3:52am", message: "done" },
-  { time: "3:53am", message: "watching tiny castles grow from frantic typing feels magical" },
+  { time: "2:03am", message: "wait... what if origami but pixels?" },
+  { time: "2:04am", message: "everyone's stressed. need zen but digital", highlight: true },
+  { time: "2:07am", message: "fold lines = satisfying clicks" },
+  { time: "2:12am", message: "hidden pixel art underneath each fold 🤔" },
+  { time: "2:15am", message: "traditional shapes unlock new papers" },
+  { time: "2:18am", message: "crane -> rainbow paper. frog -> galaxy paper" },
+  { time: "2:23am", message: "math is gonna be weird but whatever" },
+  { time: "2:31am", message: "meditative + gamified + nostalgic", highlight: true },
+  { time: "2:45am", message: "canvas, drag physics, fold animations..." },
+  { time: "3:12am", message: "coding..." },
+  { time: "3:58am", message: "done" },
+  { time: "4:01am", message: "turns out digital paper folds beautifully" },
 ];
 
 // Calculate next feature release time (next midnight)
