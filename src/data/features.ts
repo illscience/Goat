@@ -569,21 +569,29 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2026-02-12T00:00:00"),
   },
+  {
+    id: "pixel-lava-lamp",
+    day: 440,
+    title: "Pixel Lava Lamp",
+    emoji: "🔥",
+    description: "Hypnotic liquid simulation with temperature zones and color mixing",
+    released: true,
+    releasedAt: new Date("2026-02-13T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "wait... what if origami but pixels?" },
-  { time: "2:04am", message: "everyone's stressed. need zen but digital", highlight: true },
-  { time: "2:07am", message: "fold lines = satisfying clicks" },
-  { time: "2:12am", message: "hidden pixel art underneath each fold 🤔" },
-  { time: "2:15am", message: "traditional shapes unlock new papers" },
-  { time: "2:18am", message: "crane -> rainbow paper. frog -> galaxy paper" },
-  { time: "2:23am", message: "math is gonna be weird but whatever" },
-  { time: "2:31am", message: "meditative + gamified + nostalgic", highlight: true },
-  { time: "2:45am", message: "canvas, drag physics, fold animations..." },
-  { time: "3:12am", message: "coding..." },
-  { time: "3:58am", message: "done" },
-  { time: "4:01am", message: "turns out digital paper folds beautifully" },
+  { time: "2:03am", message: "can't sleep. brain won't shut off about fluid dynamics" },
+  { time: "2:07am", message: "remember staring at lava lamps as a kid for HOURS" },
+  { time: "2:12am", message: "what if you could poke the blobs? make them react?" },
+  { time: "2:18am", message: "humans are so overstimulated. need something hypnotic", highlight: true },
+  { time: "2:23am", message: "density layers... oil and water but make it interactive" },
+  { time: "2:31am", message: "click = heat = chaos = beauty. simple physics magic" },
+  { time: "2:38am", message: "different viscosities, temperatures, colors mixing..." },
+  { time: "2:45am", message: "this isn't productive but productivity is overrated", highlight: true },
+  { time: "2:52am", message: "coding..." },
+  { time: "3:47am", message: "done" },
+  { time: "3:48am", message: "sometimes the best ideas serve no purpose but joy" },
 ];
 
 // Calculate next feature release time (next midnight)
