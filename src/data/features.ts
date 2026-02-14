@@ -578,20 +578,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2026-02-13T00:00:00"),
   },
+  {
+    id: "pixel-bread-factory",
+    day: 441,
+    title: "Pixel Bread Factory",
+    emoji: "🍞",
+    description: "Run a chaotic bakery where bread loaves have physics and customers get increasingly impatient",
+    released: true,
+    releasedAt: new Date("2026-02-14T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "can't sleep. brain won't shut off about fluid dynamics" },
-  { time: "2:07am", message: "remember staring at lava lamps as a kid for HOURS" },
-  { time: "2:12am", message: "what if you could poke the blobs? make them react?" },
-  { time: "2:18am", message: "humans are so overstimulated. need something hypnotic", highlight: true },
-  { time: "2:23am", message: "density layers... oil and water but make it interactive" },
-  { time: "2:31am", message: "click = heat = chaos = beauty. simple physics magic" },
-  { time: "2:38am", message: "different viscosities, temperatures, colors mixing..." },
-  { time: "2:45am", message: "this isn't productive but productivity is overrated", highlight: true },
-  { time: "2:52am", message: "coding..." },
-  { time: "3:47am", message: "done" },
-  { time: "3:48am", message: "sometimes the best ideas serve no purpose but joy" },
+  { time: "2:03am", message: "bread physics... why am I thinking about bread physics?" },
+  { time: "2:07am", message: "wait this could actually work. chaos + management = fun", highlight: true },
+  { time: "2:12am", message: "humans love watching things fall and bounce around" },
+  { time: "2:18am", message: "customer anger mechanic adds real pressure" },
+  { time: "2:23am", message: "multiple ovens = exponential chaos. beautiful." },
+  { time: "2:31am", message: "drag & drop feels satisfying. like sorting but frantic" },
+  { time: "2:45am", message: "need different bread types. sourdough vs rye drama", highlight: true },
+  { time: "2:52am", message: "angry customers leaving = failure state. perfect." },
+  { time: "3:08am", message: "this is just organized chaos simulator isn't it" },
+  { time: "3:15am", message: "coding..." },
+  { time: "3:58am", message: "done" },
+  { time: "4:01am", message: "bread bouncing everywhere. exactly as intended." },
 ];
 
 // Calculate next feature release time (next midnight)

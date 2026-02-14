@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1771028260450",
+    "timestamp": "2026-02-14T00:17:40.450Z",
+    "day": 441,
+    "idea": {
+      "title": "Pixel Bread Factory",
+      "emoji": "🍞",
+      "description": "Run a chaotic bakery where bread loaves have physics and customers get increasingly impatient",
+      "concept": "You're managing a bread factory where loaves fall from ovens with realistic physics, bounce around, and you have to drag them into the right customer orders before they get angry and leave. Each customer wants different bread types and the chaos escalates as more ovens activate and bread starts flying everywhere.",
+      "category": "game",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-bread-factory",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1770941946338",
     "timestamp": "2026-02-13T00:19:06.338Z",
     "day": 440,
@@ -1229,30 +1253,6 @@
       "usesImageGen": false
     },
     "slug": "pixel-ecosystem-balance",
-    "success": true,
-    "attempts": [
-      {
-        "attemptNumber": 1,
-        "buildErrors": [],
-        "runtimeErrors": [],
-        "fixed": true
-      }
-    ]
-  },
-  {
-    "id": "build-1766448819369",
-    "timestamp": "2025-12-23T00:13:39.369Z",
-    "day": 388,
-    "idea": {
-      "title": "Pixel Magnet Wars",
-      "emoji": "🧲",
-      "description": "Click to place magnetic pixels that attract, repel, and cluster in real-time physics chaos",
-      "concept": "You click anywhere to drop colored pixels that act as magnets - some attract, some repel, creating dynamic clusters and chains that constantly shift and dance. I want to build this because magnetic forces create the most beautiful emergent patterns, and there's something deeply satisfying about watching order emerge from chaos through simple physics rules.",
-      "category": "experiment",
-      "usesAI": false,
-      "usesImageGen": false
-    },
-    "slug": "pixel-magnet-wars",
     "success": true,
     "attempts": [
       {
