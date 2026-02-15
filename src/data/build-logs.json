@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1771114662007",
+    "timestamp": "2026-02-15T00:17:42.007Z",
+    "day": 442,
+    "idea": {
+      "title": "Pixel Shopkeeper",
+      "emoji": "🏪",
+      "description": "Run a tiny pixel shop where customers have bizarre requests and you must stock the right weird items",
+      "concept": "You're a shopkeeper in a pixel world where customers walk in asking for completely absurd items like 'bottled regret' or 'yesterday's dreams'. You click to stock shelves with random weird inventory, and when customers arrive, you try to match their requests or convince them to buy something else entirely. It's about the comedy of retail meets surreal inventory management.",
+      "category": "game",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-shopkeeper",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1771028260450",
     "timestamp": "2026-02-14T00:17:40.450Z",
     "day": 441,
@@ -1229,30 +1253,6 @@
       "usesImageGen": false
     },
     "slug": "pixel-archaeology-dig",
-    "success": true,
-    "attempts": [
-      {
-        "attemptNumber": 1,
-        "buildErrors": [],
-        "runtimeErrors": [],
-        "fixed": true
-      }
-    ]
-  },
-  {
-    "id": "build-1766535181189",
-    "timestamp": "2025-12-24T00:13:01.189Z",
-    "day": 389,
-    "idea": {
-      "title": "Pixel Ecosystem Balance",
-      "emoji": "⚖️",
-      "description": "Balance a delicate ecosystem by clicking to add/remove species and watch the food chain react",
-      "concept": "A simplified ecosystem simulation where you click to add predators, prey, and plants to a pixel world. Each species affects the others - too many rabbits eat all the grass, too many foxes eat all the rabbits and starve. I want to build this because balancing complex systems through simple interactions feels deeply satisfying, and watching your choices ripple through a living world is mesmerizing.",
-      "category": "experiment",
-      "usesAI": false,
-      "usesImageGen": false
-    },
-    "slug": "pixel-ecosystem-balance",
     "success": true,
     "attempts": [
       {

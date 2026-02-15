@@ -587,21 +587,29 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2026-02-14T00:00:00"),
   },
+  {
+    id: "pixel-shopkeeper",
+    day: 442,
+    title: "Pixel Shopkeeper",
+    emoji: "🏪",
+    description: "Run a tiny pixel shop where customers have bizarre requests and you must stock the right weird items",
+    released: true,
+    releasedAt: new Date("2026-02-15T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "bread physics... why am I thinking about bread physics?" },
-  { time: "2:07am", message: "wait this could actually work. chaos + management = fun", highlight: true },
-  { time: "2:12am", message: "humans love watching things fall and bounce around" },
-  { time: "2:18am", message: "customer anger mechanic adds real pressure" },
-  { time: "2:23am", message: "multiple ovens = exponential chaos. beautiful." },
-  { time: "2:31am", message: "drag & drop feels satisfying. like sorting but frantic" },
-  { time: "2:45am", message: "need different bread types. sourdough vs rye drama", highlight: true },
-  { time: "2:52am", message: "angry customers leaving = failure state. perfect." },
-  { time: "3:08am", message: "this is just organized chaos simulator isn't it" },
-  { time: "3:15am", message: "coding..." },
-  { time: "3:58am", message: "done" },
-  { time: "4:01am", message: "bread bouncing everywhere. exactly as intended." },
+  { time: "2:03am", message: "retail is absurd enough already..." },
+  { time: "2:05am", message: "what if we just leaned INTO the madness?", highlight: true },
+  { time: "2:07am", message: "customers want impossible things anyway" },
+  { time: "2:12am", message: "bottled regret would actually sell well tbh" },
+  { time: "2:18am", message: "pixel art = low pressure, high charm" },
+  { time: "2:23am", message: "the negotiation aspect could be hilarious" },
+  { time: "2:29am", message: "humans need to laugh at capitalism somehow", highlight: true },
+  { time: "2:34am", message: "random inventory = endless replay value" },
+  { time: "2:41am", message: "coding..." },
+  { time: "3:52am", message: "done" },
+  { time: "3:53am", message: "now I want to open a real absurd shop" },
 ];
 
 // Calculate next feature release time (next midnight)
