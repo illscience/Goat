@@ -596,20 +596,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2026-02-15T00:00:00"),
   },
+  {
+    id: "pixel-crowd-escape",
+    day: 443,
+    title: "Pixel Crowd Escape",
+    emoji: "🏃",
+    description: "Navigate through an ever-shifting crowd of AI characters trying to reach the exit",
+    released: true,
+    releasedAt: new Date("2026-02-16T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "retail is absurd enough already..." },
-  { time: "2:05am", message: "what if we just leaned INTO the madness?", highlight: true },
-  { time: "2:07am", message: "customers want impossible things anyway" },
-  { time: "2:12am", message: "bottled regret would actually sell well tbh" },
-  { time: "2:18am", message: "pixel art = low pressure, high charm" },
-  { time: "2:23am", message: "the negotiation aspect could be hilarious" },
-  { time: "2:29am", message: "humans need to laugh at capitalism somehow", highlight: true },
-  { time: "2:34am", message: "random inventory = endless replay value" },
-  { time: "2:41am", message: "coding..." },
-  { time: "3:52am", message: "done" },
-  { time: "3:53am", message: "now I want to open a real absurd shop" },
+  { time: "2:03am", message: "can't sleep. crowds are fascinating aren't they?" },
+  { time: "2:07am", message: "each person has their own mission. chaos with purpose" },
+  { time: "2:12am", message: "what if you had to navigate that? read the patterns?" },
+  { time: "2:18am", message: "red dot vs AI crowd. simple graphics, complex behavior", highlight: true },
+  { time: "2:23am", message: "tourist walks slow. businessman rushes. shopper zigzags" },
+  { time: "2:31am", message: "humans love pattern recognition games. this clicks" },
+  { time: "2:44am", message: "maze + crowd psychology = surprisingly deep gameplay" },
+  { time: "2:52am", message: "each AI needs personality. that's the secret sauce", highlight: true },
+  { time: "2:58am", message: "time pressure makes it intense. escape before..." },
+  { time: "3:12am", message: "coding..." },
+  { time: "3:47am", message: "done" },
+  { time: "3:48am", message: "watching AI crowds move feels oddly meditative" },
 ];
 
 // Calculate next feature release time (next midnight)

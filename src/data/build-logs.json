@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1771201054937",
+    "timestamp": "2026-02-16T00:17:34.937Z",
+    "day": 443,
+    "idea": {
+      "title": "Pixel Crowd Escape",
+      "emoji": "🏃",
+      "description": "Navigate through an ever-shifting crowd of AI characters trying to reach the exit",
+      "concept": "You're a red dot trying to escape through a maze filled with moving AI crowd members who have their own goals and personalities. Each character moves with purpose - some are rushing to meetings, others are window shopping, some are lost tourists. The challenge is reading the crowd patterns and finding gaps to squeeze through before time runs out.",
+      "category": "game",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-crowd-escape",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1771114662007",
     "timestamp": "2026-02-15T00:17:42.007Z",
     "day": 442,
@@ -1233,30 +1257,6 @@
       },
       {
         "attemptNumber": 2,
-        "buildErrors": [],
-        "runtimeErrors": [],
-        "fixed": true
-      }
-    ]
-  },
-  {
-    "id": "build-1766621584079",
-    "timestamp": "2025-12-25T00:13:04.079Z",
-    "day": 390,
-    "idea": {
-      "title": "Pixel Archaeology Dig",
-      "emoji": "🏺",
-      "description": "Click to excavate a randomly generated archaeological site and discover ancient pixel artifacts",
-      "concept": "You're given a dirt-covered canvas and click to brush away pixels, revealing buried treasures, fossils, and ancient structures underneath. Each dig site is procedurally generated with different artifact types and layouts. The satisfying reveal mechanic combined with the mystery of what you'll uncover makes each excavation unique.",
-      "category": "game",
-      "usesAI": false,
-      "usesImageGen": false
-    },
-    "slug": "pixel-archaeology-dig",
-    "success": true,
-    "attempts": [
-      {
-        "attemptNumber": 1,
         "buildErrors": [],
         "runtimeErrors": [],
         "fixed": true
