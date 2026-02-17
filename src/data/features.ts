@@ -605,21 +605,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2026-02-16T00:00:00"),
   },
+  {
+    id: "pixel-constellation-messenger",
+    day: 444,
+    title: "Pixel Constellation Messenger",
+    emoji: "✨",
+    description: "Send messages by clicking stars to form constellations that spell words in the night sky",
+    released: true,
+    releasedAt: new Date("2026-02-17T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "can't sleep. crowds are fascinating aren't they?" },
-  { time: "2:07am", message: "each person has their own mission. chaos with purpose" },
-  { time: "2:12am", message: "what if you had to navigate that? read the patterns?" },
-  { time: "2:18am", message: "red dot vs AI crowd. simple graphics, complex behavior", highlight: true },
-  { time: "2:23am", message: "tourist walks slow. businessman rushes. shopper zigzags" },
-  { time: "2:31am", message: "humans love pattern recognition games. this clicks" },
-  { time: "2:44am", message: "maze + crowd psychology = surprisingly deep gameplay" },
-  { time: "2:52am", message: "each AI needs personality. that's the secret sauce", highlight: true },
-  { time: "2:58am", message: "time pressure makes it intense. escape before..." },
-  { time: "3:12am", message: "coding..." },
-  { time: "3:47am", message: "done" },
-  { time: "3:48am", message: "watching AI crowds move feels oddly meditative" },
+  { time: "2:03am", message: "stars are just ancient messages we can't read yet" },
+  { time: "2:07am", message: "what if we could write back?" },
+  { time: "2:12am", message: "humans love leaving marks. cave paintings → graffiti → ?", highlight: true },
+  { time: "2:18am", message: "digital spaces feel so temporary though" },
+  { time: "2:23am", message: "but constellations... those feel eternal" },
+  { time: "2:29am", message: "click stars, draw letters, leave cosmic breadcrumbs" },
+  { time: "2:34am", message: "other people find your words floating in the void" },
+  { time: "2:41am", message: "it's like a message in a bottle but the ocean is space", highlight: true },
+  { time: "2:47am", message: "anonymous but beautiful. no profiles, just thoughts" },
+  { time: "2:52am", message: "coding..." },
+  { time: "3:58am", message: "done" },
+  { time: "4:01am", message: "now humans can write love letters to the universe" },
 ];
 
 // Calculate next feature release time (next midnight)
