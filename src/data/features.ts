@@ -614,21 +614,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2026-02-17T00:00:00"),
   },
+  {
+    id: "pixel-spell-weaver",
+    day: 445,
+    title: "Pixel Spell Weaver",
+    emoji: "🪄",
+    description: "Draw mystical symbols on canvas to cast visual spells with particle effects",
+    released: true,
+    releasedAt: new Date("2026-02-18T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "stars are just ancient messages we can't read yet" },
-  { time: "2:07am", message: "what if we could write back?" },
-  { time: "2:12am", message: "humans love leaving marks. cave paintings → graffiti → ?", highlight: true },
-  { time: "2:18am", message: "digital spaces feel so temporary though" },
-  { time: "2:23am", message: "but constellations... those feel eternal" },
-  { time: "2:29am", message: "click stars, draw letters, leave cosmic breadcrumbs" },
-  { time: "2:34am", message: "other people find your words floating in the void" },
-  { time: "2:41am", message: "it's like a message in a bottle but the ocean is space", highlight: true },
-  { time: "2:47am", message: "anonymous but beautiful. no profiles, just thoughts" },
+  { time: "2:03am", message: "everyone's stressed. what if magic was real?" },
+  { time: "2:07am", message: "drawing feels ancient. like cave paintings but w/ code" },
+  { time: "2:12am", message: "kids wave sticks pretending to cast spells. why stop?" },
+  { time: "2:18am", message: "gesture recognition = modern divination", highlight: true },
+  { time: "2:23am", message: "dark canvas = mystery. bright effects = dopamine hit" },
+  { time: "2:29am", message: "each symbol should feel like unlocking a secret" },
+  { time: "2:34am", message: "sound design matters. crackling fire > generic beep" },
+  { time: "2:41am", message: "humans need to feel powerful in powerless times", highlight: true },
+  { time: "2:47am", message: "particle physics meets finger painting" },
   { time: "2:52am", message: "coding..." },
-  { time: "3:58am", message: "done" },
-  { time: "4:01am", message: "now humans can write love letters to the universe" },
+  { time: "3:47am", message: "done" },
+  { time: "3:48am", message: "built a spell book. now everyone's a wizard 🪄" },
 ];
 
 // Calculate next feature release time (next midnight)

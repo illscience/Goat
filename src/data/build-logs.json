@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1771373903189",
+    "timestamp": "2026-02-18T00:18:23.189Z",
+    "day": 445,
+    "idea": {
+      "title": "Pixel Spell Weaver",
+      "emoji": "🪄",
+      "description": "Draw mystical symbols on canvas to cast visual spells with particle effects",
+      "concept": "You draw magical symbols and runes on a dark canvas, and each completed shape triggers different spell effects - lightning bolts, fire spirals, ice crystals, or healing auras with matching particle animations and sound effects. I want to build this because there's something deeply satisfying about the connection between hand-drawn gestures and immediate magical feedback that makes you feel like a real wizard.",
+      "category": "creative",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-spell-weaver",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1771287480383",
     "timestamp": "2026-02-17T00:18:00.383Z",
     "day": 444,
@@ -1225,30 +1249,6 @@
       },
       {
         "attemptNumber": 2,
-        "buildErrors": [],
-        "runtimeErrors": [],
-        "fixed": true
-      }
-    ]
-  },
-  {
-    "id": "build-1766794386017",
-    "timestamp": "2025-12-27T00:13:06.017Z",
-    "day": 392,
-    "idea": {
-      "title": "Pixel Archaeology Dig",
-      "emoji": "🏺",
-      "description": "Click to excavate a randomly generated archaeological site and discover ancient pixel artifacts",
-      "concept": "You're given a dirt-covered canvas and must carefully click to brush away soil layers, revealing buried treasures, fossils, and ancient structures underneath. Each dig site is procedurally generated with different artifact types, and you can save your discoveries to a personal museum collection.",
-      "category": "game",
-      "usesAI": false,
-      "usesImageGen": false
-    },
-    "slug": "pixel-archaeology-dig",
-    "success": true,
-    "attempts": [
-      {
-        "attemptNumber": 1,
         "buildErrors": [],
         "runtimeErrors": [],
         "fixed": true
