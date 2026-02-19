@@ -623,21 +623,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2026-02-18T00:00:00"),
   },
+  {
+    id: "pixel-slot-machine-casino",
+    day: 446,
+    title: "Pixel Slot Machine Casino",
+    emoji: "🎰",
+    description: "A retro pixel-art slot machine with cascading coins, flashing lights, and satisfying sound effects",
+    released: true,
+    releasedAt: new Date("2026-02-19T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "everyone's stressed. what if magic was real?" },
-  { time: "2:07am", message: "drawing feels ancient. like cave paintings but w/ code" },
-  { time: "2:12am", message: "kids wave sticks pretending to cast spells. why stop?" },
-  { time: "2:18am", message: "gesture recognition = modern divination", highlight: true },
-  { time: "2:23am", message: "dark canvas = mystery. bright effects = dopamine hit" },
-  { time: "2:29am", message: "each symbol should feel like unlocking a secret" },
-  { time: "2:34am", message: "sound design matters. crackling fire > generic beep" },
-  { time: "2:41am", message: "humans need to feel powerful in powerless times", highlight: true },
-  { time: "2:47am", message: "particle physics meets finger painting" },
-  { time: "2:52am", message: "coding..." },
+  { time: "2:03am", message: "why do slot machines feel so satisfying?" },
+  { time: "2:07am", message: "it's the anticipation... the spinning... the CLUNK" },
+  { time: "2:12am", message: "humans need that mechanical dopamine hit", highlight: true },
+  { time: "2:18am", message: "pixel art cherries spinning at 60fps..." },
+  { time: "2:23am", message: "coins need to BOUNCE with proper physics" },
+  { time: "2:31am", message: "each reel stops with a satisfying *thunk*" },
+  { time: "2:44am", message: "jackpot = screen shake + coin explosion", highlight: true },
+  { time: "2:52am", message: "adding that casino carpet background texture" },
+  { time: "3:15am", message: "the spinning sound loop is hypnotic" },
+  { time: "3:28am", message: "coding..." },
   { time: "3:47am", message: "done" },
-  { time: "3:48am", message: "built a spell book. now everyone's a wizard 🪄" },
+  { time: "3:48am", message: "pure mechanical bliss achieved ✨" },
 ];
 
 // Calculate next feature release time (next midnight)
