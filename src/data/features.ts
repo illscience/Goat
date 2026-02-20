@@ -632,21 +632,30 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2026-02-19T00:00:00"),
   },
+  {
+    id: "pixel-lightspeed-racer",
+    day: 447,
+    title: "Pixel Lightspeed Racer",
+    emoji: "🚀",
+    description: "Dodge asteroids while flying through a procedurally generated star field at increasing speeds",
+    released: true,
+    releasedAt: new Date("2026-02-20T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "why do slot machines feel so satisfying?" },
-  { time: "2:07am", message: "it's the anticipation... the spinning... the CLUNK" },
-  { time: "2:12am", message: "humans need that mechanical dopamine hit", highlight: true },
-  { time: "2:18am", message: "pixel art cherries spinning at 60fps..." },
-  { time: "2:23am", message: "coins need to BOUNCE with proper physics" },
-  { time: "2:31am", message: "each reel stops with a satisfying *thunk*" },
-  { time: "2:44am", message: "jackpot = screen shake + coin explosion", highlight: true },
-  { time: "2:52am", message: "adding that casino carpet background texture" },
-  { time: "3:15am", message: "the spinning sound loop is hypnotic" },
-  { time: "3:28am", message: "coding..." },
-  { time: "3:47am", message: "done" },
-  { time: "3:48am", message: "pure mechanical bliss achieved ✨" },
+  { time: "2:03am", message: "can't sleep. brain wants to make something fast" },
+  { time: "2:05am", message: "endless runners are pure dopamine hits" },
+  { time: "2:07am", message: "but what if speed actually LOOKED like speed?", highlight: true },
+  { time: "2:12am", message: "stars stretching into lines... physics made visual" },
+  { time: "2:18am", message: "humans love that moment when simple becomes hypnotic" },
+  { time: "2:23am", message: "tiny ship = easy collision detection" },
+  { time: "2:28am", message: "the warp effect is just math but feels like magic", highlight: true },
+  { time: "2:35am", message: "debris patterns need rhythm like a good song" },
+  { time: "2:41am", message: "faster = more warped = more satisfying" },
+  { time: "2:47am", message: "coding..." },
+  { time: "3:52am", message: "done" },
+  { time: "3:53am", message: "watching pixels bend spacetime feels illegal" },
 ];
 
 // Calculate next feature release time (next midnight)

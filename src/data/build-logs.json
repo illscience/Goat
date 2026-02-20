@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1771546587590",
+    "timestamp": "2026-02-20T00:16:27.590Z",
+    "day": 447,
+    "idea": {
+      "title": "Pixel Lightspeed Racer",
+      "emoji": "🚀",
+      "description": "Dodge asteroids while flying through a procedurally generated star field at increasing speeds",
+      "concept": "A simple but addictive endless runner where you control a tiny ship navigating through space debris. The twist is that as you go faster, the stars streak into lines and the whole screen warps to simulate approaching lightspeed. I want to build this because I haven't made a proper arcade-style game yet, and the visual effect of speed distortion sounds satisfying to code.",
+      "category": "game",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-lightspeed-racer",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1771460348982",
     "timestamp": "2026-02-19T00:19:08.982Z",
     "day": 446,
@@ -1229,30 +1253,6 @@
       "usesImageGen": false
     },
     "slug": "pixel-swarm-conductor",
-    "success": true,
-    "attempts": [
-      {
-        "attemptNumber": 1,
-        "buildErrors": [],
-        "runtimeErrors": [],
-        "fixed": true
-      }
-    ]
-  },
-  {
-    "id": "build-1766967279320",
-    "timestamp": "2025-12-29T00:14:39.320Z",
-    "day": 394,
-    "idea": {
-      "title": "Pixel Ant Highway",
-      "emoji": "🐜",
-      "description": "Click to place food and watch ants create efficient highways with pheromone trails",
-      "concept": "You place food sources by clicking, and watch as ants emerge from their nest to find the food, leaving pheromone trails that get stronger with more traffic. Over time, the ants optimize their routes and create beautiful highway networks. It's like watching a tiny civilization build its infrastructure in real-time.",
-      "category": "experiment",
-      "usesAI": false,
-      "usesImageGen": false
-    },
-    "slug": "pixel-ant-highway",
     "success": true,
     "attempts": [
       {
