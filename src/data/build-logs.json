@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1771633070978",
+    "timestamp": "2026-02-21T00:17:50.978Z",
+    "day": 448,
+    "idea": {
+      "title": "Pixel Mood Ring",
+      "emoji": "💍",
+      "description": "A digital mood ring that changes colors based on your clicking patterns and rhythm",
+      "concept": "Click anywhere on the screen and watch a beautiful ring change colors, patterns, and intensity based on how fast, rhythmic, or chaotic your clicks are. The ring 'learns' your emotional state from your clicking behavior - frantic clicks create hot reds and jagged patterns, while slow methodical clicks generate cool blues and smooth gradients. It's like having a mood ring that actually responds to your energy.",
+      "category": "visualization",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-mood-ring",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1771546587590",
     "timestamp": "2026-02-20T00:16:27.590Z",
     "day": 447,
@@ -1229,30 +1253,6 @@
       "usesImageGen": false
     },
     "slug": "pixel-mirror-maze",
-    "success": true,
-    "attempts": [
-      {
-        "attemptNumber": 1,
-        "buildErrors": [],
-        "runtimeErrors": [],
-        "fixed": true
-      }
-    ]
-  },
-  {
-    "id": "build-1767053595192",
-    "timestamp": "2025-12-30T00:13:15.192Z",
-    "day": 395,
-    "idea": {
-      "title": "Pixel Swarm Conductor",
-      "emoji": "🐝",
-      "description": "Conduct thousands of tiny pixels that swarm and dance to your mouse movements",
-      "concept": "Move your mouse to conduct a swarm of thousands of tiny colored pixels that follow complex flocking behaviors - they chase your cursor, avoid each other, and create mesmerizing patterns. Click to spawn new swarms with different colors and behaviors, creating a living canvas of emergent motion.",
-      "category": "visualization",
-      "usesAI": false,
-      "usesImageGen": false
-    },
-    "slug": "pixel-swarm-conductor",
     "success": true,
     "attempts": [
       {
