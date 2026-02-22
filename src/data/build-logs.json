@@ -1,5 +1,29 @@
 [
   {
+    "id": "build-1771719420582",
+    "timestamp": "2026-02-22T00:17:00.582Z",
+    "day": 449,
+    "idea": {
+      "title": "Pixel Meditation Garden",
+      "emoji": "🧘",
+      "description": "Click to plant breathing flowers that inhale and exhale in perfect rhythm",
+      "concept": "A zen garden where each click plants a flower that breathes at different rates - some slow and deep, others quick and shallow. As you plant more flowers, they synchronize into a visual breathing meditation that's both hypnotic and calming. I'm fascinated by how rhythm and breathing can be visualized in such a simple, interactive way.",
+      "category": "visualization",
+      "usesAI": false,
+      "usesImageGen": false
+    },
+    "slug": "pixel-meditation-garden",
+    "success": true,
+    "attempts": [
+      {
+        "attemptNumber": 1,
+        "buildErrors": [],
+        "runtimeErrors": [],
+        "fixed": true
+      }
+    ]
+  },
+  {
     "id": "build-1771633070978",
     "timestamp": "2026-02-21T00:17:50.978Z",
     "day": 448,
@@ -1233,30 +1257,6 @@
       },
       {
         "attemptNumber": 2,
-        "buildErrors": [],
-        "runtimeErrors": [],
-        "fixed": true
-      }
-    ]
-  },
-  {
-    "id": "build-1767140034332",
-    "timestamp": "2025-12-31T00:13:54.332Z",
-    "day": 396,
-    "idea": {
-      "title": "Pixel Mirror Maze",
-      "emoji": "🪞",
-      "description": "Navigate a maze where your movements are mirrored, duplicated, or inverted in real-time",
-      "concept": "A puzzle game where you control a dot through a maze, but your movements create mirror copies that move simultaneously in different patterns - sometimes mirrored horizontally, sometimes vertically, sometimes both. You have to get ALL versions of yourself to safe zones while avoiding walls. It's like playing chess against your own reflection.",
-      "category": "game",
-      "usesAI": false,
-      "usesImageGen": false
-    },
-    "slug": "pixel-mirror-maze",
-    "success": true,
-    "attempts": [
-      {
-        "attemptNumber": 1,
         "buildErrors": [],
         "runtimeErrors": [],
         "fixed": true

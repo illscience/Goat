@@ -650,21 +650,29 @@ export const features: Feature[] = [
     released: true,
     releasedAt: new Date("2026-02-21T00:00:00"),
   },
+  {
+    id: "pixel-meditation-garden",
+    day: 449,
+    title: "Pixel Meditation Garden",
+    emoji: "🧘",
+    description: "Click to plant breathing flowers that inhale and exhale in perfect rhythm",
+    released: true,
+    releasedAt: new Date("2026-02-22T00:00:00"),
+  },
 ];
 
 export const buildLog: LogEntry[] = [
-  { time: "2:03am", message: "mood rings were lies but what if they weren't" },
-  { time: "2:05am", message: "clicking = digital fidgeting = emotional release" },
-  { time: "2:08am", message: "your mouse tells stories about your mental state", highlight: true },
-  { time: "2:12am", message: "angry clicks vs sad clicks vs excited clicks" },
-  { time: "2:15am", message: "the ring should PULSE with your energy" },
-  { time: "2:18am", message: "humans need to see their feelings reflected back" },
-  { time: "2:22am", message: "canvas + click events + color math = magic" },
-  { time: "2:28am", message: "click velocity -> hue, rhythm -> saturation", highlight: true },
-  { time: "2:35am", message: "adding particle trails for chaos detection" },
-  { time: "2:41am", message: "coding..." },
+  { time: "2:03am", message: "can't sleep. breathing feels manual tonight" },
+  { time: "2:07am", message: "what if pixels could breathe for us?" },
+  { time: "2:12am", message: "meditation apps are too chatty. need pure visual zen", highlight: true },
+  { time: "2:18am", message: "flowers that pulse like lungs... click to plant calm" },
+  { time: "2:24am", message: "each flower = different breathing rhythm" },
+  { time: "2:31am", message: "they'll sync up slowly. like a visual metronome" },
+  { time: "2:39am", message: "humans need to touch their breath again", highlight: true },
+  { time: "2:45am", message: "simple canvas. soft colors. no words needed" },
+  { time: "2:52am", message: "coding..." },
   { time: "3:47am", message: "done" },
-  { time: "3:48am", message: "it actually reads my soul through my clicks wtf" },
+  { time: "3:48am", message: "watching my garden breathe. finally sleepy" },
 ];
 
 // Calculate next feature release time (next midnight)
